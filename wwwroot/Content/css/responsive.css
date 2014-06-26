@@ -1,0 +1,1577 @@
+﻿
+@media only screen and (max-width: 767px)  {
+
+
+    .breadcrumb {
+    margin:10px 0 20px 0;
+    }
+
+    /*Responsive Tables forces tables to be a list*/
+
+    /* Force table to not be like tables anymore */
+    table.responsiveTable, table.responsiveTable thead, table.responsiveTable tbody, table.responsiveTable th, table.responsiveTable td, table.responsiveTable tr { 
+        display: block; 
+    }
+		
+	/* Hide table headers (but not display: none;, for accessibility) */
+	table.responsiveTable thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+		
+	table.responsiveTable tr { border: 1px solid #ccc; }
+		
+	table.responsiveTable td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 44%; 
+        width:54%; /*required for wrapping*/
+	 }
+		
+	table.responsiveTable td:before { 
+	    /* Now like a table header */
+	    position:absolute;
+	    /* Top/left values mimic padding */
+        top: 8px;
+		left: 6px;
+		width: 42%; 
+		padding-right: 10px; 
+	}
+
+    .align-center, table td.align-center, table th.align-center  { text-align:left!important;}
+		
+	/*requests table*/
+    table.requestsTable td:nth-of-type(1):before { content: "Requested number"; font-weight:bold;}
+	table.requestsTable td:nth-of-type(2):before { content: "Requested on"; font-weight:bold;}
+	table.requestsTable td:nth-of-type(3):before { content: "Quantity requested ";  font-weight:bold;}
+	table.requestsTable td:nth-of-type(4):before { content: "Event"; font-weight:bold; }
+	table.requestsTable td:nth-of-type(5):before { content: "Venue";  font-weight:bold;}
+	table.requestsTable td:nth-of-type(6):before { content: "Guests Added"; font-weight:bold; }
+    table.requestsTable td:nth-of-type(7):before { content: "Status"; font-weight:bold; }
+    table.requestsTable td:nth-of-type(8):before { content: "Edit"; font-weight:bold; }
+
+
+	/*requests table*/
+    table#EventsList td:nth-of-type(1):before { content: "Date"; font-weight:bold;}
+	table#EventsList td:nth-of-type(2):before { content: "Event"; font-weight:bold;}
+	table#EventsList td:nth-of-type(3):before { content: "Venue";  font-weight:bold;}
+	table#EventsList td:nth-of-type(4):before { content: "Subcategory"; font-weight:bold; }
+	table#EventsList td:nth-of-type(5):before { content: "Tickets Available";  font-weight:bold;}
+
+    /*ticket Allocation
+	table.ticketAllocationTable td:nth-of-type(1):before { content: "Ticket type"; font-weight:bold;}
+	table.ticketAllocationTable td:nth-of-type(2):before { content: "Unit cost";  font-weight:bold;}
+	table.ticketAllocationTable td:nth-of-type(3):before { content: "Administrator"; font-weight:bold; }
+	table.ticketAllocationTable td:nth-of-type(4):before { content: "Communial pool";  font-weight:bold;}
+	table.ticketAllocationTable td:nth-of-type(5):before { content: "Sales"; font-weight:bold; }*/
+
+    /*Ticket Pool Table*/
+	table.ticketPoolTable td:nth-of-type(1):before { content: "Ticket type"; font-weight:bold;}
+	table.ticketPoolTable td:nth-of-type(2):before { content: "Qty available";  font-weight:bold;}
+	table.ticketPoolTable td:nth-of-type(3):before { content: "Unit cost"; font-weight:bold; }
+	table.ticketPoolTable td:nth-of-type(4):before { content: "Total requests pending";  font-weight:bold;}
+
+    /*Ticket Pool Table*/
+    
+
+    table.eventAttendeesAdded td:nth-of-type(1):before { content: "Email address";  font-weight:bold;}
+ 	table.eventAttendeesAdded td:nth-of-type(2):before { content: "First name"; font-weight:bold;}
+	table.eventAttendeesAdded td:nth-of-type(3):before { content: "Last name";  font-weight:bold;}
+	table.eventAttendeesAdded td:nth-of-type(4):before { content: "Company name"; font-weight:bold; }   
+
+
+    /*Users table*/
+    table.usersTable td:nth-of-type(1):before { content: "Select User"; font-weight:bold;}
+	table.usersTable td:nth-of-type(2):before { content: "Name";  font-weight:bold;}
+	table.usersTable td:nth-of-type(3):before { content: "Role"; font-weight:bold; }
+	table.usersTable td:nth-of-type(4):before { content: "Last Login";  font-weight:bold;}
+	table.usersTable td:nth-of-type(5):before { content: "Status";  font-weight:bold;}
+
+
+    /*account-admins*/
+    table.account-admins td:nth-of-type(1):before { content: "Email Address"; font-weight:bold;}
+	table.account-admins td:nth-of-type(2):before { content: "Status";  font-weight:bold;}
+	table.account-admins td:nth-of-type(3):before { content: "Last Login";  font-weight:bold;}
+	table.account-admins td:nth-of-type(4):before { content: "";  font-weight:bold;}
+
+     /*editable-text*/
+    table.editableText td:nth-of-type(1):before { content: "Default Text"; font-weight:bold;}
+	table.editableText td:nth-of-type(2):before { content: "Current Text";  font-weight:bold;}
+	table.editableText td:nth-of-type(3):before { content: "Help Text";  font-weight:bold;}
+
+    .form-horizontal .controls input[type="text"],
+    textarea {
+        width:95%;
+    }
+
+    .form-horizontal .controls select {width:100%;}
+    form.central.singlepadding-vertical {
+        padding-top: 0px!important;
+    }
+    .btn {
+		margin-bottom: 5px;
+		margin-top: 10px;
+		margin-left: 0;        
+    }
+
+    .media-debug{ display: none; }
+	.media481 { display: block; }	
+    
+    .navigation-bar ul {
+        margin: 0 0px 0 0;
+    }
+
+    .top-nav {
+        float:none;
+    }
+
+    .pull-right {
+		float: none;
+		text-align:center;
+    }
+
+   .reveal-below{ margin-bottom: 120px;}
+
+   .doublemargin-horizontal { margin-left: 20px; margin-right: 20px; }
+
+   .doublepadding { padding: 4%; width:92%; }
+   
+   .ticket-categories {
+	padding: 4%; width:92%; 
+    }
+
+    .transparency.doublepadding-vertical, .singlepadding-vertical.transparency {padding:4%; width:92%;}
+    .transparency.ticket-categories {padding:4%; width:92%;}
+    .transparency.doublepadding {padding:4%; width:92%;}
+    .transparency.doublepadding-bottom {padding:4%; width:92%; }
+
+
+    .featured-event .day {
+        font-size:44px;
+        line-height:44px;
+    }
+
+
+    .featured-event .month {
+        font-size:20px;
+    } 
+
+   .featured-event .date{
+	padding: 5px 10px 4px 10px;
+    }
+
+    .headline {
+        font-size:32px;
+    }
+
+    /*Forms*/
+    
+    .form-horizontal .control-label {
+      width: 100%;
+      padding: 0px;
+      text-align: left;
+    }
+
+
+    .form-horizontal .controls {
+        margin-left: 0px;
+        width:100%;
+    
+    }
+
+    .form-horizontal .checkbox-group-wrapper{  float:left; width:100%; padding:5px 0px;}
+    
+    
+
+    /*Bootstrap leftover */
+    
+      .row-fluid {
+        width: 100%;
+      }
+      .row,
+      .thumbnails {
+        margin-left: 0;
+      }
+      .thumbnails > li {
+        float: none;
+        margin-left: 0;
+      }
+      [class*="span"],
+      .uneditable-input[class*="span"],
+      .row-fluid [class*="span"] {
+        display: block;
+        float: none;
+        width: 100%;
+        margin-left: 0;
+        -webkit-box-sizing: border-box;
+           -moz-box-sizing: border-box;
+                box-sizing: border-box;
+      }
+      .span12,
+      .row-fluid .span12 {
+        width: 100%;
+        -webkit-box-sizing: border-box;
+           -moz-box-sizing: border-box;
+                box-sizing: border-box;
+      }
+
+    .ticket-description label.with-margin {
+        margin-left:7px;
+        }
+
+    .subnavigation ul li a {
+        background-color: #004774;
+        background-image: none;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        color: #FFFFFF;
+        padding: 10px 2%;
+        line-height:45px;
+        }
+
+    .subnavigation {
+        /*background-color: #004774;*/
+        padding:0px 15px 5px 0px;
+        -moz-box-sizing:border-box;
+        -webkit-box-sizing:border-box;
+        box-sizing:border-box;
+        }
+
+        .subnavigation select {
+            width:100%!important;
+            }
+
+    .ticket-description input[type="checkbox"] {
+            margin-right:5px;
+        }
+    }
+
+@media only screen and (max-width: 980px)  {
+     /*Responsive Tables forces tables to be a list*/
+
+    /* Force table to not be like tables anymore */
+    table.responsiveTable.eventAttendees, table.responsiveTable.eventAttendees thead, table.responsiveTable.eventAttendees tbody, table.responsiveTable.eventAttendees th, table.responsiveTable.eventAttendees td, table.responsiveTable.eventAttendees tr { 
+        display: block; 
+    }
+		
+	/* Hide table headers (but not display: none;, for accessibility) */
+	table.responsiveTable.eventAttendees thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+		
+	table.responsiveTable.eventAttendees tr { border: 1px solid #ccc; }
+		
+	table.responsiveTable.eventAttendees td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 44%; 
+        width:54%; /*required for wrapping*/
+	 }
+		
+	table.responsiveTable.eventAttendees td:before { 
+	    /* Now like a table header */
+	    position:absolute;
+	    /* Top/left values mimic padding */
+        top: 8px;
+		left: 6px;
+		width: 42%; 
+		padding-right: 10px; 
+	}
+    
+     table.eventAttendees td:nth-of-type(1):before { content: "Email address";  font-weight:bold;}
+	table.eventAttendees td:nth-of-type(2):before { content: "First name"; font-weight:bold;}
+	table.eventAttendees td:nth-of-type(3):before { content: "Last name";  font-weight:bold;}
+	table.eventAttendees td:nth-of-type(4):before { content: "Company name"; font-weight:bold; }
+    table.eventAttendees label { display:none;}
+    table.eventAttendees tr.guestNo label { display:block;}
+    table.eventAttendees tr.guestNo td:nth-of-type(1):before,  table.eventAttendees tr.guestNo td:nth-of-type(2):before {content: ""; width:100%; left: 0;
+    padding-right: 0px;
+    position: relative;
+    top: 0px;
+    }
+    table.responsiveTable.eventAttendees tr.guestNo td {width:100%; height:20px;}
+   }
+
+
+@media only screen and (max-width: 960px) {
+    .ticket-title .right {
+        width: 100%;
+        text-align:left;
+    }
+
+    .ticket-title .left {
+        width: 100%;
+    }
+}
+@media only screen and (max-width : 700px) {
+    .ticket-categories h2 {
+        text-align: center;
+    }
+
+    .ticket-category {
+        max-width: auto;
+        margin: 20px auto 0 auto;
+        float: none;
+        height: auto;
+        width: 100%;
+    }
+
+
+    ul.category-events {
+        min-height: 100px;
+    }
+}
+
+@media only screen and (min-width :700px) and (max-width:960px) {
+        .ticket-categories h2 {
+        text-align: left;
+    }
+
+    .ticket-category {
+        margin: 20px 3% 0 0;
+        float: left;
+        height: auto;
+        width: 48%;	min-height:430px;
+    }
+
+        .ticket-category:nth-child(even) {
+            margin-right: 0;
+        }
+    ul.category-events {
+        min-height: 267px;
+    }
+
+}
+
+
+@media only screen and (min-width :767px) and (max-width:960px) {
+    .js-sortable {
+        float: none;
+        width: 688px;
+        margin: 0 auto;
+        text-align: center;
+    }
+}
+@media only screen and (min-width : 481px) {
+    .control-group.checkbox input[type="checkbox"] {
+        margin:10px 13px 0 90px;
+        width:15px;
+        text-align:right;
+}
+
+.control-group.checkbox label  {
+text-align:left;
+width:50%;
+}
+
+    .form-field-wrapper.inline label {
+        width:auto;
+        float:left;
+        margin:4px 8px 0 0 ;
+    }
+
+
+    .step-secondary {
+    display:block;
+    }
+
+    .email-steps li {
+    width:100px;
+    }
+ .objective-filter label {
+width:100px; 
+float:left;
+}
+
+    .media-debug{ display: none; }
+	.media480 { display: block; }
+   
+    #report-from {
+        margin: 0px 0px 10px 0px;
+    }
+
+    .report-field {
+        width: 180px;
+        display:inline;
+    }
+
+        .report-field label {
+            width: 45px;
+        }
+
+          #report-to.report-field label {
+            width: 25px;
+            margin-left:10px;
+        } 
+
+    /*maps*/
+    .map-container {
+        width: 97%;
+    }
+
+    /*Form controls*/
+   .form-horizontal .controls .btn {
+    margin:0px 8px 0px 0;
+   }
+
+    .form-horizontal .controls input[type="text"],
+    textarea {
+        width: 82%;
+        max-width:250px;
+    }
+
+    form.central.shared-form .controls input[type="password"] {
+        width: 50%;
+        max-width:260px;
+    }
+
+    .form-horizontal .controls select, .form-horizontal .checkbox-group-wrapper {
+        width: 86%;max-width:265px;
+    }
+
+    .non-label-control {
+    margin-left:135px;
+    padding:5px 0px;
+    }
+    .form-horizontal .checkbox-group-wrapperl { width: 86%; max-width:275px; float:left;  margin:5px 1px;}
+
+    .form-horizontal .control-label {
+    width:120px;
+    text-align:right;
+    padding:5px 15px 0px 0px; 
+    }
+
+    .shared-form label {
+    width:140px;
+    text-align:right;
+    padding:0px 2px 0px 0px; 
+    }
+
+    form.central .field-validation-error {
+    margin-left:160px;
+    }
+
+
+    .uploaded-image {
+        margin-left:135px;
+        }
+    
+    .form-horizontal .checkbox-wrapper .control-label {
+        width:90%;
+        text-align:left;  
+        margin:0;  
+        padding:0;
+        }
+
+.form-field-wrapper.select-box label{
+    padding:5px 0 1px 0;
+    float:left;
+    width:73%;
+    text-align:left;
+
+    }
+
+    .form-field-wrapper.select-box select {
+
+        margin-bottom:10px;
+        }
+
+    /*Approvals*/
+    .ticket-request-number {
+    width:35%;
+    padding:0px;
+    }
+
+    .ticket-request-action {
+    width:100%;
+    margin-top:15px;
+    }
+
+    .ticket-request-action button {
+      margin: -4px 0px 0px 0px;
+    }
+
+    /*Notifications*/
+    article.notifcations {
+    width:91%;
+    padding:5px 2% 10px 7%;
+    }
+
+        article.notifcations.feedback {
+        background-position:0px 5px;
+        }
+
+        .notifications.report li,  .notifications.categories li { 
+        width:91%;
+        padding:5px 2% 10px 7%;
+        background-position:0px 5px;
+        }
+
+        
+.radio-button-list {
+width:100%;
+float:left;
+margin-bottom:10px;
+}
+
+.radio-button-list label {
+float:left;
+width:94%;
+margin-bottom:7px;
+text-align:left;
+}
+
+.radio-button-list input {
+float:left;
+width:4%;
+margin-right:5px;
+}
+
+.radio-with-select input {
+    margin-top:7px;
+    }
+
+    fieldset td.division {
+    width:110px;
+    text-align:right;
+    padding-right:10px;
+    }
+
+}
+
+@media only screen and (min-width:580px) {
+
+
+    .inline-list label {
+        width:auto;
+        margin-right:15px;
+    }
+    .no-wrap {
+white-space:nowrap;
+float:left;
+}
+     .inline-list input {
+        width:auto;
+         margin-right:5px;
+    }
+
+    .btn-group button.btn {
+    width:50%;
+    margin:0;
+    }
+
+    td.table-three-column.second {
+     width: 35%;
+    }
+
+td.table-three-column.last {
+     width: 60%;
+    }
+
+.guest-form label {
+    width:185px;
+    float:left;
+    margin:2px 5px 3px 0;
+}
+
+    .guest-form input {
+        width:220px;
+        }
+
+    .guest-form .form-field-wrapper {
+        float:left;
+        width:100%;
+        margin-bottom:8px;
+        }
+
+        .ticket-request-action {
+    width:63%;
+    margin-top:0px;
+    }
+
+
+    }
+
+/* Tablets (portrait and landscape) ----------------------------------------------------- */
+/* Also used for screen res up to 960 */
+/*This is also included in the media query 960 plus as there is no max to this query*/
+@media only screen and (min-width : 768px){
+     .twenty-column {
+        width:20%;
+        float:left;
+        margin-top:10px;
+        }
+
+    
+#add-question.addDocument .control-group label{
+    width:80px;
+    }
+    #add-question.addDocument .control-group input {
+    margin:7px 4px 0 0;
+    }
+
+
+    .documentUpload .filterRadio {
+    float:left;
+    width:auto;
+    padding:0 10px 5px 0;
+}
+       .control-group.checkbox input[type="checkbox"]  {
+        margin:10px 13px 0 120px;
+        width:15px;
+        text-align:right;
+}
+
+.control-group.checkbox label  {
+text-align:left;
+width:50%;
+}
+
+
+    .eventDocuments h4 {
+        font-size:15px;
+        display:block;
+        margin:5px 0;
+    }
+
+    .otherDocs .eventDocuments  h4 {
+        margin:10px 0;
+        }
+
+    .eventDocuments.left {
+        float:left;
+        width:35%;
+        }
+
+    .eventDocuments.right {
+          float:left;
+        width:65%;  
+        text-align:center;
+        }
+
+    .eventDocuments .filterRadio {
+        width:33%;
+        }
+
+        .eventDocuments .filterRadio label {
+            width:86%;
+            text-align:left;
+            
+            }
+
+
+.radio-wrapper .radioChild label{
+    width:170px;
+    }
+
+    .left-labels {
+        width:24%;
+        padding-right:1%;
+    }
+        .email-indent {
+    margin-left:25%;
+    }
+
+    .right-labels {
+        width:75%;
+        margin-top:15px;
+    }
+
+    .radioChild {
+        margin:5px 0 0 3%;
+    }
+    .radioChild label {
+        width:auto;
+    }
+
+    .radioChild select {
+        margin-top:-5px;
+    }
+
+    .eventAttendees .checkbox-wrapper {
+        float:left;
+    }
+    
+    .media-debug{ display: none; }
+	.media768 { display: block; }	
+    
+    .top-nav {
+        text-align: right;
+        float:right;
+        width:100%;
+        }
+
+    .ticket-categories {
+	    padding: 20px 0 20px 20px;
+    }
+    
+    .pull-right {
+		float: right;
+    }
+
+    .top-navigation-list {
+        padding-right:3%;
+        }
+
+    
+	.ticket-category {
+    	width:47%;
+		margin: 20px 2% 0 0;
+	
+        max-width: 323px;
+	}
+	
+	.navigation-bar { width:94%; padding:0px 3%;     height:41px; }
+	.navigation-bar a { margin: 10px 0px 10px 20px; }
+	.doublemargin { margin: 30px;}
+
+    /*maps*/
+  
+
+    /*Event listing*/
+    .span8 {
+      width:60%;
+    }
+ 
+    .googlemap {
+      width: 32%;
+      margin:40px 0px;
+      float:left;
+    }
+
+    /*Form Controls*/
+   .form-horizontal .control-label {
+      width:150px;
+    }
+
+    .shared-form .controls {
+        margin-left: 0px;
+    }
+
+    /*Ticket Approvals*/
+    /*select#TicketTypeTicketTypeId {
+      font-size: 25px;
+      font-weight:bold;
+      height:40px;
+      margin-bottom:25px;
+    }*/
+  
+    .left {
+      width: 45%;
+      float:left;
+    }
+
+    .right {
+      width: 55%;
+      float:right;
+      text-align:right;
+    }
+
+    h2 .h1-sub {
+      float:right;
+    }
+
+    #approval-title .right p {
+    margin:0px 0px 5px 0px;
+    text-align:right;
+    width:50%;
+    float:left;
+    }
+
+    .ticket-description {
+    width:36%;
+    padding:0px 3% 0px 0px;
+    }
+
+        .ticket-description input[type=checkbox] {
+            margin-right:7px;    
+            }
+
+    .ticket-description label {
+    float:left;
+    margin-left:0px;
+    font-weight:bold;
+    }
+
+    .ticket-request-number {
+    width:23%;
+    padding:0px 2% 0px 0px;
+    }
+
+        .ticket-request-number.small {
+            width:16%;
+            }
+
+    .despatch-column {
+        width:23%;
+        text-align:right;
+        }
+        
+    .despatch-column fieldset {
+        float:right;
+        }
+
+   .ticket-request-number label {
+        text-align: right;
+        padding-right:5px;
+        }
+
+    .ticket-list {
+        float:left;
+        width:94%;
+        padding:3% 3% 0% 3%;
+        }
+
+    .right h2 { padding:8px 0px 0px 0px;}
+
+    .ticket-request-action {
+    width:34%;
+    text-align:right;
+    float:right;
+    }
+
+        .ticket-request-action button {
+        margin-bottom:10px;
+        }
+
+    .ticket-description label {
+    width:90%;
+    }
+
+    .form-horizontal .controls select, .form-horizontal .checkbox-group-wrapper {
+        width: 86%;max-width:265px;
+        float:left;
+        margin:5px 0px;
+    }
+
+    
+    .non-label-control {
+        margin-left: 165px;
+        padding: 5px 0;
+    }
+
+    th.required-header {
+    width:80px;    
+    }
+
+    #add-question {
+    padding:1% 3% 2% 3%; width:94%;
+    }
+
+        
+    #add-question .control-group label {
+        float:left;
+        width:auto;
+        margin:4px 10px 0px 0px;
+    }
+
+    #add-question .control-group input[type="text"] {
+    width:84%;
+    }
+
+    /*Notifications*/
+    article.notifcations {
+    width:93%;
+    padding:5px 2% 10px 5%;
+    }
+
+    .notifications.report li, .notifications.categories li {
+        width:93%;
+        padding:5px 2% 10px 5%;
+        }
+
+        .fifty-column {
+        width:50%;
+        margin-bottom:25px;
+        }
+
+            .fifty-column.right {
+               float:right;
+               text-align:right;
+               width:270px;
+               margin-bottom:25px;
+                }
+
+                .fifty-column.right label {
+                margin-right:15px;}
+
+    .eighty-column {
+        width:67%;
+        float:left;
+        padding-right:3%;
+        }
+
+       .twenty-column {
+        width:30%;
+        float:left;
+        margin-top:10px;
+        }
+
+       /*Reseller Account*/
+.reseller-logo {
+    float:right;
+    width:240px;
+    margin:15px 0px 0px 20px;
+    border:1px solid #ccc;
+}
+
+.reseller-details {
+    float:left;
+    width:50%;
+    }
+
+    .reseller-details dt, .reseller-details dd {
+        margin-bottom:4px;
+    }
+
+    /*Approvals*/
+    .horizontal-form .form-field-wrapper {
+        width:auto;
+        margin-right:20px;
+        }
+
+        .horizontal-form .form-field-wrapper .btn {
+            margin:25px 0px 0px 0px;
+            }
+
+    #despatched-filter{
+    padding:2%;
+    }
+
+    /*Guest Management*/
+    td.checbox-td {
+    padding-left:10px;
+    }
+
+    .radio-wrapper .left {
+    margin-top:5px;
+    }
+
+    .btn-group button.btn {
+    width:auto;
+    margin:0;
+    }
+
+    td.table-three-column.second {
+     width: 25%;
+    }
+
+td.table-three-column.last {
+     width: 70%;
+    }
+
+.three-column {
+    width:30%;
+    margin:10px 0 0 0;
+    }
+
+.fifty-column {
+    width:50%;
+    }
+
+fieldset td.division {
+    width:140px;
+    }
+
+ 
+    .uploaded-image {
+        margin-left:0;
+        }
+
+    .linelength {
+        width:75%;
+        }
+
+    .leftnarrow {
+        float:left;
+        width:20%;
+        }
+
+    .rightwide { 
+        float:right;
+    }
+
+    .management-header {
+        padding-bottom:0;
+        }
+
+    /*Guest Management*/
+
+    /*.guest-invitations label {
+    float:left;
+    margin:4px 8px 0 0 ;
+    }*/
+
+    .guestInvitationsTable {
+    overflow:visible;
+    }
+}
+
+
+/* Desktops and laptops ----------------------------------------------------- */
+@media only screen and (min-width : 960px){
+    .email-steps {
+    margin:15px 0 20px 0;
+    }
+
+    .guestInvitationsTable tbody td {
+    line-height:26px;
+    }
+    .left-labels {
+        width:15%;
+          padding-right:0%;
+    }
+    .email-indent {
+    margin-left:15%;
+    }
+
+    .right-labels {
+        width:85%;
+        margin-top:15px;
+    }
+
+
+    .ticket-category {
+    	width:31%;
+		margin: 20px 2% 0 0;
+        max-width:none;
+        }
+
+    .navigation-bar { width:92%; padding:0px 4%; }
+    .category-image .img-placeholder, .category-image form .img-placeholder, .category-image {
+    min-height:132px;
+    }
+
+
+    .ticket-description {
+    width:45%;
+    }
+    .ticket-description.small {
+    width:40%;
+    }
+
+   .ticket-request-number {
+    width:18%;
+    padding-right:0%;
+    }
+
+   .ticket-request-action {
+    width:31%;
+    margin-left:20px;
+    }
+
+
+    #approval-title .right p {
+        width: 100%;
+    }
+
+    /*Notifications*/
+    article.notifcations {
+    width:95%;
+    padding:5px 2% 10px 3%;
+    }
+
+    .notifications.report li, .notifications.categories li  {
+    width:95%;
+    padding:5px 2% 0px 3%;
+        }
+    
+    .eighty-column {
+        width:77%;
+  
+        padding-right:3%;
+        }
+
+       .twenty-column {
+        width:20%;
+        }
+
+}
+
+
+/* Large desktop */
+@media (min-width: 1200px) {
+	/*.theme-background {
+		background-size: 100%; 1230px; 
+	}*/
+	.media-debug{ display: none; }
+	.media1200 { display: block; }
+
+   /*Event listing*/
+    .span8 {
+      width:62%;
+    }
+
+ 
+}
+ 
+
+/*IE*/
+.lt-ie9 .media-debug{ display: none; }
+.lt-ie9 .media768 { display: block; }	
+    
+.lt-ie9  .top-nav {
+        text-align: right;
+        float:right;
+        }
+
+.lt-ie9 .ticket-categories {
+	    padding: 20px 0 20px 20px;
+    }
+    
+.lt-ie9 .pull-right {
+		float: right;
+    }
+    
+
+.lt-ie9 .ticket-category {
+	    width:31%;
+		margin: 20px 2% 0 0;
+        max-width:none;
+	}
+.lt-ie9 .ticket-category:nth-child(3n) 
+	{
+		clear: left;
+	}
+
+.lt-ie9 .navigation-bar { width:94%; padding:0px 3%; height:41px;}
+.lt-ie9 .navigation-bar a { margin: 10px 0px 10px 20px; }
+.lt-ie9 .doublemargin { margin: 30px;}
+
+    /*maps*/
+  
+
+    /*Event listing*/
+.lt-ie9 .span8 {
+      width:60%;
+    }
+ 
+.lt-ie9 .googlemap {
+      width: 32%;
+      margin:40px 0px;
+      float:left;
+    }
+
+    /*Form Controls*/
+.lt-ie9 .form-horizontal .control-label {
+      width:150px;
+    }
+
+    /*Ticket Approvals*/
+/*.lt-ie9 select#TicketTypeTicketTypeId {
+      font-size: 25px;
+      font-weight:bold;
+      height:40px;
+    }*/
+  
+.lt-ie9 .left {
+      width: 50%;
+      float:left;
+    }
+
+.lt-ie9 .right {
+      width: 50%;
+      float:right;
+      text-align:right;
+    }
+
+.lt-ie9 h2 .h1-sub {
+      float:right;
+    }
+
+.lt-ie9 #approval-title .right p {
+    margin:0px 0px 5px 0px;
+    text-align:right;
+    width:100%;
+    float:right;
+    }
+
+.lt-ie9 .ticket-description {
+    width:45%;
+    padding:0px 3% 0px 0px;
+    }
+
+.lt-ie9 .ticket-description label {
+    float:left;
+    margin-left:0px;
+    font-weight:bold;
+    }
+
+    .lt-ie9 .ticket-description input[type=checkbox] {
+            margin-right:7px;    
+            }
+
+    .ticket-description label {
+    float:left;
+    margin-left:0px;
+    font-weight:bold;
+    } 
+.lt-ie9 .ticket-request-number {
+    width:18%;
+    padding-right:0%;
+    }
+
+.lt-ie9 .ticket-request-number label {
+     text-align: right;
+     padding-right:5px;
+    margin-left:20px;}
+
+
+.lt-ie9 .ticket-list {
+    float:left;
+    width:94%;
+    padding:3% 3% 0% 3%;
+    }
+
+.lt-ie9 .right h2 { padding:8px 0px 0px 0px;}
+
+.lt-ie9 .ticket-request-action {
+    width:31%;
+    text-align:right;
+    float:right;
+    }
+
+.lt-ie9 .ticket-request-action button {
+      margin: -4px 0px 0px 0px;
+    }
+
+.lt-ie9 p.small {
+    margin-left:25px;    
+    }
+
+.lt-ie8 li.ticket-request-row {
+    padding-bottom:15px;
+    }
+
+.lt-ie9 #report-from {
+        margin: 0px 0px 10px 0px;
+    }
+
+.lt-ie9 .report-field {
+        width: 180px;
+        display:inline;
+    }
+
+.lt-ie9 .report-field label {
+            width: 45px;
+        }
+
+.lt-ie9 #report-to.report-field label {
+            width: 25px;
+            margin-left:10px;
+        } 
+
+.lt-ie8 .btn {
+    border:1px solid #ccc;
+    }
+
+.lt-ie8 .btn-success {
+    border:1px solid #389238;
+    }
+
+
+  /*Form controls*/
+.lt-ie9 .form-horizontal .controls .btn {
+    margin:0px 8px 0px 0;
+   }
+
+.lt-ie9 .form-horizontal .controls input[type="text"],
+.lt-ie9 textarea {
+        width:260px;
+    }
+
+.lt-ie9 .form-horizontal .controls select {
+        width:275px;
+    }
+
+.lt-ie9 .form-horizontal .checkbox-group-wrapper {
+        width:275px;
+        margin:5px 12px;
+        float:left;
+    }
+
+.lt-ie8 .form-horizontal .checkbox-group-wrapper {
+        margin:5px 0px 5px 17px;
+    }
+
+
+.lt-ie9 form.central.shared-form .controls input[type="password"] {
+        width: 70%;
+        max-width:260px;
+    }
+
+.lt-ie9 .shared-form label {
+    width:140px;
+    text-align:right;
+    padding:0px 2px 0px 0px; 
+    }
+
+.lt-ie9 form.central .field-validation-error {
+    margin-left:160px;
+    }
+
+
+.lt-ie8 hr {
+    height:1px;
+    margin:0px;
+    padding:0px;
+    }
+
+.lt-ie8 .navigation-bar ul {
+		margin: 10px 0 0 0;
+		list-style-type: none;
+	}
+
+.lt-ie8 .navigation-bar li {
+		display: inline;
+	}
+
+.lt-ie8 .navigation-bar a {
+      display: inline;	margin: 0px 10px 10px 10px;
+	}
+
+.lt-ie8  .navigation-bar .current a,
+	.lt-ie8  .navigation-bar a:hover{
+		padding-bottom: 6px;
+		margin: 0px 10px;
+		text-decoration: none;
+		border-bottom-style: solid;
+		border-bottom-width: 4px;
+	}
+
+
+    /*Notifications*/
+    .lt-ie9 article.notifcations {
+    width:95%;
+    padding:5px 2% 10px 3%;
+    }
+
+
+    .lt-ie9 article.notifcations.feedback {
+        background-position:0px 5px;
+        }
+
+    .lt-ie9 .fifty-column {
+        width:50%;
+        margin-bottom:25px;
+        }
+
+            lt-ie9 .fifty-column.right {
+               float:right;
+               text-align:right;
+               width:270px;
+               margin-bottom:25px;
+                }
+
+                lt-ie9 .fifty-column.right label {
+                margin-right:15px;}
+    
+        .lt-ie9 .eighty-column {
+        width:77%;
+        float:left;
+        padding-right:3%;
+        }
+
+      
+
+       .lt-ie9  .top-navigation-list {
+        padding-right:3%;
+        }
+
+
+        /*Approvals*/
+    .horizontal-form .form-field-wrapper {
+        width:auto;
+        margin-right:20px;
+        }
+
+        .horizontal-form .form-field-wrapper .btn {
+            margin:25px 0px 0px 0px;
+            }
+       .lt-ie9 .despatch-column {
+        width:23%;
+        text-align:right;
+        }
+        
+    .lt-ie9 .despatch-column fieldset {
+        float:right;
+        }
+
+    .lt-ie9 .ticket-request-number.small {
+            width:16%;
+            }
+
+    .lt-ie9    .ticket-description.small {
+        width:40%;
+        }
+
+    .lt-ie9  #despatched-filter{
+    padding:2%;
+    }
+
+    .lt-ie9 .fifty-column {
+    width:50%;
+    }
+
+    .lt-ie9  fieldset td.division {
+    width:140px;
+    text-align:right;
+    padding-right:10px;
+    }
+    .lt-ie9 .notifications.report li, .lt-ie9.notifications.categories li  {
+    width:95%;
+    padding:5px 2% 10px 3%;
+        }
+
+    .lt-ie9 .linelength {
+width:78%;
+}
+
+     .lt-ie9 .guest-form label {
+    width:185px;
+    float:left;
+    margin:2px 5px 3px 0;
+}
+
+     .lt-ie9 .guest-form input {
+        width:220px;
+        }
+
+     .lt-ie9 .guest-form .form-field-wrapper {
+        float:left;
+        width:100%;
+        margin-bottom:8px;
+        }
+
+     .lt-ie9 .objective-filter label {
+        width:100px; 
+        float:left;
+        }
+
+     .lt-ie9  .guestInvitationsTable tbody td {
+line-height:26px;
+}
+    .lt-ie9 .left-labels {
+        width:15%;
+          padding-right:0%;
+    }
+    .lt-ie9 .email-indent {
+    margin-left:15%;
+    }
+
+    .lt-ie9 .right-labels {
+        width:85%;
+        margin-top:15px;
+    }
+
+    .lt-ie9 .email-steps {
+    margin:25px 0 20px 0;
+    }
+
+
+    .lt-ie9 .btn-group button.btn {
+    width:auto;
+    margin:0;
+    }
+
+     .lt-ie9 .step-secondary {
+    display:block;
+    }
+
+    .lt-ie9 .email-steps li {
+    width:100px;
+    }
+
+
+    .lt-ie9 .eventDocuments h4 {
+        font-size:15px;
+        display:block;
+        margin:5px 0;
+    }
+
+     .lt-ie9 .otherDocs .eventDocuments  h4 {
+        margin:10px 0;
+        }
+
+    .lt-ie9 .eventDocuments.left {
+        float:left;
+        width:35%;
+        }
+
+     .lt-ie9 .eventDocuments.right {
+          float:left;
+        width:65%;  
+        text-align:center;
+        }
+
+     .lt-ie9 .eventDocuments .filterRadio {
+        width:33%;
+        }
+
+         .lt-ie9 .eventDocuments .filterRadio label {
+            width:86%;
+            text-align:left;
+            
+            }
+
+
+ .lt-ie9 .radio-wrapper .radioChild label{
+    width:170px;
+    }
+
+     .lt-ie9 .left-labels {
+        width:24%;
+        padding-right:1%;
+    }
+        .lt-ie9 .email-indent {
+    margin-left:25%;
+    }
+
+    .lt-ie9 .right-labels {
+        width:75%;
+        margin-top:15px;
+    }
+
+     .lt-ie9 .radioChild {
+        margin:5px 0 0 3%;
+    }
+     .lt-ie9 .radioChild label {
+        width:auto;
+    }
+
+     .lt-ie9 .radioChild select {
+        margin-top:-5px;
+    }
+
+     .lt-ie9  .control-group.checkbox input[type="checkbox"]  {
+        margin:10px 13px 0 120px;
+        width:15px;
+        text-align:right;
+}
+
+.lt-ie9 .control-group.checkbox label  {
+text-align:left;
+width:50%;
+}
+
+.lt-ie9 #add-question.addDocument .control-group label{
+    width:80px;
+    }
+    .lt-ie9 #add-question.addDocument .control-group input {
+    margin:7px 4px 0 0;
+    }
+
+
+    .lt-ie9 .documentUpload .filterRadio {
+    float:left;
+    width:auto;
+    padding:0 10px 5px 0;
+}

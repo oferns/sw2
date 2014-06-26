@@ -1,0 +1,252 @@
+#login-logo {
+    display:block;
+    width:100%;
+    max-width:460px;
+    margin:5px auto 10px auto;
+    text-align:center;
+    }
+
+.login-box {
+	width: 88%;
+    max-width:500px;
+    display:block;
+	margin: 2%;
+    border-radius: 6px 6px 6px 6px;
+        -moz-border-radius: 6px 6px 6px 6px;
+        -webkit-border-radius: 6px 6px 6px 6px;
+    padding:4%;
+    background-color: #F5F5F5;
+    border: 1px solid #E3E3E3;
+    box-shadow: 0 2px 3px #ddd;
+    min-height: 20px;
+    }
+
+.form-elements {
+    width:100%; 
+    float:left; 
+    margin:5px 0px 15px 0px;
+    padding:0px 0px 30px 0px; 
+    border-bottom:1px solid #ccc;
+    }
+
+.login-box h1{
+	margin-bottom:0px;
+    font-size:20px;
+    }
+
+.login-control {
+    float:left;
+    width:100%;
+    }
+
+    .login-control label {
+        font-weight:bold;  
+        float:left;
+        margin:5px 10px 5px 0px;
+        width:100%;
+        text-align:left;
+        }
+
+    .login-control input[type="email"], .login-control input[type="text"], .login-control input[type="password"] {
+        width:95%;
+        }
+
+    .login-control input[type="submit"] {
+         margin:10px 0px 0px 0px;
+         padding:7px 10px;
+        }
+
+    .login-control.opt-area label{
+        float:left;
+        width:auto;
+        text-align:left;
+        margin:1px 0px 0px 5px;
+        padding:0px;
+        } 
+   
+     .login-control.opt-area input{
+        float:left;
+        margin-bottom:10px;
+        } 
+
+p.small {
+    font-size:12px;
+    margin:0px 0px 5px 0px;
+    color:#666;
+    }
+
+
+.error {
+	color: #ca1313;
+	font-size: 14px;
+    background-color:#ffdbdb;
+    border:1px solid #f3b9b9;
+    padding:10px 10px 10px 15px;
+    margin:10px 0;
+}
+
+@media only screen and (min-width : 500px) {
+  #login-logo {
+    margin:15px auto 15px auto;
+    }
+    .login-box {
+        width: 92%;
+        padding:2% 4%;
+        max-width: 420px;
+        margin: 10px auto 0;
+        }
+    
+    .login-box h1{
+	    margin:10px 0px 15px 0px;
+        }
+
+
+    .login-control label {
+        margin:5px 10px 0px 0px;
+        width:100px;
+        text-align:right;
+        }
+
+    .login-control input[type="email"], .login-control input[type="text"], .login-control input[type="password"] {
+        width:70%;
+        margin-bottom:15px;
+        }
+
+    .login-control input[type="submit"] {
+         margin-left:110px;
+         margin-top:0px;
+        }
+
+     .login-control.opt-area input{
+       margin-left:110px;
+        }
+
+    .error {
+        margin-top: -5px;
+    }
+
+}
+
+@media only screen and (min-width : 700px) {
+      #login-logo {
+    margin:35px auto 25px auto;
+    }
+     .login-box {
+        padding:1% 3%;
+        width: 94%;
+        }
+}
+
+
+/*IE styles*/
+.lt-ie9 .login-box h1{
+	    margin:10px 0px 15px 0px;
+        }
+
+.lt-ie9 .login-control label {
+        margin:5px 10px 0px 0px;
+        width:100px;
+        text-align:right;
+        }
+.lt-ie9 .login-control.opt-area label {
+        width:160px;
+        text-align: left;
+        margin-left: 5px;
+        }
+.lt-ie9 .login-control.opt-area input[type="checkbox"] {
+    margin: 3px 0 0 100px;
+}
+
+
+.lt-ie9 .login-control input[type="email"], .lt-ie9 .login-control input[type="text"], .lt-ie9 .login-control input[type="password"] {
+        width:200px;
+        }
+
+.lt-ie9 .login-control input[type="submit"] {
+         margin-left:110px;
+        }
+
+.lt-ie9 #login-logo {
+    margin:35px auto 25px auto;
+    }
+
+.lt-ie9 .login-box {
+        padding:1% 3%;
+        width: 94%;
+        max-width: 420px;
+        margin: 10px auto 0;
+        }
+
+    .lt-ie9 .error {
+        margin-top: -5px;
+    }
+
+.holding {
+    text-align:center;
+    }
+
+    .holding h2{
+         font-family:Arial,sans-serif;
+         font-size:24.5px;
+        }
+
+    .holding p {
+        font-family:Arial,sans-serif;
+        font-size:15px;
+        }
+
+    .holding a {
+        color:#0071bd;
+        font-weight:bold;
+        text-decoration:none;
+        }
+
+    .holding a:hover {
+        text-decoration:underline;
+        }
+
+ .alert-message {
+    color: #ca1313;
+	font-size: 14px;
+    background-color:#ffdbdb;
+    border:1px solid #f3b9b9;
+    padding:15px 10px 5px 15px;
+    margin-bottom:20px;
+    border-radius:5px;
+    }
+
+#alert.success-message, .success {
+    color: #598f1a;
+	font-size: 14px;
+    background-color:#dcfbb9;
+    border:1px solid #c6ed99;
+    padding:15px 10px 5px 40px;
+    margin-bottom:20px;
+    border-radius:5px;
+    background-image:url(../images/tick.png);
+    background-repeat:no-repeat;
+    background-position:10px center;
+}
+
+
+.message {
+ text-align:center;
+    width:98%;
+    padding:10px 1%;
+    background-color:#fffcdb;
+    border-bottom:1px solid #faf293;
+    line-height:1;
+    display:none;
+}
+
+#badbrowser {
+ text-align:center;
+    width:98%;
+    padding:1%;
+    margin:0 auto;
+    background-color:#fffcdb;
+    border:1px solid #faf293;
+    line-height:1.4;
+    display:none;
+    max-width:550px;
+}

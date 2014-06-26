@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>Sponsorworks</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{86aca332-7e7b-43b8-bce6-8bba9328d9ae}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.SqlAzureDatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>Sponsorworks</RootNamespace>
+    <AssemblyName>Sponsorworks</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>True</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <!-- VS10 without SP1 will not have VisualStudioVersion set, so do that here -->
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <!-- Default to the v10.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="id\" />
+    <Folder Include="id\Views\" />
+    <Folder Include="dbo\User Defined Types\" />
+    <Folder Include="Security\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\Domains.sql" />
+    <Build Include="dbo\Tables\DomainOwnerRoles.sql" />
+    <Build Include="dbo\Tables\Divisions.sql" />
+    <Build Include="dbo\Tables\DivisionOwnerRoles.sql" />
+    <Build Include="dbo\Tables\Users.sql" />
+    <Build Include="dbo\Tables\Roles.sql" />
+    <Build Include="dbo\Tables\UserRoles.sql" />
+    <Build Include="dbo\Tables\TicketRequestorRoles.sql" />
+    <Build Include="dbo\Tables\TicketRequests.sql" />
+    <Build Include="dbo\Tables\LocalAccounts.sql" />
+    <Build Include="dbo\Tables\LocalAccountRoles.sql" />
+    <Build Include="dbo\Tables\RoleRelationships.sql" />
+    <Build Include="dbo\Tables\UserRelationships.sql" />
+    <Build Include="dbo\Tables\Venues.sql" />
+    <Build Include="dbo\Tables\Tickets.sql" />
+    <Build Include="dbo\Tables\TicketAllocations.sql" />
+    <Build Include="dbo\Tables\EventOwnerRoles.sql" />
+    <Build Include="dbo\Tables\TicketPatronageRoles.sql" />
+    <Build Include="dbo\Tables\Events.sql" />
+    <Build Include="dbo\Tables\Resources.sql" />
+    <Build Include="dbo\Tables\ResourceOverridesOwnerRoles.sql" />
+    <Build Include="dbo\Tables\TicketAllocationRoles.sql" />
+    <Build Include="dbo\Tables\ResourceOverrides.sql" />
+    <Build Include="dbo\Tables\FieldTypes.sql" />
+    <Build Include="dbo\Tables\TicketOwners.sql" />
+    <Build Include="dbo\Tables\FieldOwnerRoles.sql" />
+    <Build Include="dbo\Tables\Fields.sql" />
+    <Build Include="dbo\Tables\TicketOwnerRoles.sql" />
+    <Build Include="dbo\Tables\EventFields.sql" />
+    <Build Include="dbo\Tables\EventFieldValues.sql" />
+    <Build Include="dbo\Tables\EventVenues.sql" />
+    <Build Include="dbo\Tables\VenueOwners.sql" />
+    <Build Include="dbo\Tables\VenueOwnerRoles.sql" />
+    <Build Include="dbo\Tables\EventTickets.sql" />
+    <Build Include="dbo\User Defined Types\ShortString.sql" />
+    <Build Include="dbo\User Defined Types\LongString.sql" />
+    <Build Include="dbo\User Defined Types\MaxString.sql" />
+    <Build Include="Security\admin.sql" />
+    <Build Include="Security\id.sql" />
+    <Build Include="dbo\Tables\UserAllocationStatusOwnerRoles.sql" />
+    <Build Include="dbo\Tables\UserAllocationStatus.sql" />
+    <Build Include="dbo\Tables\TicketStatusUpdaterRoles.sql" />
+    <Build Include="dbo\Tables\TicketAllocatorRoles.sql" />
+    <Build Include="dbo\Tables\TicketAllocationStatusHistory.sql" />
+    <Build Include="dbo\Tables\TicketAllocationStatus.sql" />
+    <Build Include="dbo\Tables\ResourceTypes.sql" />
+    <Build Include="dbo\Tables\EventAllocationStatus.sql" />
+    <Build Include="dbo\Tables\DomainSettings.sql" />
+    <Build Include="dbo\Tables\AllocationStatus.sql" />
+    <Build Include="dbo\Tables\DivisionMembers.sql" />
+    <Build Include="dbo\Tables\DivisionMemberRoles.sql" />
+    <Build Include="dbo\Tables\RoleOwnerRoles.sql" />
+    <Build Include="dbo\Tables\OwnedRoles.sql" />
+    <Build Include="dbo\Tables\RoleOwnerAllowedRoles.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Sponsorworks.Projects.publish.xml" />
+    <None Include="V11SchemaCompare.scmp" />
+  </ItemGroup>
+</Project>

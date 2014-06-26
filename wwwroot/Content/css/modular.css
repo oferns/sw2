@@ -1,0 +1,157 @@
+﻿/*Modular*/
+.singlepadding { padding: 15px; }
+.singlepadding-horizontal { padding-left: 15px; padding-right: 15px; }
+.singlepadding-vertical { padding-top: 15px; padding-bottom: 15px; }
+.singlepadding-top { padding-top: 15px; }
+.singlepadding-bottom { padding-bottom: 15px; }
+.singlepadding-left { padding-left: 15px; }
+.singlepadding-right { padding-right: 15px; }
+
+.doublepadding { padding: 30px; }
+.doublepadding-horizontal { padding-left: 30px; padding-right: 30px; }
+.doublepadding-vertical { padding-top: 30px; padding-bottom: 30px; }
+.doublepadding-top { padding-top: 30px; }
+.doublepadding-bottom { padding-bottom: 30px; }
+.doublepadding-left { padding-left: 30px; }
+.doublepadding-right { padding-right: 30px; }
+
+.triplepadding { padding: 45px; }
+.triplepadding-horizontal { padding-left: 45px; padding-right: 45px; }
+.triplepadding-vertical { padding-top: 45px; padding-bottom: 45px; }
+.triplepadding-top { padding-top: 45px; }
+.triplepadding-bottom { padding-bottom: 45px; }
+.triplepadding-left { padding-left: 45px; }
+.triplepadding-right { padding-right: 45px; }
+
+.zeromargin{ margin: 0;}
+
+.singlemargin { margin: 15px; }
+.singlemargin-horizontal { margin-left: 15px; margin-right: 15px; }
+.singlemargin-vertical { margin-top: 15px; margin-bottom: 15px; }
+.singlemargin-top { margin-top: 15px; }
+.singlemargin-bottom { margin-bottom: 15px; }
+.singlemargin-left { margin-left: 15px; }
+.singlemargin-right { margin-right: 15px; }
+
+.doublemargin { margin: 30px; }
+.doublemargin-horizontal { margin-left: 30px; margin-right: 30px; }
+.doublemargin-vertical { margin-top: 30px; margin-bottom: 30px; }
+.doublemargin-top { margin-top: 30px; }
+.doublemargin-bottom { margin-bottom: 30px; }
+.doublemargin-left { margin-left: 30px; }
+.doublemargin-right { margin-right: 30px; }
+
+.triplemargin { margin: 45px; }
+.triplemargin-horizontal { margin-left: 45px; margin-right: 45px; }
+.triplemargin-vertical { margin-top: 45px; margin-bottom: 45px; }
+.triplemargin-top { margin-top: 45px; }
+.triplemargin-bottom { margin-bottom: 45px; }
+.triplemargin-left { margin-left: 45px; }
+.triplemargin-right { margin-right: 45px; }
+
+/* columns */
+.onecol { width: 60px; }
+.twocol { width: 132px; }
+.threecol { width: 204px; }
+.fourcol { width: 276px; }
+.fivecol { width: 348px; }
+.sixcol { width: 420px; }
+.sevencol { width: 492px; }
+.eightcol { width: 564px; }
+.ninecol { width: 636px; }
+.tencol { width: 708px; }
+.elevencol { width: 780px; }
+.twelvecol { width: 852px; }
+.thirteencol { width: 924px; }
+.fourteencol { width: 996px; }
+.fifteencol { width: 1068px; }
+.sixteencol { width: 1140px; }
+.seventeencol { width: 1212px; }
+.eighteencol { width: 1284px; }
+.nineteencol { width: 1356px; }
+.twentycol { width: 1428px; }
+
+.onecolmax { max-width: 60px; }
+.twocolmax { max-width: 132px; }
+.threecolmax { max-width: 204px; }
+.fourcolmax { max-width: 276px; }
+.fivecolmax { max-width: 348px; }
+.sixcolmax { max-width: 420px; }
+.sevencolmax { max-width: 492px; }
+.eightcolmax { max-width: 564px; }
+.ninecolmax { max-width: 636px; }
+.tencolmax { max-width: 708px; }
+.elevencolmax { max-width: 780px; }
+.twelvecolmax { max-width: 852px; }
+.thirteencolmax { max-width: 924px; }
+.fourteencolmax { max-width: 996px; }
+.fifteencolmax { max-width: 1068px; }
+.sixteencolmax { max-width: 1140px; }
+.seventeencolmax { max-width: 1212px; }
+.eighteencolmax { max-width: 1284px; }
+.nineteencolmax { max-width: 1356px; }
+.twentycolmax { max-width: 1428px; }
+
+.onecolmin { min-width: 60px; }
+.twocolmin { min-width: 132px; }
+.threecolmin { min-width: 204px; }
+.fourcolmin { min-width: 276px; }
+.fivecolmin { min-width: 348px; }
+.sixcolmin { min-width: 420px; }
+.sevencolmin { min-width: 492px; }
+.eightcolmin { min-width: 564px; }
+.ninecolmin { min-width: 636px; }
+.tencolmin { min-width: 708px; }
+.elevencolmin { min-width: 780px; }
+.twelvecolmin { min-width: 852px; }
+.thirteencolmin { min-width: 924px; }
+.fourteencolmin { min-width: 996px; }
+.fifteencolmin { min-width: 1068px; }
+.sixteencolmin { min-width: 1140px; }
+.seventeencolmin { min-width: 1212px; }
+.eighteencolmin { min-width: 1284px; }
+.nineteencolmin { min-width: 1356px; }
+.twentycolmin { min-width: 1428px; }
+
+
+.bold { font-weight: bold;}
+.urgent {color: #f00; }
+.white{ background-color: #fff;}
+.text-center { text-align: center; }
+.transparency { background-color:rgba(255, 255, 255, 0.87); }
+.float {float:left; width:94%; padding:2% 3%;}
+.float-table {float:left; width:100%;}
+.lt-ie9 .transparency { background:url(../images/transparency.png) repeat; }
+.reveal-below{ margin-bottom: 25px;}
+.prose { font-size: 23px; color: #000; line-height: 32px; font-weight: bold; }
+.minor-prose{ font-size:18px; color: #000; line-height: 20px; font-weight: bold;}
+.wide-multiline{max-width: 600px;}
+.fullwidth-multiline{max-width: 100%;}
+.block{ display: block;}
+.movable{ cursor: move;}
+
+.lt-ie8 .documents ul {
+padding-bottom:20px;
+}
+
+.lt-ie8 nav {
+width:100%;
+}
+
+.lt-ie8 ul.breadcrumb {
+    width:auto;
+    float:left;
+    clear:both;
+    }
+
+.lt-ie8 select {
+    height:23px;
+    }
+
+.lt-ie8 .ticket-categories {
+    margin-bottom:40px;
+    }
+
+.lt-ie8 .guestNo .checkbox-wrapper input {
+    margin-top:0;
+    }
