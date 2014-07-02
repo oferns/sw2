@@ -77,7 +77,6 @@
     <Build Include="dbo\Tables\TicketRequestorRoles.sql" />
     <Build Include="dbo\Tables\TicketRequests.sql" />
     <Build Include="dbo\Tables\LocalAccounts.sql" />
-    <Build Include="dbo\Tables\LocalAccountRoles.sql" />
     <Build Include="dbo\Tables\RoleRelationships.sql" />
     <Build Include="dbo\Tables\UserRelationships.sql" />
     <Build Include="dbo\Tables\Venues.sql" />
@@ -121,6 +120,11 @@
     <Build Include="dbo\Tables\RoleOwnerRoles.sql" />
     <Build Include="dbo\Tables\OwnedRoles.sql" />
     <Build Include="dbo\Tables\RoleOwnerAllowedRoles.sql" />
+    <Build Include="id\Views\LocalAccounts.sql" />
+    <Build Include="dbo\Tables\LocalAccountOwnerRoles.sql" />
+    <Build Include="dbo\Tables\ExternalAccounts.sql" />
+    <Build Include="dbo\Tables\ExternalAccountProviders.sql" />
+    <Build Include="dbo\Tables\ExternalAccountOwnerRoles.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeployment.sql" />
@@ -128,5 +132,6 @@
   <ItemGroup>
     <None Include="Sponsorworks.Projects.publish.xml" />
     <None Include="V11SchemaCompare.scmp" />
+    <None Include="ProjectsSchemaCompare.scmp" />
   </ItemGroup>
 </Project>

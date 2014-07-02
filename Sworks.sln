@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Tests", "App.Tests\App.
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Sponsorworks", "Sponsorworks\Sponsorworks.sqlproj", "{86ACA332-7E7B-43B8-BCE6-8BBA9328D9AE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wwwroot.Initialize", "wwwroot.Initialize\wwwroot.Initialize.csproj", "{4DF59E02-C4D2-493B-8C90-6F0617458F51}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,8 +44,16 @@ Global
 		{86ACA332-7E7B-43B8-BCE6-8BBA9328D9AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86ACA332-7E7B-43B8-BCE6-8BBA9328D9AE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{86ACA332-7E7B-43B8-BCE6-8BBA9328D9AE}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{4DF59E02-C4D2-493B-8C90-6F0617458F51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DF59E02-C4D2-493B-8C90-6F0617458F51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DF59E02-C4D2-493B-8C90-6F0617458F51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DF59E02-C4D2-493B-8C90-6F0617458F51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35;packages\EnterpriseLibrary.Common.5.0.505.0\lib\NET35;packages\TransientFaultHandling.Core.5.1.1209.0\lib\NET4;packages\EnterpriseLibrary.WindowsAzure.TransientFaultHandling.5.1.1212.0\lib\NET4;packages\EnterpriseLibrary.WindowsAzure.TransientFaultHandling.5.1.1212.0\DesignTime;packages\TransientFaultHandling.Core.5.1.1209.1\lib\NET4
 	EndGlobalSection
 EndGlobal

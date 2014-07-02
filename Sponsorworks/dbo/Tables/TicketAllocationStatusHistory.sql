@@ -7,7 +7,7 @@
     [PreviousAllocationStatusId] INT              NULL,
     [PreviousStatusUpdateRoleId] TINYINT          NULL,
     [PreviousStatusUpdateUserId] UNIQUEIDENTIFIER NULL,
-    [DateChanged]                DATETIME         CONSTRAINT [DF_Table_1_ChangeDate] DEFAULT (getutcdate()) NOT NULL,
+    [DateChanged]                DATETIME         CONSTRAINT [DF_TicketAllocationStatusHistory_ChangeDate] DEFAULT (getutcdate()) NOT NULL,
     CONSTRAINT [PK_TicketAllocationStatusHistory] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_TicketAllocationStatusHistory_TicketAllocations] FOREIGN KEY ([TicketAllocationId]) REFERENCES [dbo].[TicketAllocations] ([Id])
 );

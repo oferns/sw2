@@ -51,8 +51,6 @@ BEGIN
 	SELECT @EventOwnerUserId  = OwnerUserId FROM inserted
 	
 	IF @ParentOwnerUserId != @EventOwnerUserId
-		BEGIN
-			RAISERROR  ('Parent Event Owner must be the same as Event owner', 16, 1 ) 
-		END
+			THROW 50000, 'Parent Event Owner must be the same as Event owner', 1;
 		
 END

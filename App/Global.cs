@@ -2,7 +2,6 @@
 {
     using System;
     using System.Configuration;
-    using System.Data.Linq;
     using System.Diagnostics;
     using System.Reflection;
     using System.Web;
@@ -16,14 +15,14 @@
         /// <summary>
         /// Amazing to think this is all we need for logging....sigh!
         /// </summary>
-        internal static TraceSource Log = new TraceSource(Assembly.GetExecutingAssembly().FullName);
+        internal static TraceSource Log = new TraceSource(Assembly.GetExecutingAssembly().GetName().Name);
 
         /// <summary>
         /// This is the IoC container used for this instance. Remember, one instance can be used by IIS for many requests.
         /// Application_Start happpens once every instance. That is where the container gets created.
         /// </summary>
         internal Container Container;
-        
+
         /// <summary>
         /// This code runs once when the AppPool starts
         /// </summary>
@@ -32,11 +31,14 @@
             // Let's start a log! We can listen to this with tracelisteners in the web config
             Log.TraceInformation("Sponsorworks starting");
 
-            // Set up the IoC Container. Apart from Application_Error in this class, we should kiss goodbye to the "new" keyword/instanstiator
+            // Set up the IoC Container
             Container = new Container();
 
-            // Register the Linq2Sql database
-            Container.Register<DataContext>(() => new SWorks(ConfigurationManager.ConnectionStrings["Sworks"].ConnectionString));
+            // If we have a listener for the Linq2Sql SQL Log....
+            var sqlLogger = Log.Listeners["SqlWriter"] as TextWriterTraceListener;
+
+            // ...register the Linq2Sql database regardless, with logging if we found a listener
+            Container.Register(() => new Sponsorworks(ConfigurationManager.ConnectionStrings["Sponsorworks"].ConnectionString) { Log = sqlLogger == null ? null : sqlLogger.Writer });
 
             // Register All controllers in the Assembly
             Container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
@@ -48,25 +50,38 @@
             Container.Verify();
 
             // Set the MVC Dependency resolver to the IoC Resolver
-            DependencyResolver.SetResolver(
-                                           new SimpleInjectorDependencyResolver(Container));
-
-            // Register all the MVC Areas in this assembly
-            AreaRegistration.RegisterAllAreas();
+            DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(Container));
 
             // Ignore resource routes
             RouteTable.Routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            // Map the default route
-            RouteTable.Routes.MapRoute(
-                                       name: "Default",
-                                       url: "{controller}/{action}/{id}",
-                                       defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-                );
+            // ..and browserlink
+            RouteTable.Routes.IgnoreRoute("{*browserlink}", new { browserlink = @".*/arterySignalR/ping" });
+
+            // Register all the MVC Areas in this assembly. Do this after ignores and before the default route
+            AreaRegistration.RegisterAllAreas();
+
+            // Try and map the default route
+            try
+            {
+                Log.TraceInformation("Attempting to map the default Route");
+                RouteTable.Routes.MapRoute(
+                                           name: "Default",
+                                           url: "{controller}/{action}/{id}",
+                                           defaults: new { area = string.Empty, controller = "Home", action = "Index", id = UrlParameter.Optional },
+                                           namespaces: new[] { "App" }
+                    );
+            }
+            // It's already been mapped...
+            catch (ArgumentException)
+            {
+                Log.TraceInformation("Default Route mapping skipped. Already mapped by the host application");
+            }
+
         }
 
         /// <summary>
-        /// Handle ALL ASP.NET errors in one place, ie Globally. No HandleError filters or attributes please.
+        /// Handle ASP.NET errors.
         /// HTTP Errors (think Static file not found) are handled in the web.config. They dont reach our code. (HTTP.SYS & IIS deal with them before they get to us)
         /// However, we redirect them to the error controller (D'oh!). We should make static html files.
         /// NB. Ensure there is NO possibility of an exception in the ErrorControllor. Otherwise we are in infinite loop/stack overflow territory.
@@ -103,22 +118,7 @@
             Response.StatusCode = statusCode;
 
             // We're gonna need an ErrorController
-            IController errorController;
-
-            // Let's cast ourselves so that we can access the container..deep, innit? 
-            // basicallly...this method is not the method we think it is. The sender argument is actuallly
-            // the instance of the object we created the container in. Therefore, that's where the container is.
-            // That is why it's access modifier is internal, not private.
-            
-            if (!(sender is Global))
-            {
-                errorController = new ErrorController();
-            }
-            else
-            {
-                var app = (Global)sender;
-                errorController = app.Container.GetInstance<ErrorController>();
-            }
+            IController errorController = new ErrorController();
 
             // Create a new request context for the Error Controller
             var requestContext = new RequestContext(contextWrapper, routeData);

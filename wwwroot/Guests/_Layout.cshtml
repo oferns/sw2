@@ -1,10 +1,7 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/_Layout.cshtml";
 }
 
-@section BrowserWarning
-{
-    <div class="message" style="background-color: orange; text-align: center">
-        <img src="/content/images/note.png" alt="" />It appears that you are using an older web browser. Please be aware that you may not be able to successfully complete guest registration. We recommend swiching to a modern browser. Thanks.
-    </div>
-}
+<h2>This is the Guests Layout page</h2>
+
+@RenderBody()

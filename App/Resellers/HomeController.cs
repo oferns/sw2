@@ -1,23 +1,20 @@
 ﻿namespace App.Resellers
 {
     using System;
-    using System.Data.Linq;
+    using System.Diagnostics.Contracts;
     using System.Web.Mvc;
 
     public sealed class HomeController : Controller
     {
-        private readonly SWorks db;
+        private readonly Sponsorworks db;
 
-        public HomeController(SWorks db)
+        public HomeController(Sponsorworks db)
         {
-            if (db == null)
-            {
-                throw new ArgumentNullException("db");
-            }
-
+            Contract.Requires<ArgumentNullException>(db != null, "db");
             this.db = db;
         }
 
+        [HttpGet]
         public ActionResult Index()
         {
             return View();

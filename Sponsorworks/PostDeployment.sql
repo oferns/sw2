@@ -13,12 +13,12 @@ Post-Deployment Script Template
 /* Set up the System Roles 
 	sysadmin, reseller, admin, guest, company, user
 */
-INSERT [dbo].[Roles] ([Id], [Name], [Description], [IsSystemRole], [OwnerRoleId]) VALUES (1, N'sysadmin', N'System-wide administrator', 1, 1)
-INSERT [dbo].[Roles] ([Id], [Name], [Description], [IsSystemRole], [OwnerRoleId]) VALUES (2, N'reseller', N'Reseller account. Local login. Limited Federated access', 1, 2)
-INSERT [dbo].[Roles] ([Id], [Name], [Description], [IsSystemRole], [OwnerRoleId]) VALUES (3, N'admin', N'Tenant Administrator. Needs Local Account to operate. Think Company Administrator.', 1, 3)
-INSERT [dbo].[Roles] ([Id], [Name], [Description], [IsSystemRole], [OwnerRoleId]) VALUES (4, N'guest', N'Guest role. No Local Account needed. Federated Identity allowed. ', 1, 4)
-INSERT [dbo].[Roles] ([Id], [Name], [Description], [IsSystemRole], [OwnerRoleId]) VALUES (5, N'company', N' A company account. No Login', 1, 5)
-INSERT [dbo].[Roles] ([Id], [Name], [Description], [IsSystemRole], [OwnerRoleId]) VALUES (6, N'user', N'A basic user role', 1, 6)
+INSERT [dbo].[Roles] ([Id], [Name], [Description], [IsSystemRole], [OwnerRoleId], [Active]) VALUES (1, N'sysadmin', N'System-wide administrator', 1, 1, 1)
+INSERT [dbo].[Roles] ([Id], [Name], [Description], [IsSystemRole], [OwnerRoleId], [Active]) VALUES (2, N'reseller', N'Reseller account. Local login. Limited Federated access', 1, 2, 1)
+INSERT [dbo].[Roles] ([Id], [Name], [Description], [IsSystemRole], [OwnerRoleId], [Active]) VALUES (3, N'admin', N'Tenant Administrator. Needs Local Account to operate. Think Company Administrator.', 1, 3, 1)
+INSERT [dbo].[Roles] ([Id], [Name], [Description], [IsSystemRole], [OwnerRoleId], [Active]) VALUES (4, N'guest', N'Guest role. No Local Account needed. Federated Identity allowed. ', 1, 4, 1)
+INSERT [dbo].[Roles] ([Id], [Name], [Description], [IsSystemRole], [OwnerRoleId], [Active]) VALUES (5, N'company', N' A company account. No Login', 1, 5, 1)
+INSERT [dbo].[Roles] ([Id], [Name], [Description], [IsSystemRole], [OwnerRoleId], [Active]) VALUES (6, N'user', N'A basic user role', 1, 6, 1)
 /* These last two are custom roles */
 INSERT [dbo].[Roles] ([Id], [Name], [Description], [IsSystemRole], [OwnerRoleId]) VALUES (7, N'Corporate Guest', N'A custom Guest sub role', 0, 4)
 INSERT [dbo].[Roles] ([Id], [Name], [Description], [IsSystemRole], [OwnerRoleId]) VALUES (8, N'Junior admin', N'A custom restricted admin role', 0, 3)
@@ -42,9 +42,13 @@ INSERT [dbo].[DivisionMemberRoles] ([RoleId]) VALUES (3) -- admin - Restricts wh
 INSERT [dbo].[DivisionMemberRoles] ([RoleId]) VALUES (6) -- user - Restricts who can be a Division Member
 INSERT [dbo].[TicketRequestorRoles] ([RoleId]) VALUES (3) -- admin - Restricts who can be a request Tickets
 INSERT [dbo].[TicketRequestorRoles] ([RoleId]) VALUES (6) -- user - Restricts who can be a request Tickets
-INSERT [dbo].[LocalAccountRoles] ([RoleId]) VALUES (1) -- sysadmin - Restricts who can have a local account to login with
-INSERT [dbo].[LocalAccountRoles] ([RoleId]) VALUES (3) -- admin - Restricts who can have a local account to login with
-INSERT [dbo].[LocalAccountRoles] ([RoleId]) VALUES (6) -- user - Restricts who can have a local account to login with
+INSERT [dbo].[LocalAccountOwnerRoles] ([RoleId]) VALUES (1) -- sysadmin - Restricts who can have a local account to login with
+INSERT [dbo].[LocalAccountOwnerRoles] ([RoleId]) VALUES (3) -- admin - Restricts who can have a local account to login with
+INSERT [dbo].[LocalAccountOwnerRoles] ([RoleId]) VALUES (6) -- user - Restricts who can have a local account to login with
+INSERT [dbo].[ExternalAccountOwnerRoles] ([RoleId], [Active]) VALUES (3,1) -- admin - Restricts who can have a External account to login with
+INSERT [dbo].[ExternalAccountOwnerRoles] ([RoleId], [Active]) VALUES (4,1) -- guest - Restricts who can have a External account to login with
+INSERT [dbo].[ExternalAccountOwnerRoles] ([RoleId], [Active]) VALUES (6,1) -- user - Restricts who can have a External account to login with
+
 INSERT [dbo].[EventOwnerRoles] ([RoleId]) VALUES (5) -- company - Restricts who can own an event
 INSERT [dbo].[TicketPatronageRoles] ([RoleId]) VALUES (4) -- guest - Restricts who can be invited to an Event
 INSERT [dbo].[ResourceOverridesOwnerRoles] ([RoleId]) VALUES (2) -- reseller - Restricts who can own a resource Override
