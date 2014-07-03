@@ -116,7 +116,9 @@
             routeData.Values.Add("isAjaxRequet", contextWrapper.Request.IsAjaxRequest());
 
             // Set the correct status code for the response
+            Response.TrySkipIisCustomErrors = true;
             Response.StatusCode = statusCode;
+            Response.ContentType = "text/html";
 
             // We're gonna need an ErrorController
             IController errorController = new ErrorController();
