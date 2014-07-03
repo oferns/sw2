@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.Contracts;
+    using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.AspNet.Identity;
 
@@ -13,7 +14,7 @@
 
         public UserLoginStore(Sponsorworks db, IUserStore<User, Guid> userStore)
         {
-            Contract.Requires<ArgumentNullException>(userStore!=null);
+            Contract.Requires<ArgumentNullException>(userStore != null);
             Contract.Requires<ArgumentNullException>(db != null);
             this.db = db;
             this.userStore = userStore;
@@ -21,22 +22,38 @@
 
         public Task AddLoginAsync(User user, UserLoginInfo login)
         {
-            throw new NotImplementedException();
+            return Task.Run(() =>
+            {
+                db.ExternalAccounts.InsertOnSubmit(new ExternalAccount
+                {
+                    ProviderKey = login.ProviderKey,
+                    ProviderName = login.LoginProvider,
+                    Active = true,
+                    OwnerUserId = user.Id,
+                    OwnerRoleId = (byte)user.Claims.First(c=>c.Type == "activeroleclaim" ).Value[0],
+                    ProviderOwnerRoleId = (byte)(user.Claims.First(c => c.Type == "Claimtypehere").Value[0]) //TODO: This wont work
+                });
+                db.SubmitChanges();
+            });
         }
 
         public Task<User> FindAsync(UserLoginInfo login)
         {
-            throw new NotImplementedException();
+            return FindByIdAsync(db.ExternalAccounts.Single(a => a.ProviderName == login.LoginProvider && a.ProviderKey == login.ProviderKey).OwnerUserId);
         }
 
         public Task<IList<UserLoginInfo>> GetLoginsAsync(User user)
         {
-            throw new NotImplementedException();
+            return Task.Run(() => (IList<UserLoginInfo>)db.ExternalAccounts.Where(a => a.OwnerUserId == user.Id).Select(a => new UserLoginInfo(a.ProviderName, a.ProviderKey)).ToList());
         }
 
         public Task RemoveLoginAsync(User user, UserLoginInfo login)
         {
-            throw new NotImplementedException();
+            return Task.Run(() =>
+            {
+                db.ExternalAccounts.DeleteOnSubmit((db.ExternalAccounts.Where(a => a.OwnerUserId == user.Id && a.ProviderName == login.LoginProvider && a.ProviderKey == login.ProviderKey)).Single());
+                db.SubmitChanges();
+            });
         }
 
         public Task CreateAsync(User user)

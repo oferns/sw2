@@ -120,11 +120,13 @@
     <Build Include="dbo\Tables\RoleOwnerRoles.sql" />
     <Build Include="dbo\Tables\OwnedRoles.sql" />
     <Build Include="dbo\Tables\RoleOwnerAllowedRoles.sql" />
-    <Build Include="id\Views\LocalAccounts.sql" />
     <Build Include="dbo\Tables\LocalAccountOwnerRoles.sql" />
     <Build Include="dbo\Tables\ExternalAccounts.sql" />
     <Build Include="dbo\Tables\ExternalAccountProviders.sql" />
     <Build Include="dbo\Tables\ExternalAccountOwnerRoles.sql" />
+    <Build Include="dbo\Tables\ExternalAccountProviderOwnerRoles.sql" />
+    <Build Include="dbo\Tables\ExternalAccountProviderOwners.sql" />
+    <Build Include="dbo\Tables\UserEmailAddresses.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeployment.sql" />

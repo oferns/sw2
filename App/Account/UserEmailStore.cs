@@ -2,6 +2,7 @@
 {
     using System;
     using System.Diagnostics.Contracts;
+    using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.AspNet.Identity;
 
@@ -20,27 +21,42 @@
 
         public Task<User> FindByEmailAsync(string email)
         {
-            throw new NotImplementedException();
+            return Task.Run(() => (db.UserEmailAddresses.Where(e => e.EmailAddress == email).Select(e => new User
+            {
+                Id = e.OwnerUserId,
+                UserName = e.RoleMember.User.UserName
+            })).Single());
         }
 
         public Task<string> GetEmailAsync(User user)
         {
-            throw new NotImplementedException();
+            return Task.Run(()=> (db.LocalAccounts.Where(e => e.OwnerUserId == user.Id).Select(e => e.EmailAddress)).Single());
         }
 
         public Task<bool> GetEmailConfirmedAsync(User user)
         {
-            throw new NotImplementedException();
+            return Task.Run(() => (db.LocalAccounts.Where(e => e.OwnerUserId == user.Id).Select(e => e.EmailVerified)).Single());
         }
 
         public Task SetEmailAsync(User user, string email)
         {
-            throw new NotImplementedException();
+            return Task.Run(() =>
+            {
+                var localAccount = (from a in db.LocalAccounts where a.OwnerUserId == user.Id select a).Single();
+                localAccount.EmailAddress = email;
+                localAccount.EmailVerified = false;
+                db.SubmitChanges();
+            });
         }
 
         public Task SetEmailConfirmedAsync(User user, bool confirmed)
         {
-            throw new NotImplementedException();
+            return Task.Run(() =>
+            {
+                var localAccount = (from a in db.LocalAccounts where a.OwnerUserId == user.Id select a).Single();
+                localAccount.EmailVerified = confirmed;
+                db.SubmitChanges();
+            });
         }
 
         public Task CreateAsync(User user)

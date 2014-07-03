@@ -7,7 +7,7 @@
     using System.Threading.Tasks;
     using Microsoft.AspNet.Identity;
 
-    internal class UserStore : IUserStore<User, Guid>
+    public class UserStore : IUserStore<User, Guid>
     {
         private readonly Sponsorworks db;
 

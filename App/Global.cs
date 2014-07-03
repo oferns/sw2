@@ -40,6 +40,7 @@
             // ...register the Linq2Sql database regardless, with logging if we found a listener
             Container.Register(() => new Sponsorworks(ConfigurationManager.ConnectionStrings["Sponsorworks"].ConnectionString) { Log = sqlLogger == null ? null : sqlLogger.Writer });
 
+
             // Register All controllers in the Assembly
             Container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
 
