@@ -3,19 +3,20 @@
     using System.Diagnostics;
     using System.Web.Mvc;
 
-    public abstract class ThemedViewPage : WebViewPage
+    public abstract class ThemedViewPage<T> : WebViewPage<T>
+        where T : class
     {
-        public ThemeHelper Theme { get; set; }
+        public ThemeHelper<T> Theme { get; set; }
 
         public override void InitHelpers()
         {
             base.InitHelpers();
-            Theme = new ThemeHelper(ViewContext, this);
+            Theme = new ThemeHelper<T>(ViewContext, this);
         }
 
         public override void ExecutePageHierarchy()
         {
-            Global.Log.TraceData(TraceEventType.Verbose, 0, "Executing {0}" + VirtualPath);
+            Global.Log.TraceData(TraceEventType.Verbose, 0, "Something");
 
             base.ExecutePageHierarchy();
         }

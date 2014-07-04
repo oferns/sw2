@@ -1,0 +1,29 @@
+﻿@{
+    Layout = "~/_Layout.cshtml";
+}
+
+@section Head
+{
+
+    @RenderSection("Head", false)
+
+}
+
+@section Header
+{
+    <h2>This is the Companies Layout Header</h2>
+    @RenderSection("Header", false)
+
+}
+
+
+
+
+<h2>This is the Companies Layout page</h2>
+
+@RenderBody()
+
+@section JavaScript{
+    @RenderSection("JavaScript", false)
+
+}

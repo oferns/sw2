@@ -17,7 +17,6 @@
         [HttpGet]
         public ActionResult Index()
         {
-            throw new Exception("An error has been thrownSS");
             return View();
         }
     }

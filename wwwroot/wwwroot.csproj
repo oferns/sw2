@@ -257,19 +257,17 @@
     <Content Include="Content\font\fontawesome-webfont.ttf" />
     <Content Include="Content\font\fontawesome-webfont.woff" />
     <Content Include="Content\font\FontAwesome.otf" />
-    <Content Include="Admin\Web.config">
+    <Content Include="aAdmin\Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Companies\Web.config" />
-    <Content Include="Guests\Web.config" />
-    <Content Include="Companies\Home\Web.config" />
-    <Content Include="Admin\Home\Web.config" />
-    <Content Include="Resellers\Web.config" />
-    <Content Include="Resellers\Home\Web.config" />
-    <Content Include="Guests\Home\Web.config" />
-    <Content Include="Admin\_Layout.cshtml" />
-    <Content Include="Admin\Home\Index.cshtml" />
-    <Content Include="Guests\_Layout.cshtml" />
+    <Content Include="aCompanies\Web.config" />
+    <Content Include="aGuests\Web.config" />
+    <Content Include="aCompanies\cHome\Web.config" />
+    <Content Include="aAdmin\cHome\Web.config" />
+    <Content Include="aGuests\Home\Web.config" />
+    <Content Include="aAdmin\_Layout.cshtml" />
+    <Content Include="aAdmin\cHome\Index.cshtml" />
+    <Content Include="aGuests\_Layout.cshtml" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
@@ -277,26 +275,32 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Companies\_Layout.cshtml" />
-    <Content Include="Companies\Home\Index.cshtml" />
-    <Content Include="Resellers\_Layout.cshtml" />
-    <Content Include="Guests\Home\Index.cshtml" />
-    <Content Include="Resellers\Home\Index.cshtml" />
-    <Content Include="Account\ConfirmEmail.cshtml" />
-    <Content Include="Account\DisplayEmail.cshtml" />
-    <Content Include="Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Account\ForgotPassword.cshtml" />
-    <Content Include="Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Account\Login.cshtml" />
-    <Content Include="Account\Register.cshtml" />
-    <Content Include="Account\ResetPassword.cshtml" />
-    <Content Include="Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Account\SendCode.cshtml" />
-    <Content Include="Account\VerifyCode.cshtml" />
-    <Content Include="Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Account\Web.config" />
-    <Content Include="Account\_Layout.cshtml" />
+    <Content Include="aCompanies\_Layout.cshtml" />
+    <Content Include="aCompanies\cHome\Index.cshtml" />
+    <Content Include="aGuests\Home\Index.cshtml" />
+    <Content Include="cAccount\ConfirmEmail.cshtml" />
+    <Content Include="cAccount\DisplayEmail.cshtml" />
+    <Content Include="cAccount\ExternalLoginConfirmation.cshtml" />
+    <Content Include="cAccount\ExternalLoginFailure.cshtml" />
+    <Content Include="cAccount\ForgotPassword.cshtml" />
+    <Content Include="cAccount\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="cAccount\Login.cshtml" />
+    <Content Include="cAccount\Register.cshtml" />
+    <Content Include="cAccount\ResetPassword.cshtml" />
+    <Content Include="cAccount\ResetPasswordConfirmation.cshtml" />
+    <Content Include="cAccount\SendCode.cshtml" />
+    <Content Include="cAccount\VerifyCode.cshtml" />
+    <Content Include="cAccount\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="cAccount\Web.config" />
+    <Content Include="cAccount\_Layout.cshtml" />
+    <Content Include="aAdmin\cHome\_Layout.cshtml" />
+    <Content Include="aCompanies\cHome\_Layout.cshtml" />
+    <Content Include="cHome\Web.config" />
+    <Content Include="cError\Web.config" />
+    <Content Include="aResellers\cHome\Index.cshtml" />
+    <Content Include="aResellers\cHome\Web.config" />
+    <Content Include="aResellers\Web.config" />
+    <Content Include="aResellers\_Layout.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -307,17 +311,18 @@
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-2.7.2.js" />
-    <Content Include="_Layout.cshtml" />
-    <Content Include="Home\Index.cshtml" />
-    <Content Include="Error\Index.cshtml" />
-    <Content Include="Error\NotFound.cshtml" />
+    <Content Include="Shared\_Layout.cshtml" />
+    <Content Include="cHome\Index.cshtml" />
+    <Content Include="cError\Error.cshtml" />
+    <Content Include="cError\NotFound.cshtml" />
+    <Content Include="Shared\Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <Content Include="_ViewStart.cshtml" />
+    <Content Include="Shared\__ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -326,7 +331,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Code\Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -341,7 +345,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Shared\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -8,6 +8,7 @@
     using System.Web.Mvc;
     using System.Web.Routing;
     using SimpleInjector;
+    using SimpleInjector.Extensions;
     using SimpleInjector.Integration.Web.Mvc;
 
     public class Global : HttpApplication
@@ -40,9 +41,18 @@
             // ...register the Linq2Sql database regardless, with logging if we found a listener
             Container.Register(() => new Sponsorworks(ConfigurationManager.ConnectionStrings["Sponsorworks"].ConnectionString) { Log = sqlLogger == null ? null : sqlLogger.Writer });
 
-
             // Register All controllers in the Assembly
             Container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
+
+
+            // Container.Register<WebViewPage, ThemedViewPage>();
+
+            //Container.Register<WebViewPage<object>, ThemedViewPage<object>>();
+
+            //Container.RegisterOpenGeneric(
+            //        typeof(WebViewPage<>),
+            //        typeof(ThemedViewPage<>));
+
 
             // Allow filter registrations
             Container.RegisterMvcIntegratedFilterProvider();
@@ -61,6 +71,25 @@
 
             // Register all the MVC Areas in this assembly. Do this after ignores and before the default route
             AreaRegistration.RegisterAllAreas();
+
+            // Try and map the Account route
+            //try
+            //{
+            //    Log.TraceInformation("Attempting to map the Account Default Route");
+            //    RouteTable.Routes.MapRoute(
+            //                               name: "AccountDefault",
+            //                               url: "Account/{action}/{id}",
+            //                               defaults: new { area = string.Empty, controller = "Account", action = "Login", id = UrlParameter.Optional },
+            //                               namespaces: new[] { "App" }
+            //        );
+            //}
+            //// It's already been mapped...
+            //catch (ArgumentException)
+            //{
+            //    Log.TraceInformation("Default Route mapping skipped. Already mapped by the host application");
+            //}
+
+
 
             // Try and map the default route
             try
@@ -100,8 +129,13 @@
             // Clear the Error
             Server.ClearError();
 
+            //if(exception is )
+
             // Set the status code. If its an HttpError then use the Error Code else its our code throwing exceptions, so 500.
             int statusCode = exception.GetType() == typeof(HttpException) ? ((HttpException)exception).GetHttpCode() : 500;
+
+            // Set the action. If a method is not found on a controller then the status code will be 404 but there will still be an excepion object
+            var action = statusCode == 404 ? "NotFound" : "Error";
 
             // Create a context wrapper for the ErrorController
             var contextWrapper = new HttpContextWrapper(Context);
@@ -111,7 +145,7 @@
 
             // Add some route values for the controller
             routeData.Values.Add("controller", "Error");
-            routeData.Values.Add("action", "Index");
+            routeData.Values.Add("action", action);
             routeData.Values.Add("exception", exception);
             routeData.Values.Add("isAjaxRequet", contextWrapper.Request.IsAjaxRequest());
 

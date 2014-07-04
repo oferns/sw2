@@ -202,7 +202,9 @@
     <Compile Include="Resellers\HomeController.cs" />
     <Compile Include="Sponsorworks.cs" />
     <Compile Include="ThemedViewPage.cs" />
+    <Compile Include="ThemedViewPage`1.cs" />
     <Compile Include="ThemeHelper.cs" />
+    <Compile Include="ThemeHelper`1.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

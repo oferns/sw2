@@ -14,11 +14,18 @@
     {
         internal static TraceSource Log = new TraceSource(Assembly.GetExecutingAssembly().GetName().Name);
 
+        /// <summary>
+        /// This method is called by OWIN. OWIN deals with the authentication on the site
+        /// It is called by way of an assembly attribute in this project's properties/AssemblyInfo.cs
+        /// [assembly: OwinStartup(typeof(Initializer), "Configuration")]
+        /// </summary>
+        /// <param name="app">app</param>
         public static void Configuration(IAppBuilder app)
         {
             // If we have a listener for the Linq2Sql SQL Log....
-            var sqlLogger = Log.Listeners["SqlWriter"] as TextWriterTraceListener;
-
+            var sqlLogger = Trace.Listeners["SqlWriter"] as TextWriterTraceListener;
+            
+            // This is like DI for Authentication. The Account Controller recieves these.
             app.CreatePerOwinContext(() => new Sponsorworks(ConfigurationManager.ConnectionStrings["Sponsorworks"].ConnectionString) { Log = sqlLogger == null ? null : sqlLogger.Writer });
             app.CreatePerOwinContext<UserStore>(((options, context) => new UserStore(context.Get<Sponsorworks>())));
             app.CreatePerOwinContext<UserManager>(((options, context) => new UserManager(context.Get<UserStore>())));
@@ -26,6 +33,12 @@
 
         }
         
+        /// <summary>
+        /// This method is called before any of the code in the main assembly (App).
+        /// Before Init, Application_Start etc
+        /// It is called by way of an assembly attribute in this project's properties/AssemblyInfo.cs 
+        /// [assembly: PreApplicationStartMethod(typeof(Initializer), "Initialize")]
+        /// </summary>
         public static void Initialize()
         {
 
@@ -36,12 +49,12 @@
             ViewEngines.Engines.Add(new RazorViewEngine
             {   
                 // Look in ControllerName/, then / for a layout view 
-                AreaMasterLocationFormats = new[] { "~/{2}/{1}/{0}.cshtml", "~/{2}/{0}.cshtml" },
-                AreaViewLocationFormats = new[] { "~/{2}/{1}/{0}.cshtml", "~/{2}/{0}.cshtml", "~/{2}/Shared/{0}.cshtml"},
-                AreaPartialViewLocationFormats = new[] { "~/{2}/{1}/{0}.cshtml", "~/{2}/{0}.cshtml", "~/{2}/Shared/{0}.cshtml" },
-                MasterLocationFormats = new[] { "~/{1}/{0}.cshtml", "~/{0}.cshtml" },
-                ViewLocationFormats = new[] { "~/{1}/{0}.cshtml", "~/Shared/{0}.cshtml" },
-                PartialViewLocationFormats = new[] { "~/{1}/{0}.cshtml", "~/Shared/{0}.cshtml" },
+                AreaMasterLocationFormats = new[] { "~/a{2}/c{1}/{0}.cshtml", "~/a{2}/{0}.cshtml" },
+                AreaViewLocationFormats = new[] { "~/a{2}/c{1}/{0}.cshtml", "~/a{2}/{0}.cshtml", "~/a{2}/Shared/{0}.cshtml" },
+                AreaPartialViewLocationFormats = new[] { "~/a{2}/c{1}/{0}.cshtml", "~/a{2}/{0}.cshtml", "~/a{2}/Shared/{0}.cshtml" },
+                MasterLocationFormats = new[] { "~/c{1}/{0}.cshtml", "~/Shared/{0}.cshtml" },
+                ViewLocationFormats = new[] { "~/c{1}/{0}.cshtml", "~/Shared/{0}.cshtml" },
+                PartialViewLocationFormats = new[] { "~/c{1}/{0}.cshtml", "~/Shared/{0}.cshtml" },
                 FileExtensions =new [] {"cshtml"}
             });
 

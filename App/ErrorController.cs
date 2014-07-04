@@ -9,7 +9,7 @@
     {
         // Allow both allowed messages for errors on GET and POST
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
-        public ActionResult Index(Exception exception, bool isAjaxRequet)
+        public ActionResult Error(Exception exception, bool isAjaxRequet)
         {
             // If it's not an AJAX request that triggered this action then just retun the view
             if (!isAjaxRequet)
@@ -23,7 +23,7 @@
         }
 
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
-        public ActionResult NotFound()
+        public ActionResult NotFound(bool? isAjaxRequest, Exception exception)    
         {
 
             return View();

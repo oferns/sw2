@@ -5,7 +5,7 @@
     using System.Web.Mvc;
     using System.Web.Routing;
 
-    public class ThemeHelper
+    public class ThemeHelper<T> where T : class
     {
         public ThemeHelper(ViewContext viewContext,
             IViewDataContainer viewDataContainer)
@@ -19,10 +19,10 @@
         {
             Contract.Requires<ArgumentNullException>(viewDataContainer != null, "viewDataContainer");
             ViewContext = viewContext;
-            ViewData = new ViewDataDictionary(viewDataContainer.ViewData);
+            ViewData = new ViewDataDictionary<T>(viewDataContainer.ViewData);
         }
 
-        public ViewDataDictionary ViewData { get; private set; }
+        public ViewDataDictionary<T> ViewData { get; private set; }
         public ViewContext ViewContext { get; private set; }
     }
 }

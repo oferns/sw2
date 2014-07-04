@@ -1,0 +1,23 @@
+﻿@{
+    Layout = "~/_Layout.cshtml";
+}
+
+@section Head{
+    @RenderSection("Head", false)    
+}
+
+@section Header
+{
+    <h2>This is the Account Layout Header</h2>
+    @RenderSection("Header", false)
+
+}
+
+<h3>This is the Account Layout Title</h3>
+
+@RenderBody()
+
+@section JavaScript
+{
+    @RenderSection("JavaScript", false)
+}
