@@ -1,4 +1,4 @@
-﻿namespace App.Account
+﻿namespace App.Auth
 {
     using System;
     using System.Data.Linq;
@@ -7,7 +7,7 @@
     using System.Threading.Tasks;
     using Microsoft.AspNet.Identity;
 
-    internal class RoleStore : IRoleStore<Role, UInt16>
+    public sealed class RoleStore : IRoleStore<Role, UInt16>
     {
         private readonly Sponsorworks db;
 

@@ -6,7 +6,7 @@
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
-    using App.Account;
+    using App.Auth;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
@@ -14,30 +14,20 @@
     [Authorize]
     public sealed class AccountController : Controller
     {
-        private UserManager userManager;
-        private SignInManager signInManager;
-
-        public UserManager UserManager
+       
+        internal UserManager UserManager
         {
             get
             {
-                return userManager ?? HttpContext.GetOwinContext().GetUserManager<UserManager>();
-            }
-            private set
-            {
-                userManager = value;
+                return HttpContext.GetOwinContext().GetUserManager<UserManager>();
             }
         }
 
-        public SignInManager SignInManager
+        internal SignInManager SignInManager
         {
             get
             {
-                return signInManager ?? HttpContext.GetOwinContext().Get<SignInManager>();
-            }
-            private set
-            {
-                signInManager = value;
+                return HttpContext.GetOwinContext().Get<SignInManager>();
             }
         }
 
@@ -64,7 +54,7 @@
 
             // This doen't count login failures towards lockout only two factor authentication
             // To enable password failures to trigger lockout, change to shouldLockout: true
-            SignInStatus result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            SignInStatus result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -86,14 +76,14 @@
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl)
         {
             // Require that the user has already logged in via username/password or external login
-            if (!await signInManager.HasBeenVerifiedAsync())
+            if (!await SignInManager.HasBeenVerifiedAsync())
             {
                 return View("Error");
             }
-            Account.User user = await userManager.FindByIdAsync(await signInManager.GetVerifiedUserIdAsync());
+            Id_User user = await UserManager.FindByIdAsync(await SignInManager.GetVerifiedUserIdAsync());
             if (user != null)
             {
-                ViewBag.Status = "For DEMO purposes the current " + provider + " code is: " + await userManager.GenerateTwoFactorTokenAsync(user.Id, provider);
+                ViewBag.Status = "For DEMO purposes the current " + provider + " code is: " + await UserManager.GenerateTwoFactorTokenAsync(user.Id, provider);
             }
             return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl });
         }
@@ -110,7 +100,7 @@
                 return View(model);
             }
 
-            SignInStatus result = await signInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: false, rememberBrowser: model.RememberBrowser);
+            SignInStatus result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: false, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -141,13 +131,13 @@
         {
             if (ModelState.IsValid)
             {
-                var user = new Account.User { UserName = model.Email, EmailAddress = model.Email };
-                IdentityResult result = await userManager.CreateAsync(user, model.Password);
+                var user = new Id_User { UserName = model.Email, EmailAddress = model.Email, Active = true, RoleId = 1};
+                IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    string code = await userManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     string callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await userManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
                     ViewBag.Link = callbackUrl;
                     return View("DisplayEmail");
                 }
@@ -167,7 +157,7 @@
             {
                 return View("Error");
             }
-            IdentityResult result = await userManager.ConfirmEmailAsync(userId, code);
+            IdentityResult result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
@@ -188,16 +178,16 @@
         {
             if (ModelState.IsValid)
             {
-                Account.User user = await userManager.FindByNameAsync(model.Email);
-                if (user == null || !(await userManager.IsEmailConfirmedAsync(user.Id)))
+                Id_User user = await UserManager.FindByNameAsync(model.Email);
+                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
                 }
 
-                string code = await userManager.GeneratePasswordResetTokenAsync(user.Id);
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 string callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                await userManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking here: <a href=\"" + callbackUrl + "\">link</a>");
+                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking here: <a href=\"" + callbackUrl + "\">link</a>");
                 ViewBag.Link = callbackUrl;
                 return View("ForgotPasswordConfirmation");
             }
@@ -233,13 +223,13 @@
             {
                 return View(model);
             }
-            Account.User user = await userManager.FindByNameAsync(model.Email);
+            Id_User user = await UserManager.FindByNameAsync(model.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
-            IdentityResult result = await userManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            IdentityResult result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
@@ -272,12 +262,12 @@
         [AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl)
         {
-            Guid userId = await signInManager.GetVerifiedUserIdAsync();
+            Guid userId = await SignInManager.GetVerifiedUserIdAsync();
             if (userId == null)
             {
                 return View("Error");
             }
-            IList<string> userFactors = await userManager.GetValidTwoFactorProvidersAsync(userId);
+            IList<string> userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);
             List<SelectListItem> factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
             return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl });
         }
@@ -295,7 +285,7 @@
             }
 
             // Generate the token and send it
-            if (!await signInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
+            if (!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
             {
                 return View("Error");
             }
@@ -314,7 +304,7 @@
             }
 
             // Sign in the user with this external login provider if the user already has a login
-            SignInStatus result = await signInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+            SignInStatus result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -352,14 +342,14 @@
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new Account.User { UserName = model.Email, EmailAddress = model.Email };
-                IdentityResult result = await userManager.CreateAsync(user);
+                var user = new Id_User { UserName = model.Email, EmailAddress = model.Email, RoleId = 4 };
+                IdentityResult result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
-                    result = await userManager.AddLoginAsync(user.Id, info.Login);
+                    result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
-                        await signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         return RedirectToLocal(returnUrl);
                     }
                 }

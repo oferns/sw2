@@ -1,18 +1,25 @@
 ﻿namespace wwwroot.Initialize
 {
+    using System;
     using System.Configuration;
     using System.Diagnostics;
-    using System.Reflection;
+    using System.Globalization;
     using System.Web.Mvc;
     using System.Web.Optimization;
     using App;
-    using App.Account;
-    using Owin;
+    using App.Auth;
+    using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin;
+    using Microsoft.Owin.Security.Cookies;
+    using Microsoft.Owin.Security.Google;
+    using Owin;
 
     public class Initializer
     {
-        internal static TraceSource Log = new TraceSource(Assembly.GetExecutingAssembly().GetName().Name);
+        internal static TraceSource Log = new TraceSource("App");
+
+        internal static TraceSource SqlLog = new TraceSource("App.Sql");
 
         /// <summary>
         /// This method is called by OWIN. OWIN deals with the authentication on the site
@@ -22,17 +29,43 @@
         /// <param name="app">app</param>
         public static void Configuration(IAppBuilder app)
         {
-            // If we have a listener for the Linq2Sql SQL Log....
-            var sqlLogger = Trace.Listeners["SqlWriter"] as TextWriterTraceListener;
-            
             // This is like DI for Authentication. The Account Controller recieves these.
-            app.CreatePerOwinContext(() => new Sponsorworks(ConfigurationManager.ConnectionStrings["Sponsorworks"].ConnectionString) { Log = sqlLogger == null ? null : sqlLogger.Writer });
+            app.CreatePerOwinContext(() => new Sponsorworks(ConfigurationManager.ConnectionStrings["Sponsorworks"].ConnectionString) { Log = new ActionTextWriter(sql => SqlLog.TraceData(TraceEventType.Verbose, 0, sql)) });
             app.CreatePerOwinContext<UserStore>(((options, context) => new UserStore(context.Get<Sponsorworks>())));
-            app.CreatePerOwinContext<UserManager>(((options, context) => new UserManager(context.Get<UserStore>())));
+            app.CreatePerOwinContext<RoleStore>(((options, context) => new RoleStore(context.Get<Sponsorworks>())));
+            app.CreatePerOwinContext<UserManager>(UserManager.Create);
+            app.CreatePerOwinContext<RoleManager>(((options, context) => new RoleManager(context.Get<RoleStore>())));
             app.CreatePerOwinContext<SignInManager>(((options, context) => new SignInManager(context.Get<UserManager>(), context.Authentication)));
 
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                LoginPath = new PathString("/Account/Login"),
+                Provider = new CookieAuthenticationProvider
+                {
+                    OnResponseSignIn = context => Log.TraceData(TraceEventType.Verbose, 0, string.Format(CultureInfo.InvariantCulture, "{0} logged in with {1}", context.Identity.Name, context.AuthenticationType)),
+                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<UserManager, Id_User, Guid>(
+                                                                                                               TimeSpan.FromMinutes(30),
+                                                                                                               (manager, user) => manager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie),
+                                                                                                               identity => Guid.Parse(identity.GetUserId()))
+                                                                                                               
+                },
+                CookieHttpOnly = true,
+                CookieSecure = CookieSecureOption.Always,
+                CookieName = "SWORKS",
+                // AuthenticationMode = AuthenticationMode.Active
+            });
+
+            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "554345000289-9b419bpr83t0tkrp6h1hqir30ipc57uv.apps.googleusercontent.com",
+                ClientSecret = "AK9FnPGBQXqiixA_8_5RJpgE"
+            });
+
         }
-        
+
         /// <summary>
         /// This method is called before any of the code in the main assembly (App).
         /// Before Init, Application_Start etc
@@ -41,13 +74,12 @@
         /// </summary>
         public static void Initialize()
         {
-
             // Lets get rid of view engines we are not using
             ViewEngines.Engines.Clear();
 
             // and add the one we want
             ViewEngines.Engines.Add(new RazorViewEngine
-            {   
+            {
                 // Look in ControllerName/, then / for a layout view 
                 AreaMasterLocationFormats = new[] { "~/a{2}/c{1}/{0}.cshtml", "~/a{2}/{0}.cshtml" },
                 AreaViewLocationFormats = new[] { "~/a{2}/c{1}/{0}.cshtml", "~/a{2}/{0}.cshtml", "~/a{2}/Shared/{0}.cshtml" },
@@ -55,11 +87,12 @@
                 MasterLocationFormats = new[] { "~/c{1}/{0}.cshtml", "~/Shared/{0}.cshtml" },
                 ViewLocationFormats = new[] { "~/c{1}/{0}.cshtml", "~/Shared/{0}.cshtml" },
                 PartialViewLocationFormats = new[] { "~/c{1}/{0}.cshtml", "~/Shared/{0}.cshtml" },
-                FileExtensions =new [] {"cshtml"}
+                FileExtensions = new[] { "cshtml" }
             });
 
             // Enforce HTTPS everywhere
             GlobalFilters.Filters.Add(new RequireHttpsAttribute());
+            GlobalFilters.Filters.Add(new AuthorizeAttribute());
 
             BundleTable.Bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                                                                                  "~/Scripts/jquery-{version}.js"));

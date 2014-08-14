@@ -1,4 +1,4 @@
-﻿namespace App.Account
+﻿namespace App.Auth
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -76,7 +76,7 @@
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [System.Web.Mvc.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -95,7 +95,7 @@
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [System.Web.Mvc.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }

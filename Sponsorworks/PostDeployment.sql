@@ -36,15 +36,18 @@ INSERT [dbo].[RoleRelationships] ([RoleId], [PartnerRoleId]) VALUES (5, 6)
 
 /* Add roles to the restriction tables. Only users in these roles will be able to be added to the relevant tables */ 
 INSERT [dbo].[DomainOwnerRoles] ([RoleId]) VALUES (1) --  sysadmin - Restricts who can own a Domain
+INSERT [dbo].[DomainOwnerRoles] ([RoleId]) VALUES (2) --  reseller - Restricts who can own a Domain
+INSERT [dbo].[DomainOwnerRoles] ([RoleId]) VALUES (5) --  company - Restricts who can own a Domain
+
 INSERT [dbo].[DivisionOwnerRoles] ([RoleId]) VALUES (2) -- reseller - Restricts who can own a Division
 INSERT [dbo].[DivisionOwnerRoles] ([RoleId]) VALUES (5) -- company - Restricts who can own a Division
 INSERT [dbo].[DivisionMemberRoles] ([RoleId]) VALUES (3) -- admin - Restricts who can be a Division Member
 INSERT [dbo].[DivisionMemberRoles] ([RoleId]) VALUES (6) -- user - Restricts who can be a Division Member
 INSERT [dbo].[TicketRequestorRoles] ([RoleId]) VALUES (3) -- admin - Restricts who can be a request Tickets
 INSERT [dbo].[TicketRequestorRoles] ([RoleId]) VALUES (6) -- user - Restricts who can be a request Tickets
-INSERT [dbo].[LocalAccountOwnerRoles] ([RoleId]) VALUES (1) -- sysadmin - Restricts who can have a local account to login with
-INSERT [dbo].[LocalAccountOwnerRoles] ([RoleId]) VALUES (3) -- admin - Restricts who can have a local account to login with
-INSERT [dbo].[LocalAccountOwnerRoles] ([RoleId]) VALUES (6) -- user - Restricts who can have a local account to login with
+INSERT [dbo].[AccountOwnerRoles] ([RoleId]) VALUES (1) -- sysadmin - Restricts who can have a local account to login with
+INSERT [dbo].[AccountOwnerRoles] ([RoleId]) VALUES (3) -- admin - Restricts who can have a local account to login with
+INSERT [dbo].[AccountOwnerRoles] ([RoleId]) VALUES (6) -- user - Restricts who can have a local account to login with
 INSERT [dbo].[ExternalAccountOwnerRoles] ([RoleId], [Active]) VALUES (3,1) -- admin - Restricts who can have a External account to login with
 INSERT [dbo].[ExternalAccountOwnerRoles] ([RoleId], [Active]) VALUES (4,1) -- guest - Restricts who can have a External account to login with
 INSERT [dbo].[ExternalAccountOwnerRoles] ([RoleId], [Active]) VALUES (6,1) -- user - Restricts who can have a External account to login with
@@ -77,7 +80,7 @@ INSERT [dbo].[RoleOwnerAllowedRoles] VALUES (6,5) --  Companies can create guest
 
 /* Set up some users. and their roles and their  children*/
 /* sysadmins 1 */
-INSERT [dbo].[Users] ([Id], [UserName], [Active]) VALUES (N'f50613a5-f898-4825-96a1-889655f651b8', N'Ollie Ferns', 1)
+INSERT [dbo].[Users] ([Id], [UserName], [Active]) VALUES (N'f50613a5-f898-4825-96a1-889655f651b8', N'Sysadmin', 1)
 INSERT [dbo].[RoleMembers] ([RoleId], [UserId], [Active]) VALUES (1, N'f50613a5-f898-4825-96a1-889655f651b8', 1) 
 
 /* resellers 2 */
@@ -87,14 +90,14 @@ INSERT [dbo].[RoleMembers] ([RoleId], [UserId], [Active]) VALUES (2, N'5d415835-
 /* admins  3*/
 INSERT [dbo].[Users] ([Id], [UserName], [Active]) VALUES (N'ce82f51a-7c53-490b-9d40-317aec1c9f35', N'Brian Murphy', 1)
 INSERT [dbo].[RoleMembers] ([RoleId], [UserId], [Active]) VALUES (3, N'ce82f51a-7c53-490b-9d40-317aec1c9f35', 1) 
-INSERT [dbo].[UserRelationships] ([RoleId], [UserId], [PartnerRoleId], [PartnerUserId]) 
-	VALUES (2, N'5d415835-a304-45ae-b979-5f0eca28d261', 3, N'ce82f51a-7c53-490b-9d40-317aec1c9f35')
+INSERT [dbo].[UserRelationships] ([RoleId], [UserId], [PartnerRoleId], [PartnerUserId], [Active]) 
+	VALUES (2, N'5d415835-a304-45ae-b979-5f0eca28d261', 3, N'ce82f51a-7c53-490b-9d40-317aec1c9f35',1)
 
 /* Users 6 */
 INSERT [dbo].[Users] ([Id], [UserName], [Active]) VALUES (N'6F071C0F-9214-4AD8-9284-A7937F2BD2CE', N'Tom Simpson', 1)
 INSERT [dbo].[RoleMembers] ([RoleId], [UserId], [Active]) VALUES (6, N'6F071C0F-9214-4AD8-9284-A7937F2BD2CE', 1) 
-INSERT [dbo].[UserRelationships] ([RoleId], [UserId], [PartnerRoleId], [PartnerUserId]) 
-	VALUES (2, N'5d415835-a304-45ae-b979-5f0eca28d261', 6, N'6F071C0F-9214-4AD8-9284-A7937F2BD2CE')
+INSERT [dbo].[UserRelationships] ([RoleId], [UserId], [PartnerRoleId], [PartnerUserId], [Active]) 
+	VALUES (2, N'5d415835-a304-45ae-b979-5f0eca28d261', 6, N'6F071C0F-9214-4AD8-9284-A7937F2BD2CE',1)
 
 /* 9F4E742A-F8B0-4B99-A2A5-B239E3DF3DB5 Another Reseller */
 INSERT [dbo].[Users] ([Id], [UserName], [Active]) VALUES (N'9F4E742A-F8B0-4B99-A2A5-B239E3DF3DB5', N'Another Reseller', 1)
@@ -103,15 +106,15 @@ INSERT [dbo].[RoleMembers] ([RoleId], [UserId], [Active]) VALUES (2, N'9F4E742A-
 /* admins  3*/
 INSERT [dbo].[Users] ([Id], [UserName], [Active]) VALUES (N'B54A953F-C690-48DE-80D0-1027B3E476CF', N'Micheal Bradbury', 1)
 INSERT [dbo].[RoleMembers] ([RoleId], [UserId], [Active]) VALUES (3, N'B54A953F-C690-48DE-80D0-1027B3E476CF', 1) 
-INSERT [dbo].[UserRelationships] ([RoleId], [UserId], [PartnerRoleId], [PartnerUserId]) 
-	VALUES (2, N'9F4E742A-F8B0-4B99-A2A5-B239E3DF3DB5', 3, N'B54A953F-C690-48DE-80D0-1027B3E476CF')
+INSERT [dbo].[UserRelationships] ([RoleId], [UserId], [PartnerRoleId], [PartnerUserId], [Active])  
+	VALUES (2, N'9F4E742A-F8B0-4B99-A2A5-B239E3DF3DB5', 3, N'B54A953F-C690-48DE-80D0-1027B3E476CF',1)
 
 
 /* Users 6 */
 INSERT [dbo].[Users] ([Id], [UserName], [Active]) VALUES (N'92EBEC9B-A5BC-4920-8478-A326877D8E8B', N'Mauroune Fellani', 1)
 INSERT [dbo].[RoleMembers] ([RoleId], [UserId], [Active]) VALUES (6, N'92EBEC9B-A5BC-4920-8478-A326877D8E8B', 1) 
-INSERT [dbo].[UserRelationships] ([RoleId], [UserId], [PartnerRoleId], [PartnerUserId]) 
-	VALUES (2, N'9F4E742A-F8B0-4B99-A2A5-B239E3DF3DB5', 6, N'92EBEC9B-A5BC-4920-8478-A326877D8E8B')
+INSERT [dbo].[UserRelationships] ([RoleId], [UserId], [PartnerRoleId], [PartnerUserId], [Active])  
+	VALUES (2, N'9F4E742A-F8B0-4B99-A2A5-B239E3DF3DB5', 6, N'92EBEC9B-A5BC-4920-8478-A326877D8E8B',1)
 
 
 /* companies 5 */
@@ -122,14 +125,14 @@ INSERT [dbo].[RoleMembers] ([RoleId], [UserId], [Active]) VALUES (5, N'6ece2d4b-
 /* admins */
 INSERT [dbo].[Users] ([Id], [UserName], [Active]) VALUES (N'6CF68DE6-9321-4817-9F9A-236ABD203F47', N'Romelu Lukaku', 1)
 INSERT [dbo].[RoleMembers] ([RoleId], [UserId], [Active]) VALUES (3, N'6CF68DE6-9321-4817-9F9A-236ABD203F47', 1) 
-INSERT [dbo].[UserRelationships] ([RoleId], [UserId], [PartnerRoleId], [PartnerUserId]) 
-	VALUES (5, N'6ece2d4b-508c-47c6-847f-fe355608a452', 3, N'6CF68DE6-9321-4817-9F9A-236ABD203F47')
+INSERT [dbo].[UserRelationships] ([RoleId], [UserId], [PartnerRoleId], [PartnerUserId], [Active])  
+	VALUES (5, N'6ece2d4b-508c-47c6-847f-fe355608a452', 3, N'6CF68DE6-9321-4817-9F9A-236ABD203F47',1)
 
 /* Users 6 */
 INSERT [dbo].[Users] ([Id], [UserName], [Active]) VALUES (N'AC40F01E-4CE2-4124-B676-11261C3970D6', N'Eden Hazard', 1)
 INSERT [dbo].[RoleMembers] ([RoleId], [UserId], [Active]) VALUES (6, N'AC40F01E-4CE2-4124-B676-11261C3970D6', 1) 
-INSERT [dbo].[UserRelationships] ([RoleId], [UserId], [PartnerRoleId], [PartnerUserId]) 
-	VALUES (5, N'6ece2d4b-508c-47c6-847f-fe355608a452', 6, N'AC40F01E-4CE2-4124-B676-11261C3970D6')
+INSERT [dbo].[UserRelationships] ([RoleId], [UserId], [PartnerRoleId], [PartnerUserId], [Active])  
+	VALUES (5, N'6ece2d4b-508c-47c6-847f-fe355608a452', 6, N'AC40F01E-4CE2-4124-B676-11261C3970D6',1)
 
 
 /* 5d415835-a304-45ae-b979-5f0eca28d261', N'Synergy */
@@ -139,14 +142,14 @@ INSERT [dbo].[RoleMembers] ([RoleId], [UserId], [Active]) VALUES (5, N'5d415835-
 /* admins */
 INSERT [dbo].[Users] ([Id], [UserName], [Active]) VALUES (N'E860B6EE-89B0-44A2-BCD3-0C4BEF5FBADD', N'Claire Conner', 1)
 INSERT [dbo].[RoleMembers] ([RoleId], [UserId], [Active]) VALUES (3, N'E860B6EE-89B0-44A2-BCD3-0C4BEF5FBADD', 1) 
-INSERT [dbo].[UserRelationships] ([RoleId], [UserId], [PartnerRoleId], [PartnerUserId]) 
-	VALUES (5, N'5d415835-a304-45ae-b979-5f0eca28d261', 3, N'E860B6EE-89B0-44A2-BCD3-0C4BEF5FBADD')
+INSERT [dbo].[UserRelationships] ([RoleId], [UserId], [PartnerRoleId], [PartnerUserId], [Active]) 
+	VALUES (5, N'5d415835-a304-45ae-b979-5f0eca28d261', 3, N'E860B6EE-89B0-44A2-BCD3-0C4BEF5FBADD',1)
 
 /* Users 6 */
 INSERT [dbo].[Users] ([Id], [UserName], [Active]) VALUES (N'4345E42B-34AF-4BB5-A5EE-1D7E4AACD507', N'Susan Taylor', 1)
 INSERT [dbo].[RoleMembers] ([RoleId], [UserId], [Active]) VALUES (6, N'4345E42B-34AF-4BB5-A5EE-1D7E4AACD507', 1) 
-INSERT [dbo].[UserRelationships] ([RoleId], [UserId], [PartnerRoleId], [PartnerUserId]) 
-	VALUES (5, N'5d415835-a304-45ae-b979-5f0eca28d261', 6, N'4345E42B-34AF-4BB5-A5EE-1D7E4AACD507')
+INSERT [dbo].[UserRelationships] ([RoleId], [UserId], [PartnerRoleId], [PartnerUserId], [Active]) 
+	VALUES (5, N'5d415835-a304-45ae-b979-5f0eca28d261', 6, N'4345E42B-34AF-4BB5-A5EE-1D7E4AACD507',1)
 
 
 /*	24D14D4E-DEA4-4ED3-A30A-412DFBDF854D', N'Liverpool FC */
@@ -156,14 +159,14 @@ INSERT [dbo].[RoleMembers] ([RoleId], [UserId], [Active]) VALUES (5, N'24D14D4E-
 /* admins */
 INSERT [dbo].[Users] ([Id], [UserName], [Active]) VALUES (N'09F4F1C0-0F15-4C6C-8C4E-31A6C6B628A8', N'Si Yun-ki', 1)
 INSERT [dbo].[RoleMembers] ([RoleId], [UserId], [Active]) VALUES (3, N'09F4F1C0-0F15-4C6C-8C4E-31A6C6B628A8', 1) 
-INSERT [dbo].[UserRelationships] ([RoleId], [UserId], [PartnerRoleId], [PartnerUserId]) 
-	VALUES (5, N'24D14D4E-DEA4-4ED3-A30A-412DFBDF854D', 3, N'09F4F1C0-0F15-4C6C-8C4E-31A6C6B628A8')
+INSERT [dbo].[UserRelationships] ([RoleId], [UserId], [PartnerRoleId], [PartnerUserId], [Active])  
+	VALUES (5, N'24D14D4E-DEA4-4ED3-A30A-412DFBDF854D', 3, N'09F4F1C0-0F15-4C6C-8C4E-31A6C6B628A8',1)
 
 /* Users 6 */
 INSERT [dbo].[Users] ([Id], [UserName], [Active]) VALUES (N'36B0BEFA-E494-4528-BEC9-A0B5F5EFE874', N'Ben Price', 1)
 INSERT [dbo].[RoleMembers] ([RoleId], [UserId], [Active]) VALUES (6, N'36B0BEFA-E494-4528-BEC9-A0B5F5EFE874', 1) 
-INSERT [dbo].[UserRelationships] ([RoleId], [UserId], [PartnerRoleId], [PartnerUserId]) 
-	VALUES (5, N'24D14D4E-DEA4-4ED3-A30A-412DFBDF854D', 6, N'36B0BEFA-E494-4528-BEC9-A0B5F5EFE874')
+INSERT [dbo].[UserRelationships] ([RoleId], [UserId], [PartnerRoleId], [PartnerUserId], [Active])  
+	VALUES (5, N'24D14D4E-DEA4-4ED3-A30A-412DFBDF854D', 6, N'36B0BEFA-E494-4528-BEC9-A0B5F5EFE874',1)
 
 /* BD2D40AB-26F8-4CF9-9F1C-6633EFD1CEBF', N'Standard Life Investments' */
 INSERT [dbo].[Users] ([Id], [UserName], [Active]) VALUES (N'BD2D40AB-26F8-4CF9-9F1C-6633EFD1CEBF', N'Standard Life Investments', 1)
@@ -172,14 +175,14 @@ INSERT [dbo].[RoleMembers] ([RoleId], [UserId], [Active]) VALUES (5, N'BD2D40AB-
 /* admins */
 INSERT [dbo].[Users] ([Id], [UserName], [Active]) VALUES (N'9A3F1B8E-0E70-42BB-8DE7-A8D63BCD057D', N'Katy Watkin', 1)
 INSERT [dbo].[RoleMembers] ([RoleId], [UserId], [Active]) VALUES (3, N'9A3F1B8E-0E70-42BB-8DE7-A8D63BCD057D', 1) 
-INSERT [dbo].[UserRelationships] ([RoleId], [UserId], [PartnerRoleId], [PartnerUserId]) 
-	VALUES (5, N'BD2D40AB-26F8-4CF9-9F1C-6633EFD1CEBF', 3, N'9A3F1B8E-0E70-42BB-8DE7-A8D63BCD057D')
+INSERT [dbo].[UserRelationships] ([RoleId], [UserId], [PartnerRoleId], [PartnerUserId], [Active]) 
+	VALUES (5, N'BD2D40AB-26F8-4CF9-9F1C-6633EFD1CEBF', 3, N'9A3F1B8E-0E70-42BB-8DE7-A8D63BCD057D',1)
 
 /* Users 6 */
 INSERT [dbo].[Users] ([Id], [UserName], [Active]) VALUES (N'3917CA7E-C4AF-4415-8F0C-BBD7A206259D', N'Andrea Mercer', 1)
 INSERT [dbo].[RoleMembers] ([RoleId], [UserId], [Active]) VALUES (6, N'3917CA7E-C4AF-4415-8F0C-BBD7A206259D', 1) 
-INSERT [dbo].[UserRelationships] ([RoleId], [UserId], [PartnerRoleId], [PartnerUserId]) 
-	VALUES (5, N'BD2D40AB-26F8-4CF9-9F1C-6633EFD1CEBF', 6, N'3917CA7E-C4AF-4415-8F0C-BBD7A206259D')
+INSERT [dbo].[UserRelationships] ([RoleId], [UserId], [PartnerRoleId], [PartnerUserId], [Active]) 
+	VALUES (5, N'BD2D40AB-26F8-4CF9-9F1C-6633EFD1CEBF', 6, N'3917CA7E-C4AF-4415-8F0C-BBD7A206259D', 1)
 
 INSERT [dbo].[Users] ([Id], [UserName], [Active]) VALUES (N'768DF950-0EA6-40A9-AFAA-7CF1052B6669', N'Acme Ltd', 1)
 INSERT [dbo].[RoleMembers] ([RoleId], [UserId], [Active]) VALUES (5, N'768DF950-0EA6-40A9-AFAA-7CF1052B6669', 1) 
@@ -339,4 +342,10 @@ INSERT [dbo].[EventVenues] VALUES (6,5, N'5d415835-a304-45ae-b979-5f0eca28d261',
 INSERT [dbo].[EventVenues] VALUES (7,5, N'5d415835-a304-45ae-b979-5f0eca28d261',4)-- Synergy -> A one-off open-ended event
 
 
+INSERT INTO [dbo].[Tokens] VALUES (1, N'Email Verification',N'A token used for email verification')
+INSERT INTO [dbo].[Tokens] VALUES (2, N'User Verification',N'A token used for user verification')
 
+
+
+-- Create an account for a sysadmin
+INSERT [dbo].[Accounts] ([EmailAddress], [OwnerRoleId], [OwnerUserId], [PasswordHash], [EmailVerified], [SecurityStamp], [Active]) VALUES (N'test@mba.co.uk', 1, N'f50613a5-f898-4825-96a1-889655f651b8', N'AGlm5R4e666j4HqaNBq34yrae8odbpfYU7/VCKlUsm3ZF05AXICP0L/wXoIjDcQWKg==', 1, N'ded63921-378c-4254-bb75-ebabf150931a', 1)

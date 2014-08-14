@@ -142,6 +142,7 @@
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -175,19 +176,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountController.cs" />
-    <Compile Include="Account\Role.cs" />
-    <Compile Include="Account\RoleManager.cs" />
-    <Compile Include="Account\RoleStore.cs" />
-    <Compile Include="Account\SignInManager.cs" />
-    <Compile Include="Account\User.cs" />
-    <Compile Include="Account\UserEmailStore.cs" />
-    <Compile Include="Account\UserLoginStore.cs" />
-    <Compile Include="Account\UserManager.cs" />
-    <Compile Include="Account\UserPasswordStore.cs" />
-    <Compile Include="Account\UserRoleStore.cs" />
-    <Compile Include="Account\UserSecurityStampStore.cs" />
-    <Compile Include="Account\UserStore.cs" />
-    <Compile Include="Account\ViewModels.cs" />
+    <Compile Include="Auth\Role.cs" />
+    <Compile Include="Auth\RoleManager.cs" />
+    <Compile Include="Auth\RoleStore.cs" />
+    <Compile Include="Auth\SignInManager.cs" />
+    <Compile Include="Auth\UserManager.cs" />
+    <Compile Include="Auth\UserStore.cs" />
+    <Compile Include="Auth\ViewModels.cs" />
     <Compile Include="Admin\Area.cs" />
     <Compile Include="Admin\HomeController.cs" />
     <Compile Include="Companies\Area.cs" />
@@ -201,10 +196,12 @@
     <Compile Include="Resellers\Area.cs" />
     <Compile Include="Resellers\HomeController.cs" />
     <Compile Include="Sponsorworks.cs" />
+    <Compile Include="ActionTextWriter.cs" />
     <Compile Include="ThemedViewPage.cs" />
     <Compile Include="ThemedViewPage`1.cs" />
     <Compile Include="ThemeHelper.cs" />
     <Compile Include="ThemeHelper`1.cs" />
+    <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

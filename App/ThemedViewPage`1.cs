@@ -6,6 +6,7 @@
     public abstract class ThemedViewPage<T> : WebViewPage<T>
         where T : class
     {
+
         public ThemeHelper<T> Theme { get; set; }
 
         public override void InitHelpers()
@@ -16,8 +17,7 @@
 
         public override void ExecutePageHierarchy()
         {
-            Global.Log.TraceData(TraceEventType.Verbose, 0, "Something");
-
+            Global.Log.TraceData(TraceEventType.Verbose, 0, "Executing {0}" + VirtualPath);
             base.ExecutePageHierarchy();
         }
     }

@@ -8,7 +8,6 @@
     using System.Web.Mvc;
     using System.Web.Routing;
     using SimpleInjector;
-    using SimpleInjector.Extensions;
     using SimpleInjector.Integration.Web.Mvc;
 
     public class Global : HttpApplication
@@ -16,7 +15,9 @@
         /// <summary>
         /// Amazing to think this is all we need for logging....sigh!
         /// </summary>
-        internal static TraceSource Log = new TraceSource(Assembly.GetExecutingAssembly().GetName().Name);
+        internal static TraceSource Log = new TraceSource("App");
+
+        internal static TraceSource SqlLog = new TraceSource("App.Sql");
 
         /// <summary>
         /// This is the IoC container used for this instance. Remember, one instance can be used by IIS for many requests.
@@ -35,24 +36,11 @@
             // Set up the IoC Container
             Container = new Container();
 
-            // If we have a listener for the Linq2Sql SQL Log....
-            var sqlLogger = Log.Listeners["SqlWriter"] as TextWriterTraceListener;
-
-            // ...register the Linq2Sql database regardless, with logging if we found a listener
-            Container.Register(() => new Sponsorworks(ConfigurationManager.ConnectionStrings["Sponsorworks"].ConnectionString) { Log = sqlLogger == null ? null : sqlLogger.Writer });
+            // ...register the Linq2Sql database 
+            Container.Register(() => new Sponsorworks(ConfigurationManager.ConnectionStrings["Sponsorworks"].ConnectionString) { Log = new ActionTextWriter(sql => SqlLog.TraceData(TraceEventType.Verbose, 0, sql)) });
 
             // Register All controllers in the Assembly
             Container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
-
-
-            // Container.Register<WebViewPage, ThemedViewPage>();
-
-            //Container.Register<WebViewPage<object>, ThemedViewPage<object>>();
-
-            //Container.RegisterOpenGeneric(
-            //        typeof(WebViewPage<>),
-            //        typeof(ThemedViewPage<>));
-
 
             // Allow filter registrations
             Container.RegisterMvcIntegratedFilterProvider();
@@ -72,24 +60,22 @@
             // Register all the MVC Areas in this assembly. Do this after ignores and before the default route
             AreaRegistration.RegisterAllAreas();
 
-            // Try and map the Account route
-            //try
-            //{
-            //    Log.TraceInformation("Attempting to map the Account Default Route");
-            //    RouteTable.Routes.MapRoute(
-            //                               name: "AccountDefault",
-            //                               url: "Account/{action}/{id}",
-            //                               defaults: new { area = string.Empty, controller = "Account", action = "Login", id = UrlParameter.Optional },
-            //                               namespaces: new[] { "App" }
-            //        );
-            //}
-            //// It's already been mapped...
-            //catch (ArgumentException)
-            //{
-            //    Log.TraceInformation("Default Route mapping skipped. Already mapped by the host application");
-            //}
-
-
+            // Try and map the default route
+            try
+            {
+                Log.TraceInformation("Attempting to map the Account Route");
+                RouteTable.Routes.MapRoute(
+                                           name: "Account",
+                                           url: "Account/{action}",
+                                           defaults: new { area = string.Empty, controller = "Account", action = "Login" },
+                                           namespaces: new[] { "App" }
+                    );
+            }
+                // It's already been mapped...
+            catch (ArgumentException)
+            {
+                Log.TraceInformation("Account Route mapping skipped. Already mapped by the host application");
+            }
 
             // Try and map the default route
             try
@@ -102,12 +88,11 @@
                                            namespaces: new[] { "App" }
                     );
             }
-            // It's already been mapped...
+                // It's already been mapped...
             catch (ArgumentException)
             {
                 Log.TraceInformation("Default Route mapping skipped. Already mapped by the host application");
             }
-
         }
 
         /// <summary>
@@ -135,7 +120,7 @@
             int statusCode = exception.GetType() == typeof(HttpException) ? ((HttpException)exception).GetHttpCode() : 500;
 
             // Set the action. If a method is not found on a controller then the status code will be 404 but there will still be an excepion object
-            var action = statusCode == 404 ? "NotFound" : "Error";
+            string action = statusCode == 404 ? "NotFound" : "Error";
 
             // Create a context wrapper for the ErrorController
             var contextWrapper = new HttpContextWrapper(Context);

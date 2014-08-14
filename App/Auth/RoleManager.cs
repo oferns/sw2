@@ -1,4 +1,4 @@
-﻿namespace App.Account
+﻿namespace App.Auth
 {
     using System;
     using Microsoft.AspNet.Identity;

@@ -127,6 +127,16 @@
     <Build Include="dbo\Tables\ExternalAccountProviderOwnerRoles.sql" />
     <Build Include="dbo\Tables\ExternalAccountProviderOwners.sql" />
     <Build Include="dbo\Tables\UserEmailAddresses.sql" />
+    <Build Include="dbo\Tables\Tokens.sql" />
+    <Build Include="dbo\Tables\LocalAccountTokens.sql" />
+    <Build Include="id\Views\Users.sql" />
+    <Build Include="dbo\Tables\LocalAccountLockOuts.sql" />
+    <Build Include="dbo\Tables\LocalAccountLockOutOwners.sql" />
+    <Build Include="dbo\Tables\LocalAccountLockOutOwnerRoles.sql" />
+    <Build Include="dbo\Tables\TwoFactorAccounts.sql" />
+    <Build Include="dbo\Tables\TwoFactorAccountOwners.sql" />
+    <Build Include="dbo\Tables\TwoFactorAccountOwnerRoles.sql" />
+    <Build Include="dbo\Tables\AccountTwoFactorOwners.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeployment.sql" />

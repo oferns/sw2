@@ -1,0 +1,25 @@
+﻿@{
+    Layout = "~/Shared/_Layout.cshtml";
+}
+
+@section Head{
+    @RenderSection("Head", false)    
+}
+
+@section Header
+{
+    <h2>This is the Home Layout Header</h2>
+    @RenderSection("Header", false)
+
+    @Html.Partial("_LoginPartial")
+
+}
+
+<h3>This is the Home Layout Title</h3>
+
+@RenderBody()
+
+@section JavaScript
+{
+    @RenderSection("JavaScript", false)
+}
