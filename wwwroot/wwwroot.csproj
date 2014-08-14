@@ -112,6 +112,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="NWebsec.SessionSecurity">
+      <HintPath>..\packages\NWebsec.SessionSecurity.1.0.0\lib\45\NWebsec.SessionSecurity.dll</HintPath>
+    </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
@@ -263,6 +266,7 @@
     <Content Include="Content\smoothness\jquery-ui-1.8.20.custom.css" />
     <Content Include="Content\site.css" />
     <Content Include="Content\timepicker.css" />
+    <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="packages.config" />
     <Content Include="Content\font\fontawesome-webfont.eot" />
@@ -317,6 +321,9 @@
     <Content Include="cHome\_Layout.cshtml" />
     <Content Include="aResellers\cHome\_Layout.cshtml" />
     <Content Include="aGuests\cHome\_Layout.cshtml" />
+    <None Include="NWebsecConfig\SessionSecurityConfig.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />

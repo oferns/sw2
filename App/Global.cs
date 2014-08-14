@@ -51,11 +51,17 @@
             // Set the MVC Dependency resolver to the IoC Resolver
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(Container));
 
+            // So we can catch requests that match physical locations (ie /cHome) and 404 them
+            RouteTable.Routes.RouteExistingFiles = true;
+
             // Ignore resource routes
             RouteTable.Routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             // ..and browserlink
             RouteTable.Routes.IgnoreRoute("{*browserlink}", new { browserlink = @".*/arterySignalR/ping" });
+
+            // ..and favicon if its missing
+            RouteTable.Routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*/)?favicon.ico(/.*)?" });
 
             // Register all the MVC Areas in this assembly. Do this after ignores and before the default route
             AreaRegistration.RegisterAllAreas();
@@ -92,6 +98,48 @@
             catch (ArgumentException)
             {
                 Log.TraceInformation("Default Route mapping skipped. Already mapped by the host application");
+            }
+
+            // Catch-all for unmatched routes. Returns the custom 404 page
+            try
+            {
+                RouteTable.Routes.MapRoute(
+                                           "NotFound",
+                                           "{*url}",
+                                           new { controller = "Error", action = "NotFound" }
+                    );
+            }
+                // It's already been mapped...
+            catch (ArgumentException)
+            {
+                Log.TraceInformation("Catch-All Route mapping skipped. Already mapped by the host application");
+            }
+        }
+
+        /// <summary>
+        /// This code runs on every request that hits our code from IIS
+        /// Static file requests (js, css etc) should NOT hit this method
+        /// but rather should be served by IIS. If you are hitting this method 
+        /// for static requests then check the web.config in the system.webServer/modules section for
+        /// runAllManagedModulesForAllRequests. It should be false. If it is and 
+        /// you are still hitting this method then you probably have a MVC routing issue
+        /// </summary>
+        protected void Application_BeginRequest()
+        {
+            if (!Request.Path.StartsWith("/__browserLink/"))
+            {
+                Log.TraceData(TraceEventType.Verbose, 0, string.Format("Begin Request {0} from {1}", Request.RawUrl, Request.UserHostAddress));
+            }
+        }
+
+        /// <summary>
+        /// This code runs at the end of every request
+        /// </summary>
+        protected void Application_EndRequest()
+        {
+            if (!Request.Path.StartsWith("/__browserLink/"))
+            {
+                Log.TraceData(TraceEventType.Verbose, 0, string.Format("End Request {0} from {1} Result:{2} {3}", Request.RawUrl, Request.UserHostAddress, Response.StatusCode, Response.StatusDescription));
             }
         }
 

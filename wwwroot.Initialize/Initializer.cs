@@ -90,6 +90,9 @@
                 FileExtensions = new[] { "cshtml" }
             });
 
+            // Remove superflous header
+            MvcHandler.DisableMvcResponseHeader = true;
+
             // Enforce HTTPS everywhere
             GlobalFilters.Filters.Add(new RequireHttpsAttribute());
             GlobalFilters.Filters.Add(new AuthorizeAttribute());
