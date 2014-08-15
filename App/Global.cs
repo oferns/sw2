@@ -100,20 +100,20 @@
                 Log.TraceInformation("Default Route mapping skipped. Already mapped by the host application");
             }
 
-            // Catch-all for unmatched routes. Returns the custom 404 page
-            try
-            {
-                RouteTable.Routes.MapRoute(
-                                           "NotFound",
-                                           "{*url}",
-                                           new { controller = "Error", action = "NotFound" }
-                    );
-            }
-                // It's already been mapped...
-            catch (ArgumentException)
-            {
-                Log.TraceInformation("Catch-All Route mapping skipped. Already mapped by the host application");
-            }
+            //// Catch-all for unmatched routes. Returns the custom 404 page
+            //try
+            //{
+            //    RouteTable.Routes.MapRoute(
+            //                               "NotFound",
+            //                               "{*url}",
+            //                               new { controller = "Error", action = "NotFound" }
+            //        );
+            //}
+            //    // It's already been mapped...
+            //catch (ArgumentException)
+            //{
+            //    Log.TraceInformation("Catch-All Route mapping skipped. Already mapped by the host application");
+            //}
         }
 
         /// <summary>

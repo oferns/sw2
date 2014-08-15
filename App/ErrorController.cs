@@ -23,9 +23,11 @@
         }
 
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
-        public ActionResult NotFound(bool? isAjaxRequest, Exception exception)    
+        public ActionResult NotFound(bool? isAjaxRequest, Exception exception)
         {
-
+            Response.StatusCode = 404; /* TODO: OJF We have to set this here as this might be called by 
+                                        * IIS at the moment because of the httpErrors section in the web.config. We need a static HTML not found page really and get rid of this method
+                                        */
             return View();
 
             // If it's not an AJAX request that triggered this action then just retun the view
@@ -38,7 +40,5 @@
             //var errorObjet = new { message = exception.Message };
             //return Json(errorObjet, JsonRequestBehavior.AllowGet);
         }
-
-
     }
 }

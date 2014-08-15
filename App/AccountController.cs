@@ -7,6 +7,7 @@
     using System.Web;
     using System.Web.Mvc;
     using App.Auth;
+    using App.Auth.ViewModels;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
@@ -34,18 +35,26 @@
         //
         // GET: /Account/Login
         [AllowAnonymous]
+        [HttpGet]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Manage()
+        {
+            return View();
+        }
+
+
         //
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(Login model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -85,7 +94,7 @@
             {
                 ViewBag.Status = "For DEMO purposes the current " + provider + " code is: " + await UserManager.GenerateTwoFactorTokenAsync(user.Id, provider);
             }
-            return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl });
+            return View(new VerifyCode { Provider = provider, ReturnUrl = returnUrl });
         }
 
         //
@@ -93,7 +102,7 @@
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
+        public async Task<ActionResult> VerifyCode(VerifyCode model)
         {
             if (!ModelState.IsValid)
             {
@@ -127,7 +136,7 @@
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(Register model)
         {
             if (ModelState.IsValid)
             {
@@ -174,7 +183,7 @@
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        public async Task<ActionResult> ForgotPassword(ForgotPassword model)
         {
             if (ModelState.IsValid)
             {
@@ -217,7 +226,7 @@
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+        public async Task<ActionResult> ResetPassword(ResetPassword model)
         {
             if (!ModelState.IsValid)
             {
@@ -269,7 +278,7 @@
             }
             IList<string> userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);
             List<SelectListItem> factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
-            return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl });
+            return View(new SendCode { Providers = factorOptions, ReturnUrl = returnUrl });
         }
 
         //
@@ -277,7 +286,7 @@
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SendCode(SendCodeViewModel model)
+        public async Task<ActionResult> SendCode(SendCode model)
         {
             if (!ModelState.IsValid)
             {

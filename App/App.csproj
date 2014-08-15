@@ -176,15 +176,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountController.cs" />
+    <Compile Include="Auth\ViewModels\ExternalLoginConfirmation.cs" />
     <Compile Include="Auth\Role.cs" />
     <Compile Include="Auth\RoleManager.cs" />
     <Compile Include="Auth\RoleStore.cs" />
     <Compile Include="Auth\SignInManager.cs" />
     <Compile Include="Auth\UserManager.cs" />
     <Compile Include="Auth\UserStore.cs" />
-    <Compile Include="Auth\ViewModels.cs" />
     <Compile Include="Admin\Area.cs" />
     <Compile Include="Admin\HomeController.cs" />
+    <Compile Include="Auth\ViewModels\ExternalLoginList.cs" />
+    <Compile Include="Auth\ViewModels\ForgotPassword.cs" />
+    <Compile Include="Auth\ViewModels\Login.cs" />
+    <Compile Include="Auth\ViewModels\Register.cs" />
+    <Compile Include="Auth\ViewModels\ResetPassword.cs" />
+    <Compile Include="Auth\ViewModels\SendCode.cs" />
+    <Compile Include="Auth\ViewModels\VerifyCode.cs" />
     <Compile Include="Companies\Area.cs" />
     <Compile Include="Companies\HomeController.cs" />
     <Compile Include="ErrorController.cs" />

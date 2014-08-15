@@ -321,6 +321,7 @@
     <Content Include="cHome\_Layout.cshtml" />
     <Content Include="aResellers\cHome\_Layout.cshtml" />
     <Content Include="aGuests\cHome\_Layout.cshtml" />
+    <Content Include="cAccount\Manage.cshtml" />
     <None Include="NWebsecConfig\SessionSecurityConfig.xsd">
       <SubType>Designer</SubType>
     </None>

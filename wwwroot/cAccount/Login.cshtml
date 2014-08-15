@@ -1,4 +1,4 @@
-﻿@model LoginViewModel
+﻿@model Login
 
 @{
     Layout = "~/cAccount/_Layout.cshtml";
@@ -55,7 +55,7 @@
     </div>
     <div class="col-md-4">
         <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginList { ReturnUrl = ViewBag.ReturnUrl })
         </section>
     </div>
 </div>
