@@ -1,17 +1,18 @@
 ﻿namespace App
 {
+    using System.ComponentModel.Composition;
     using System.Diagnostics;
     using System.Globalization;
     using System.Web.Mvc;
 
     public abstract class ThemedViewPage : WebViewPage
     {
-        public ThemeHelper Theme { get; set; }
+        public ThemeHelper<object> Theme { get; private set; }
 
         public override void InitHelpers()
         {
             base.InitHelpers();
-            Theme = new ThemeHelper(ViewContext, this);
+            Theme = new ThemeHelper<object>(ViewContext, this);
         }
 
         public override void ExecutePageHierarchy()

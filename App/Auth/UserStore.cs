@@ -89,22 +89,31 @@
             db.Dispose();
         }
 
+        [ContractInvariantMethod]
+        private void ObjectInvariant()
+        {
+            Contract.Invariant(db != null);
+        }
+
         #endregion
 
         #region IUserPasswordStore
 
         public Task<string> GetPasswordHashAsync(Id_User user)
         {
+            Contract.Assume(user != null);
             return Task.FromResult(user.PasswordHash);
         }
 
         public Task<bool> HasPasswordAsync(Id_User user)
         {
+            Contract.Assume(user != null);
             return Task.FromResult(string.IsNullOrEmpty(user.PasswordHash));
         }
 
         public Task SetPasswordHashAsync(Id_User user, string passwordHash)
         {
+            Contract.Assume(user != null);
             return Task.FromResult((user.PasswordHash = passwordHash));
         }
 
@@ -119,11 +128,13 @@
 
         public Task<string> GetEmailAsync(Id_User user)
         {
+            Contract.Assume(user != null);
             return Task.FromResult(user.EmailAddress);
         }
 
         public Task<bool> GetEmailConfirmedAsync(Id_User user)
         {
+            Contract.Assume(user != null);
             return Task.FromResult(user.EmailVerified);
         }
 
@@ -154,11 +165,13 @@
 
         public Task<string> GetSecurityStampAsync(Id_User user)
         {
+            Contract.Assume(user != null);
             return Task.FromResult(user.SecurityStamp);
         }
 
         public Task SetSecurityStampAsync(Id_User user, string stamp)
         {
+            Contract.Assume(user != null);
             return Task.FromResult((user.SecurityStamp = stamp));
         }
 
@@ -244,16 +257,19 @@
 
         public Task<int> GetAccessFailedCountAsync(Id_User user)
         {
+            Contract.Assume(user != null);
             return Task.FromResult((int)user.FailedAccessCount);
         }
 
         public Task<bool> GetLockoutEnabledAsync(Id_User user)
         {
+            Contract.Assume(user != null);
             return Task.FromResult(user.LockoutEnabled);
         }
 
         public Task<DateTimeOffset> GetLockoutEndDateAsync(Id_User user)
         {
+            Contract.Assume(user != null);
             return
                 Task.FromResult(user.UnlockDate.HasValue
                                     ? new DateTimeOffset(DateTime.SpecifyKind(user.UnlockDate.Value, DateTimeKind.Utc))
@@ -262,6 +278,7 @@
 
         public Task<int> IncrementAccessFailedCountAsync(Id_User user)
         {
+            Contract.Assume(user != null);
             return Task.Run(() =>
             {
                 AccountLockOut lockOut = db.AccountLockOuts.SingleOrDefault(l => l.OwnerRoleId == user.RoleId && l.OwnerUserId == user.Id);
@@ -288,6 +305,8 @@
 
         public Task ResetAccessFailedCountAsync(Id_User user)
         {
+            Contract.Assume(user != null);
+
             return Task.Run(() =>
             {
                 AccountLockOut lockOut = db.AccountLockOuts.Single(l => l.OwnerRoleId == user.RoleId && l.OwnerUserId == user.Id);
@@ -317,11 +336,13 @@
 
         public Task<bool> GetTwoFactorEnabledAsync(Id_User user)
         {
+            Contract.Assume(user != null);
             return Task.FromResult(user.TwoFactorEnabled);
         }
 
         public Task SetTwoFactorEnabledAsync(Id_User user, bool enabled)
         {
+            Contract.Assume(user != null);
             throw new NotImplementedException();
         }
 

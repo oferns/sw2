@@ -289,6 +289,10 @@
         <Value>True</Value>
       </PropertyElementName>
       <PropertyElementName>
+        <Name>TargetDatabaseName</Name>
+        <Value>Sponsorworks</Value>
+      </PropertyElementName>
+      <PropertyElementName>
         <Name>TargetConnectionString</Name>
         <Value>Integrated Security=True;Pooling=False;Connect Timeout=30</Value>
       </PropertyElementName>
@@ -398,6 +402,26 @@
       </PropertyElementName>
       <PropertyElementName>
         <Name>Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlAssemblyFile</Name>
+        <Value>ExcludedType</Value>
+      </PropertyElementName>
+      <PropertyElementName>
+        <Name>Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlBrokerPriority</Name>
+        <Value>ExcludedType</Value>
+      </PropertyElementName>
+      <PropertyElementName>
+        <Name>Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlMessageType</Name>
+        <Value>ExcludedType</Value>
+      </PropertyElementName>
+      <PropertyElementName>
+        <Name>Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlFilegroup</Name>
+        <Value>ExcludedType</Value>
+      </PropertyElementName>
+      <PropertyElementName>
+        <Name>Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlQueue</Name>
+        <Value>ExcludedType</Value>
+      </PropertyElementName>
+      <PropertyElementName>
+        <Name>Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlService</Name>
         <Value>ExcludedType</Value>
       </PropertyElementName>
     </ConfigurationOptionsElement>

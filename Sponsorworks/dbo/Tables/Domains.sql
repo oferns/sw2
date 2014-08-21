@@ -1,6 +1,8 @@
 ﻿CREATE TABLE [dbo].[Domains] (
     [Id]          INT                 IDENTITY (1, 1) NOT NULL,
-    [Name]        [dbo].[ShortString] NOT NULL,
+    [Domain]        [dbo].[ShortString] NOT NULL,
+    [Subdomain]        [dbo].[ShortString] NULL,
+    [TopLevelDomain]        [dbo].[ShortString] NULL,
     [OwnerRoleId] TINYINT             NOT NULL,
     [OwnerUserId] UNIQUEIDENTIFIER    NOT NULL,
     CONSTRAINT [PK_Domains] PRIMARY KEY CLUSTERED ([Id] ASC),

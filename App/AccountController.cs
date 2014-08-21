@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Web;
@@ -10,17 +11,27 @@
     using App.Auth.ViewModels;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin;
     using Microsoft.Owin.Security;
 
     [Authorize]
     public sealed class AccountController : Controller
     {
-       
+        private readonly IOwinContext context;
+        private UserManager userManager;
+        private SignInManager signInManager;
+
+        public AccountController(IOwinContext context)
+        {
+            Contract.Requires<ArgumentNullException>(context != null, "context");
+            this.context = context;
+        }
+
         internal UserManager UserManager
         {
             get
             {
-                return HttpContext.GetOwinContext().GetUserManager<UserManager>();
+                return userManager ?? (userManager = context.GetUserManager<UserManager>());
             }
         }
 
@@ -28,7 +39,7 @@
         {
             get
             {
-                return HttpContext.GetOwinContext().Get<SignInManager>();
+                return signInManager ?? (signInManager = context.Get<SignInManager>());
             }
         }
 
@@ -48,8 +59,7 @@
             return View();
         }
 
-
-        //
+        //z;
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
@@ -63,7 +73,7 @@
 
             // This doen't count login failures towards lockout only two factor authentication
             // To enable password failures to trigger lockout, change to shouldLockout: true
-            SignInStatus result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            SignInStatus result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -140,7 +150,7 @@
         {
             if (ModelState.IsValid)
             {
-                var user = new Id_User { UserName = model.Email, EmailAddress = model.Email, Active = true, RoleId = 1};
+                var user = new Id_User { UserName = model.Email, EmailAddress = model.Email, Active = true, RoleId = 1 };
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -375,6 +385,7 @@
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            Contract.Assume(AuthenticationManager != null);
             AuthenticationManager.SignOut();
             return RedirectToAction("Index", "Home");
         }
@@ -396,12 +407,13 @@
         {
             get
             {
-                return HttpContext.GetOwinContext().Authentication;
+                return context.Authentication;
             }
         }
 
         private void AddErrors(IdentityResult result)
         {
+            Contract.Requires<ArgumentNullException>(result != null, "result");
             foreach (string error in result.Errors)
             {
                 ModelState.AddModelError("", error);
@@ -437,6 +449,7 @@
 
             public override void ExecuteResult(ControllerContext context)
             {
+                Contract.Assume(context != null);
                 var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
                 if (UserId != null)
                 {

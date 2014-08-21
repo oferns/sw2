@@ -67,15 +67,21 @@ namespace App
     partial void InsertDivision(Division instance);
     partial void UpdateDivision(Division instance);
     partial void DeleteDivision(Division instance);
+    partial void InsertDomainImage(DomainImage instance);
+    partial void UpdateDomainImage(DomainImage instance);
+    partial void DeleteDomainImage(DomainImage instance);
     partial void InsertDomainOwnerRole(DomainOwnerRole instance);
     partial void UpdateDomainOwnerRole(DomainOwnerRole instance);
     partial void DeleteDomainOwnerRole(DomainOwnerRole instance);
+    partial void InsertDomainPalette(DomainPalette instance);
+    partial void UpdateDomainPalette(DomainPalette instance);
+    partial void DeleteDomainPalette(DomainPalette instance);
     partial void InsertDomain(Domain instance);
     partial void UpdateDomain(Domain instance);
     partial void DeleteDomain(Domain instance);
-    partial void InsertDomainSetting(DomainSetting instance);
-    partial void UpdateDomainSetting(DomainSetting instance);
-    partial void DeleteDomainSetting(DomainSetting instance);
+    partial void InsertDomainSecurity(DomainSecurity instance);
+    partial void UpdateDomainSecurity(DomainSecurity instance);
+    partial void DeleteDomainSecurity(DomainSecurity instance);
     partial void InsertEventAllocationStatus(EventAllocationStatus instance);
     partial void UpdateEventAllocationStatus(EventAllocationStatus instance);
     partial void DeleteEventAllocationStatus(EventAllocationStatus instance);
@@ -121,9 +127,15 @@ namespace App
     partial void InsertFieldType(FieldType instance);
     partial void UpdateFieldType(FieldType instance);
     partial void DeleteFieldType(FieldType instance);
+    partial void InsertImageType(ImageType instance);
+    partial void UpdateImageType(ImageType instance);
+    partial void DeleteImageType(ImageType instance);
     partial void InsertOwnedRole(OwnedRole instance);
     partial void UpdateOwnedRole(OwnedRole instance);
     partial void DeleteOwnedRole(OwnedRole instance);
+    partial void InsertPaletteType(PaletteType instance);
+    partial void UpdatePaletteType(PaletteType instance);
+    partial void DeletePaletteType(PaletteType instance);
     partial void InsertResourceOverride(ResourceOverride instance);
     partial void UpdateResourceOverride(ResourceOverride instance);
     partial void DeleteResourceOverride(ResourceOverride instance);
@@ -345,11 +357,27 @@ namespace App
 			}
 		}
 		
+		public System.Data.Linq.Table<DomainImage> DomainImages
+		{
+			get
+			{
+				return this.GetTable<DomainImage>();
+			}
+		}
+		
 		public System.Data.Linq.Table<DomainOwnerRole> DomainOwnerRoles
 		{
 			get
 			{
 				return this.GetTable<DomainOwnerRole>();
+			}
+		}
+		
+		public System.Data.Linq.Table<DomainPalette> DomainPalettes
+		{
+			get
+			{
+				return this.GetTable<DomainPalette>();
 			}
 		}
 		
@@ -361,11 +389,11 @@ namespace App
 			}
 		}
 		
-		public System.Data.Linq.Table<DomainSetting> DomainSettings
+		public System.Data.Linq.Table<DomainSecurity> DomainSecurities
 		{
 			get
 			{
-				return this.GetTable<DomainSetting>();
+				return this.GetTable<DomainSecurity>();
 			}
 		}
 		
@@ -489,11 +517,27 @@ namespace App
 			}
 		}
 		
+		public System.Data.Linq.Table<ImageType> ImageTypes
+		{
+			get
+			{
+				return this.GetTable<ImageType>();
+			}
+		}
+		
 		public System.Data.Linq.Table<OwnedRole> OwnedRoles
 		{
 			get
 			{
 				return this.GetTable<OwnedRole>();
+			}
+		}
+		
+		public System.Data.Linq.Table<PaletteType> PaletteTypes
+		{
+			get
+			{
+				return this.GetTable<PaletteType>();
 			}
 		}
 		
@@ -3546,6 +3590,198 @@ namespace App
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DomainImages")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class DomainImage : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _DomainId;
+		
+		private string _ImageType;
+		
+		private string _ImageUrl;
+		
+		private string _AltText;
+		
+		private EntityRef<ImageType> _ImageTypeImageType;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnDomainIdChanging(int value);
+    partial void OnDomainIdChanged();
+    partial void OnImageTypeChanging(string value);
+    partial void OnImageTypeChanged();
+    partial void OnImageUrlChanging(string value);
+    partial void OnImageUrlChanged();
+    partial void OnAltTextChanging(string value);
+    partial void OnAltTextChanged();
+    #endregion
+		
+		public DomainImage()
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DomainId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public int DomainId
+		{
+			get
+			{
+				return this._DomainId;
+			}
+			set
+			{
+				if ((this._DomainId != value))
+				{
+					this.OnDomainIdChanging(value);
+					this.SendPropertyChanging();
+					this._DomainId = value;
+					this.SendPropertyChanged("DomainId");
+					this.OnDomainIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageType", DbType="NVarChar(256) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public string ImageType
+		{
+			get
+			{
+				return this._ImageType;
+			}
+			set
+			{
+				if ((this._ImageType != value))
+				{
+					if (this._ImageTypeImageType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnImageTypeChanging(value);
+					this.SendPropertyChanging();
+					this._ImageType = value;
+					this.SendPropertyChanged("ImageType");
+					this.OnImageTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageUrl", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public string ImageUrl
+		{
+			get
+			{
+				return this._ImageUrl;
+			}
+			set
+			{
+				if ((this._ImageUrl != value))
+				{
+					this.OnImageUrlChanging(value);
+					this.SendPropertyChanging();
+					this._ImageUrl = value;
+					this.SendPropertyChanged("ImageUrl");
+					this.OnImageUrlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AltText", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public string AltText
+		{
+			get
+			{
+				return this._AltText;
+			}
+			set
+			{
+				if ((this._AltText != value))
+				{
+					this.OnAltTextChanging(value);
+					this.SendPropertyChanging();
+					this._AltText = value;
+					this.SendPropertyChanged("AltText");
+					this.OnAltTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_DomainImages_ImageTypes", Storage="_ImageTypeImageType", ThisKey="ImageType", OtherKey="Type", IsForeignKey=true)]
+		public ImageType ImageTypeImageType
+		{
+			get
+			{
+				return this._ImageTypeImageType.Entity;
+			}
+			set
+			{
+				ImageType previousValue = this._ImageTypeImageType.Entity;
+				if (((previousValue != value) 
+							|| (this._ImageTypeImageType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._ImageTypeImageType.Entity = null;
+						previousValue.DomainImages.Remove(this);
+					}
+					this._ImageTypeImageType.Entity = value;
+					if ((value != null))
+					{
+						value.DomainImages.Add(this);
+						this._ImageType = value.Type;
+					}
+					else
+					{
+						this._ImageType = default(string);
+					}
+					this.SendPropertyChanged("ImageTypeImageType");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void Initialize()
+		{
+			this._ImageTypeImageType = default(EntityRef<ImageType>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DomainOwnerRoles")]
 	[global::System.Runtime.Serialization.DataContractAttribute()]
 	public partial class DomainOwnerRole : INotifyPropertyChanging, INotifyPropertyChanged
@@ -3713,6 +3949,132 @@ namespace App
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DomainPalettes")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class DomainPalette : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _DomainId;
+		
+		private string _PaletteType;
+		
+		private string _ColourCode;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnDomainIdChanging(int value);
+    partial void OnDomainIdChanged();
+    partial void OnPaletteTypeChanging(string value);
+    partial void OnPaletteTypeChanged();
+    partial void OnColourCodeChanging(string value);
+    partial void OnColourCodeChanged();
+    #endregion
+		
+		public DomainPalette()
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DomainId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public int DomainId
+		{
+			get
+			{
+				return this._DomainId;
+			}
+			set
+			{
+				if ((this._DomainId != value))
+				{
+					this.OnDomainIdChanging(value);
+					this.SendPropertyChanging();
+					this._DomainId = value;
+					this.SendPropertyChanged("DomainId");
+					this.OnDomainIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PaletteType", DbType="NVarChar(256) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public string PaletteType
+		{
+			get
+			{
+				return this._PaletteType;
+			}
+			set
+			{
+				if ((this._PaletteType != value))
+				{
+					this.OnPaletteTypeChanging(value);
+					this.SendPropertyChanging();
+					this._PaletteType = value;
+					this.SendPropertyChanged("PaletteType");
+					this.OnPaletteTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColourCode", DbType="VarChar(7) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public string ColourCode
+		{
+			get
+			{
+				return this._ColourCode;
+			}
+			set
+			{
+				if ((this._ColourCode != value))
+				{
+					this.OnColourCodeChanging(value);
+					this.SendPropertyChanging();
+					this._ColourCode = value;
+					this.SendPropertyChanged("ColourCode");
+					this.OnColourCodeChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void Initialize()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Domains")]
 	[global::System.Runtime.Serialization.DataContractAttribute()]
 	public partial class Domain : INotifyPropertyChanging, INotifyPropertyChanged
@@ -3722,7 +4084,11 @@ namespace App
 		
 		private int _Id;
 		
-		private string _Name;
+		private string _Domain1;
+		
+		private string _Subdomain;
+		
+		private string _TopLevelDomain;
 		
 		private byte _OwnerRoleId;
 		
@@ -3732,14 +4098,22 @@ namespace App
 		
 		private EntityRef<RoleMember> _RoleMember;
 		
+		private EntityRef<DomainSecurity> _DomainSecurity;
+		
+		private bool serializing;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
+    partial void OnDomain1Changing(string value);
+    partial void OnDomain1Changed();
+    partial void OnSubdomainChanging(string value);
+    partial void OnSubdomainChanged();
+    partial void OnTopLevelDomainChanging(string value);
+    partial void OnTopLevelDomainChanged();
     partial void OnOwnerRoleIdChanging(byte value);
     partial void OnOwnerRoleIdChanged();
     partial void OnOwnerUserIdChanging(System.Guid value);
@@ -3772,29 +4146,71 @@ namespace App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Domain", Storage="_Domain1", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public string Name
+		public string Domain1
 		{
 			get
 			{
-				return this._Name;
+				return this._Domain1;
 			}
 			set
 			{
-				if ((this._Name != value))
+				if ((this._Domain1 != value))
 				{
-					this.OnNameChanging(value);
+					this.OnDomain1Changing(value);
 					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
+					this._Domain1 = value;
+					this.SendPropertyChanged("Domain1");
+					this.OnDomain1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Subdomain", DbType="NVarChar(256)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public string Subdomain
+		{
+			get
+			{
+				return this._Subdomain;
+			}
+			set
+			{
+				if ((this._Subdomain != value))
+				{
+					this.OnSubdomainChanging(value);
+					this.SendPropertyChanging();
+					this._Subdomain = value;
+					this.SendPropertyChanged("Subdomain");
+					this.OnSubdomainChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TopLevelDomain", DbType="NVarChar(256)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public string TopLevelDomain
+		{
+			get
+			{
+				return this._TopLevelDomain;
+			}
+			set
+			{
+				if ((this._TopLevelDomain != value))
+				{
+					this.OnTopLevelDomainChanging(value);
+					this.SendPropertyChanging();
+					this._TopLevelDomain = value;
+					this.SendPropertyChanged("TopLevelDomain");
+					this.OnTopLevelDomainChanged();
 				}
 			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerRoleId", DbType="TinyInt NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
 		public byte OwnerRoleId
 		{
 			get
@@ -3819,7 +4235,7 @@ namespace App
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerUserId", DbType="UniqueIdentifier NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
 		public System.Guid OwnerUserId
 		{
 			get
@@ -3913,6 +4329,41 @@ namespace App
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_DomainSettings_Domains", Storage="_DomainSecurity", ThisKey="Id", OtherKey="DomainId", IsUnique=true, IsForeignKey=false, DeleteRule="NO ACTION")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7, EmitDefaultValue=false)]
+		public DomainSecurity DomainSecurity
+		{
+			get
+			{
+				if ((this.serializing 
+							&& (this._DomainSecurity.HasLoadedOrAssignedValue == false)))
+				{
+					return null;
+				}
+				return this._DomainSecurity.Entity;
+			}
+			set
+			{
+				DomainSecurity previousValue = this._DomainSecurity.Entity;
+				if (((previousValue != value) 
+							|| (this._DomainSecurity.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DomainSecurity.Entity = null;
+						previousValue.Domain = null;
+					}
+					this._DomainSecurity.Entity = value;
+					if ((value != null))
+					{
+						value.Domain = this;
+					}
+					this.SendPropertyChanged("DomainSecurity");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -3937,6 +4388,7 @@ namespace App
 		{
 			this._DomainOwnerRole = default(EntityRef<DomainOwnerRole>);
 			this._RoleMember = default(EntityRef<RoleMember>);
+			this._DomainSecurity = default(EntityRef<DomainSecurity>);
 			OnCreated();
 		}
 		
@@ -3946,24 +4398,32 @@ namespace App
 		{
 			this.Initialize();
 		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
+		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DomainSettings")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DomainSecurity")]
 	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class DomainSetting : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class DomainSecurity : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _Id;
-		
-		private string _Name;
-		
 		private int _DomainId;
 		
-		private byte _OwnerRoleId;
-		
-		private System.Guid _OwnerUserId;
+		private string _CookieName;
 		
 		private int _AbsoluteExpirationInHours;
 		
@@ -3971,20 +4431,16 @@ namespace App
 		
 		private bool _AllowPerpetualLogin;
 		
+		private EntityRef<Domain> _Domain;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
     partial void OnDomainIdChanging(int value);
     partial void OnDomainIdChanged();
-    partial void OnOwnerRoleIdChanging(byte value);
-    partial void OnOwnerRoleIdChanged();
-    partial void OnOwnerUserIdChanging(System.Guid value);
-    partial void OnOwnerUserIdChanged();
+    partial void OnCookieNameChanging(string value);
+    partial void OnCookieNameChanged();
     partial void OnAbsoluteExpirationInHoursChanging(int value);
     partial void OnAbsoluteExpirationInHoursChanged();
     partial void OnSlidingExpirationInMinutesChanging(int value);
@@ -3993,55 +4449,13 @@ namespace App
     partial void OnAllowPerpetualLoginChanged();
     #endregion
 		
-		public DomainSetting()
+		public DomainSecurity()
 		{
 			this.Initialize();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DomainId", DbType="Int NOT NULL", IsPrimaryKey=true)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(32) NOT NULL", CanBeNull=false)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DomainId", DbType="Int NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public int DomainId
 		{
 			get
@@ -4052,6 +4466,10 @@ namespace App
 			{
 				if ((this._DomainId != value))
 				{
+					if (this._Domain.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnDomainIdChanging(value);
 					this.SendPropertyChanging();
 					this._DomainId = value;
@@ -4061,50 +4479,29 @@ namespace App
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerRoleId", DbType="TinyInt NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public byte OwnerRoleId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CookieName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public string CookieName
 		{
 			get
 			{
-				return this._OwnerRoleId;
+				return this._CookieName;
 			}
 			set
 			{
-				if ((this._OwnerRoleId != value))
+				if ((this._CookieName != value))
 				{
-					this.OnOwnerRoleIdChanging(value);
+					this.OnCookieNameChanging(value);
 					this.SendPropertyChanging();
-					this._OwnerRoleId = value;
-					this.SendPropertyChanged("OwnerRoleId");
-					this.OnOwnerRoleIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerUserId", DbType="UniqueIdentifier NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-		public System.Guid OwnerUserId
-		{
-			get
-			{
-				return this._OwnerUserId;
-			}
-			set
-			{
-				if ((this._OwnerUserId != value))
-				{
-					this.OnOwnerUserIdChanging(value);
-					this.SendPropertyChanging();
-					this._OwnerUserId = value;
-					this.SendPropertyChanged("OwnerUserId");
-					this.OnOwnerUserIdChanged();
+					this._CookieName = value;
+					this.SendPropertyChanged("CookieName");
+					this.OnCookieNameChanged();
 				}
 			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AbsoluteExpirationInHours", DbType="Int NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public int AbsoluteExpirationInHours
 		{
 			get
@@ -4125,7 +4522,7 @@ namespace App
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SlidingExpirationInMinutes", DbType="Int NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public int SlidingExpirationInMinutes
 		{
 			get
@@ -4146,7 +4543,7 @@ namespace App
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AllowPerpetualLogin", DbType="Bit NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
 		public bool AllowPerpetualLogin
 		{
 			get
@@ -4162,6 +4559,40 @@ namespace App
 					this._AllowPerpetualLogin = value;
 					this.SendPropertyChanged("AllowPerpetualLogin");
 					this.OnAllowPerpetualLoginChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_DomainSettings_Domains", Storage="_Domain", ThisKey="DomainId", OtherKey="Id", IsForeignKey=true)]
+		public Domain Domain
+		{
+			get
+			{
+				return this._Domain.Entity;
+			}
+			set
+			{
+				Domain previousValue = this._Domain.Entity;
+				if (((previousValue != value) 
+							|| (this._Domain.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Domain.Entity = null;
+						previousValue.DomainSecurity = null;
+					}
+					this._Domain.Entity = value;
+					if ((value != null))
+					{
+						value.DomainSecurity = this;
+						this._DomainId = value.Id;
+					}
+					else
+					{
+						this._DomainId = default(int);
+					}
+					this.SendPropertyChanged("Domain");
 				}
 			}
 		}
@@ -4188,6 +4619,7 @@ namespace App
 		
 		private void Initialize()
 		{
+			this._Domain = default(EntityRef<Domain>);
 			OnCreated();
 		}
 		
@@ -7778,6 +8210,157 @@ namespace App
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ImageTypes")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class ImageType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _Type;
+		
+		private string _DisplayName;
+		
+		private EntitySet<DomainImage> _DomainImages;
+		
+		private bool serializing;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnTypeChanging(string value);
+    partial void OnTypeChanged();
+    partial void OnDisplayNameChanging(string value);
+    partial void OnDisplayNameChanged();
+    #endregion
+		
+		public ImageType()
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(256) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public string Type
+		{
+			get
+			{
+				return this._Type;
+			}
+			set
+			{
+				if ((this._Type != value))
+				{
+					this.OnTypeChanging(value);
+					this.SendPropertyChanging();
+					this._Type = value;
+					this.SendPropertyChanged("Type");
+					this.OnTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DisplayName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public string DisplayName
+		{
+			get
+			{
+				return this._DisplayName;
+			}
+			set
+			{
+				if ((this._DisplayName != value))
+				{
+					this.OnDisplayNameChanging(value);
+					this.SendPropertyChanging();
+					this._DisplayName = value;
+					this.SendPropertyChanged("DisplayName");
+					this.OnDisplayNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_DomainImages_ImageTypes", Storage="_DomainImages", ThisKey="Type", OtherKey="ImageType", DeleteRule="NO ACTION")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3, EmitDefaultValue=false)]
+		public EntitySet<DomainImage> DomainImages
+		{
+			get
+			{
+				if ((this.serializing 
+							&& (this._DomainImages.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
+				return this._DomainImages;
+			}
+			set
+			{
+				this._DomainImages.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_DomainImages(DomainImage entity)
+		{
+			this.SendPropertyChanging();
+			entity.ImageTypeImageType = this;
+		}
+		
+		private void detach_DomainImages(DomainImage entity)
+		{
+			this.SendPropertyChanging();
+			entity.ImageTypeImageType = null;
+		}
+		
+		private void Initialize()
+		{
+			this._DomainImages = new EntitySet<DomainImage>(new Action<DomainImage>(this.attach_DomainImages), new Action<DomainImage>(this.detach_DomainImages));
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.OwnedRoles")]
 	[global::System.Runtime.Serialization.DataContractAttribute()]
 	public partial class OwnedRole : INotifyPropertyChanging, INotifyPropertyChanged
@@ -7977,6 +8560,82 @@ namespace App
 		{
 			this._RoleMember = default(EntityRef<RoleMember>);
 			this._RoleOwnerRole = default(EntityRef<RoleOwnerRole>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PaletteTypes")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class PaletteType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _Type;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnTypeChanging(string value);
+    partial void OnTypeChanged();
+    #endregion
+		
+		public PaletteType()
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(256) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public string Type
+		{
+			get
+			{
+				return this._Type;
+			}
+			set
+			{
+				if ((this._Type != value))
+				{
+					this.OnTypeChanging(value);
+					this.SendPropertyChanging();
+					this._Type = value;
+					this.SendPropertyChanged("Type");
+					this.OnTypeChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void Initialize()
+		{
 			OnCreated();
 		}
 		

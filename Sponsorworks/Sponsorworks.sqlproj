@@ -48,6 +48,7 @@
     <DefineTrace>true</DefineTrace>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TreatTSqlWarningsAsErrors>True</TreatTSqlWarningsAsErrors>
   </PropertyGroup>
   <!-- VS10 without SP1 will not have VisualStudioVersion set, so do that here -->
   <PropertyGroup>
@@ -113,7 +114,6 @@
     <Build Include="dbo\Tables\TicketAllocationStatus.sql" />
     <Build Include="dbo\Tables\ResourceTypes.sql" />
     <Build Include="dbo\Tables\EventAllocationStatus.sql" />
-    <Build Include="dbo\Tables\DomainSettings.sql" />
     <Build Include="dbo\Tables\AllocationStatus.sql" />
     <Build Include="dbo\Tables\DivisionMembers.sql" />
     <Build Include="dbo\Tables\DivisionMemberRoles.sql" />
@@ -137,6 +137,11 @@
     <Build Include="dbo\Tables\TwoFactorAccountOwners.sql" />
     <Build Include="dbo\Tables\TwoFactorAccountOwnerRoles.sql" />
     <Build Include="dbo\Tables\AccountTwoFactorOwners.sql" />
+    <Build Include="dbo\Tables\PaletteTypes.sql" />
+    <Build Include="dbo\Tables\ImageTypes.sql" />
+    <Build Include="dbo\Tables\DomainSecurity.sql" />
+    <Build Include="dbo\Tables\DomainPalettes.sql" />
+    <Build Include="dbo\Tables\DomainImages.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeployment.sql" />

@@ -59,5 +59,11 @@
         {
             db.Dispose();
         }
+
+        [ContractInvariantMethod]
+        private void ObjectInvariant()
+        {
+            Contract.Invariant(db != null);
+        }
     }
 }

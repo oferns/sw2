@@ -3,9 +3,11 @@
     using System;
     using System.Configuration;
     using System.Diagnostics;
+    using System.Diagnostics.Contracts;
     using System.Globalization;
     using System.Web.Mvc;
     using System.Web.Optimization;
+    using System.Web.Routing;
     using App;
     using App.Auth;
     using Microsoft.AspNet.Identity;
@@ -18,7 +20,6 @@
     public class Initializer
     {
         internal static TraceSource Log = new TraceSource("App");
-
         internal static TraceSource SqlLog = new TraceSource("App.Sql");
 
         /// <summary>
@@ -48,7 +49,6 @@
                                                                                                                TimeSpan.FromMinutes(30),
                                                                                                                (manager, user) => manager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie),
                                                                                                                identity => Guid.Parse(identity.GetUserId()))
-                                                                                                               
                 },
                 CookieHttpOnly = true,
                 CookieSecure = CookieSecureOption.Always,
@@ -63,7 +63,6 @@
                 ClientId = "554345000289-9b419bpr83t0tkrp6h1hqir30ipc57uv.apps.googleusercontent.com",
                 ClientSecret = "AK9FnPGBQXqiixA_8_5RJpgE"
             });
-
         }
 
         /// <summary>
@@ -74,6 +73,11 @@
         /// </summary>
         public static void Initialize()
         {
+            // Contracts 
+            Contract.Assume(ViewEngines.Engines != null);
+            Contract.Assume(GlobalFilters.Filters != null);
+            Contract.Assume(BundleTable.Bundles != null);
+
             // Lets get rid of view engines we are not using
             ViewEngines.Engines.Clear();
 
@@ -119,6 +123,20 @@
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862
             BundleTable.EnableOptimizations = false;
+
+
+            // So we can catch requests that match physical locations (ie /cHome) and 404 them
+            RouteTable.Routes.RouteExistingFiles = true;
+
+            // Ignore resource routes
+            RouteTable.Routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            // ..and browserlink
+            RouteTable.Routes.IgnoreRoute("{*browserlink}", new { browserlink = @".*/arterySignalR/ping" });
+
+            // ..and favicon if its missing
+            RouteTable.Routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*/)?favicon.ico(/.*)?" });
+
         }
     }
 }

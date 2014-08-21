@@ -3,12 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title</title>
-    
+    <title>@ViewBag.Title - Sponsorworks</title>
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")
 
+    @Theme.GetStyles()
 
     @RenderSection("Head", required: false)
     <meta name="description" content="@ViewBag.Description" />
@@ -20,7 +20,7 @@
                 <div class="wrapper">
                     <header class="padded-container">
                         <div class="logo">
-                                                        
+                            @Theme.Logo
                         </div>
                         <h1>This is the Root Header</h1>
                         @Html.Partial("_LoginPartial")
@@ -39,6 +39,8 @@
         </div>
         <div class="push"></div>
     </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("JavaScript", required: false)
 </body>
 </html>

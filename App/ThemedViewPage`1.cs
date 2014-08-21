@@ -7,7 +7,6 @@
     public abstract class ThemedViewPage<T> : WebViewPage<T>
         where T : class
     {
-
         public ThemeHelper<T> Theme { get; set; }
 
         public override void InitHelpers()

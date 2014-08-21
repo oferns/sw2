@@ -3,9 +3,8 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
-    public class HomeControllerTeste
+    public class AccountControllerTests
     {
-
 
 
     }

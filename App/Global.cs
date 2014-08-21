@@ -3,11 +3,16 @@
     using System;
     using System.Configuration;
     using System.Diagnostics;
+    using System.Diagnostics.Contracts;
+    using System.IO;
     using System.Reflection;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Routing;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
     using SimpleInjector;
+    using SimpleInjector.Advanced;
     using SimpleInjector.Integration.Web.Mvc;
 
     public class Global : HttpApplication
@@ -26,18 +31,55 @@
         internal Container Container;
 
         /// <summary>
+        /// Renders a webcontrol as a MvcHtmlString. Used in the Theme helpers
+        /// </summary>
+        /// <param name="control"></param>
+        /// <returns></returns>
+        internal static MvcHtmlString RenderWebControl(WebControl control)
+        {
+            var stringWriter = new StringWriter();
+            try
+            {
+                string result;
+                using (var writer = new HtmlTextWriter(stringWriter))
+                {
+                    control.RenderControl(writer);
+                    result = stringWriter.ToString();
+                }
+                stringWriter = null;
+                return new MvcHtmlString(result);
+            }
+            finally
+            {
+                if (stringWriter != null)
+                {
+                    stringWriter.Dispose();
+                }
+            }
+        }
+
+        /// <summary>
         /// This code runs once when the AppPool starts
         /// </summary>
         protected void Application_Start()
         {
+            // Lets define some contracts
+            Contract.Assume(RouteTable.Routes != null);
+
             // Let's start a log! We can listen to this with tracelisteners in the web config
             Log.TraceInformation("Sponsorworks starting");
 
             // Set up the IoC Container
             Container = new Container();
-
+            
+            // Allow property injection for some of the less friendly MVC classes we have overriden
+            Container.Options.PropertySelectionBehavior = new ImportPropertySelectionBehavior();
+            
             // ...register the Linq2Sql database 
             Container.Register(() => new Sponsorworks(ConfigurationManager.ConnectionStrings["Sponsorworks"].ConnectionString) { Log = new ActionTextWriter(sql => SqlLog.TraceData(TraceEventType.Verbose, 0, sql)) });
+
+            // register the IOwinContext for the Account controller
+            Container.RegisterPerWebRequest(() => Container.IsVerifying() ? new MockOwinContext() : HttpContext.Current.GetOwinContext());
 
             // Register All controllers in the Assembly
             Container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
@@ -51,22 +93,10 @@
             // Set the MVC Dependency resolver to the IoC Resolver
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(Container));
 
-            // So we can catch requests that match physical locations (ie /cHome) and 404 them
-            RouteTable.Routes.RouteExistingFiles = true;
-
-            // Ignore resource routes
-            RouteTable.Routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
-            // ..and browserlink
-            RouteTable.Routes.IgnoreRoute("{*browserlink}", new { browserlink = @".*/arterySignalR/ping" });
-
-            // ..and favicon if its missing
-            RouteTable.Routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*/)?favicon.ico(/.*)?" });
-
             // Register all the MVC Areas in this assembly. Do this after ignores and before the default route
             AreaRegistration.RegisterAllAreas();
 
-            // Try and map the default route
+            // Try and map the Account route
             try
             {
                 Log.TraceInformation("Attempting to map the Account Route");
@@ -99,21 +129,6 @@
             {
                 Log.TraceInformation("Default Route mapping skipped. Already mapped by the host application");
             }
-
-            //// Catch-all for unmatched routes. Returns the custom 404 page
-            //try
-            //{
-            //    RouteTable.Routes.MapRoute(
-            //                               "NotFound",
-            //                               "{*url}",
-            //                               new { controller = "Error", action = "NotFound" }
-            //        );
-            //}
-            //    // It's already been mapped...
-            //catch (ArgumentException)
-            //{
-            //    Log.TraceInformation("Catch-All Route mapping skipped. Already mapped by the host application");
-            //}
         }
 
         /// <summary>

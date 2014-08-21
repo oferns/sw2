@@ -1,6 +1,7 @@
 ﻿namespace App
 {
     using System;
+    using System.Diagnostics.Contracts;
     using System.IO;
     using System.Text;
 
@@ -10,6 +11,7 @@
 
         public ActionTextWriter(Action<string> action)
         {
+            Contract.Requires<ArgumentNullException>(action != null, "action");
             this.action = action;
         }
 
@@ -29,6 +31,12 @@
         public override void Write(string value)
         {
             action.Invoke(value);
+        }
+
+        [ContractInvariantMethod]
+        private void ObjectInvariant()
+        {
+            Contract.Invariant(action != null);
         }
     }
 }

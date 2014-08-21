@@ -1,6 +1,7 @@
 ﻿namespace App.Guests
 {
     using System;
+    using System.Diagnostics.Contracts;
     using System.Globalization;
     using System.Web.Mvc;
 
@@ -16,6 +17,7 @@
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
+            Contract.Assume(context != null);
             try
             {
                 Global.Log.TraceInformation("Attempting to map {0} area default Route", AreaName);

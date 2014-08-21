@@ -204,10 +204,10 @@ standardlifetrophy.com -> Ollie Ferns/sysadmin
 */ 
 SET IDENTITY_INSERT [dbo].[Domains] ON
 
-INSERT [dbo].[Domains] ([Id], [Name], [OwnerRoleId], [OwnerUserId]) VALUES (1, N'localhost', 1, N'f50613a5-f898-4825-96a1-889655f651b8')
-INSERT [dbo].[Domains] ([Id], [Name], [OwnerRoleId], [OwnerUserId]) VALUES (2, N'sponsorworks.co.uk', 1, N'f50613a5-f898-4825-96a1-889655f651b8')
-INSERT [dbo].[Domains] ([Id], [Name], [OwnerRoleId], [OwnerUserId]) VALUES (3, N'events.standardlifeinvestments.com', 1, N'f50613a5-f898-4825-96a1-889655f651b8')
-INSERT [dbo].[Domains] ([Id], [Name], [OwnerRoleId], [OwnerUserId]) VALUES (4, N'standardcharteredtrophy.com', 1, N'f50613a5-f898-4825-96a1-889655f651b8')
+INSERT [dbo].[Domains] ([Id], [Domain], [Subdomain], [TopLevelDomain], [OwnerRoleId], [OwnerUserId]) VALUES (1, N'localhost',null, null, 1, N'f50613a5-f898-4825-96a1-889655f651b8')
+INSERT [dbo].[Domains] ([Id], [Domain], [Subdomain], [TopLevelDomain], [OwnerRoleId], [OwnerUserId]) VALUES (2, N'sponsorworks','*', '.co.uk', 1, N'f50613a5-f898-4825-96a1-889655f651b8')
+INSERT [dbo].[Domains] ([Id], [Domain], [Subdomain], [TopLevelDomain], [OwnerRoleId], [OwnerUserId]) VALUES (3, N'standardlifeinvestments','events','.com', 1, N'f50613a5-f898-4825-96a1-889655f651b8')
+INSERT [dbo].[Domains] ([Id], [Domain], [Subdomain], [TopLevelDomain], [OwnerRoleId], [OwnerUserId]) VALUES (4, N'standardcharteredtrophy','*','.com', 1, N'f50613a5-f898-4825-96a1-889655f651b8')
 
 SET IDENTITY_INSERT [dbo].[Domains] OFF
 
@@ -225,10 +225,10 @@ INSERT [dbo].[Divisions] ([Name], [OwnerRoleId], [OwnerUserId]) VALUES (N'Financ
 INSERT [dbo].[Divisions] ([Name], [OwnerRoleId], [OwnerUserId]) VALUES (N'Sales', 5, N'5d415835-a304-45ae-b979-5f0eca28d261') -- Owner Role/User: company/Synergy 
 
 /* add some domain settings to demonstrate individual cookie security settings */
-INSERT [dbo].[DomainSettings] ([Name], [DomainId], [OwnerRoleId], [OwnerUserId], [AbsoluteExpirationInHours], [SlidingExpirationInMinutes], [AllowPerpetualLogin]) VALUES ('LOCALAUTH', 1, 1, N'f50613a5-f898-4825-96a1-889655f651b8',-1,20,1)
-INSERT [dbo].[DomainSettings] ([Name], [DomainId], [OwnerRoleId], [OwnerUserId], [AbsoluteExpirationInHours], [SlidingExpirationInMinutes], [AllowPerpetualLogin]) VALUES ('SWORKSAUTH', 2, 1, N'f50613a5-f898-4825-96a1-889655f651b8',24,20,1)
-INSERT [dbo].[DomainSettings] ([Name], [DomainId], [OwnerRoleId], [OwnerUserId], [AbsoluteExpirationInHours], [SlidingExpirationInMinutes], [AllowPerpetualLogin]) VALUES ('SLIAUTH', 3, 1, N'f50613a5-f898-4825-96a1-889655f651b8',1,20,0)
-INSERT [dbo].[DomainSettings] ([Name], [DomainId], [OwnerRoleId], [OwnerUserId], [AbsoluteExpirationInHours], [SlidingExpirationInMinutes], [AllowPerpetualLogin]) VALUES ('SCBAUTH', 4, 1, N'f50613a5-f898-4825-96a1-889655f651b8',1,20,0)
+INSERT [dbo].[DomainSecurity] ([DomainId], [CookieName], [AbsoluteExpirationInHours], [SlidingExpirationInMinutes], [AllowPerpetualLogin]) VALUES (1, 'LOCALAUTH', -1,20,1)
+INSERT [dbo].[DomainSecurity] ([DomainId], [CookieName], [AbsoluteExpirationInHours], [SlidingExpirationInMinutes], [AllowPerpetualLogin]) VALUES (2,'SWORKSAUTH',24,20,1)
+INSERT [dbo].[DomainSecurity] ([DomainId], [CookieName], [AbsoluteExpirationInHours], [SlidingExpirationInMinutes], [AllowPerpetualLogin]) VALUES (3, 'SLIAUTH',1,20,0)
+INSERT [dbo].[DomainSecurity] ([DomainId], [CookieName], [AbsoluteExpirationInHours], [SlidingExpirationInMinutes], [AllowPerpetualLogin]) VALUES (4,'SCBAUTH',1,20,0)
 
 
 /* Set up some events.

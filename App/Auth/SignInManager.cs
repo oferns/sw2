@@ -2,7 +2,6 @@
 {
     using System;
     using System.Diagnostics.Contracts;
-    using System.Runtime.Remoting.Contexts;
     using System.Security.Claims;
     using System.Threading.Tasks;
     using Microsoft.AspNet.Identity;
@@ -21,15 +20,18 @@
 
         public override Task<ClaimsIdentity> CreateUserIdentityAsync(Id_User user)
         {
+            Contract.Assume(UserManager != null);
             return UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
         }
 
         public static SignInManager Create(IdentityFactoryOptions<SignInManager> options, IOwinContext context)
         {
-            Contract.Requires<ArgumentNullException>(options!=null,"options");
+            Contract.Requires<ArgumentNullException>(options != null, "options");
             Contract.Requires<ArgumentNullException>(context != null, "context");
 
-            return new SignInManager(context.GetUserManager<UserManager>(), context.Authentication);
+            var userManager = context.GetUserManager<UserManager>();
+            Contract.Assert(userManager != null);
+            return new SignInManager(userManager, context.Authentication);
         }
     }
 }
