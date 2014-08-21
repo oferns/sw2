@@ -82,17 +82,30 @@
             ViewEngines.Engines.Clear();
 
             // and add the one we want
+            //ViewEngines.Engines.Add(new RazorViewEngine
+            //{
+            //    // Look in ControllerName/, then / for a layout view 
+            //    AreaMasterLocationFormats = new[] { "~/a{2}/c{1}/{0}.cshtml", "~/a{2}/{0}.cshtml" },
+            //    AreaViewLocationFormats = new[] { "~/a{2}/c{1}/{0}.cshtml", "~/a{2}/{0}.cshtml", "~/a{2}/Shared/{0}.cshtml" },
+            //    AreaPartialViewLocationFormats = new[] { "~/a{2}/c{1}/{0}.cshtml", "~/a{2}/{0}.cshtml", "~/a{2}/Shared/{0}.cshtml" },
+            //    MasterLocationFormats = new[] { "~/c{1}/{0}.cshtml", "~/Shared/{0}.cshtml" },
+            //    ViewLocationFormats = new[] { "~/c{1}/{0}.cshtml", "~/Shared/{0}.cshtml" },
+            //    PartialViewLocationFormats = new[] { "~/c{1}/{0}.cshtml", "~/Shared/{0}.cshtml" },
+            //    FileExtensions = new[] { "cshtml" }
+            //});
+
             ViewEngines.Engines.Add(new RazorViewEngine
             {
                 // Look in ControllerName/, then / for a layout view 
-                AreaMasterLocationFormats = new[] { "~/a{2}/c{1}/{0}.cshtml", "~/a{2}/{0}.cshtml" },
-                AreaViewLocationFormats = new[] { "~/a{2}/c{1}/{0}.cshtml", "~/a{2}/{0}.cshtml", "~/a{2}/Shared/{0}.cshtml" },
-                AreaPartialViewLocationFormats = new[] { "~/a{2}/c{1}/{0}.cshtml", "~/a{2}/{0}.cshtml", "~/a{2}/Shared/{0}.cshtml" },
-                MasterLocationFormats = new[] { "~/c{1}/{0}.cshtml", "~/Shared/{0}.cshtml" },
-                ViewLocationFormats = new[] { "~/c{1}/{0}.cshtml", "~/Shared/{0}.cshtml" },
-                PartialViewLocationFormats = new[] { "~/c{1}/{0}.cshtml", "~/Shared/{0}.cshtml" },
+                AreaMasterLocationFormats = new[] { "~/{2}/{1}/{0}.cshtml", "~/{2}/{0}.cshtml" },
+                AreaViewLocationFormats = new[] { "~/{2}/{1}/{0}.cshtml", "~/{2}/{0}.cshtml", "~/{2}/Shared/{0}.cshtml" },
+                AreaPartialViewLocationFormats = new[] { "~/{2}/{1}/{0}.cshtml", "~/{2}/{0}.cshtml", "~/{2}/Shared/{0}.cshtml" },
+                MasterLocationFormats = new[] { "~/{1}/{0}.cshtml", "~/Shared/{0}.cshtml" },
+                ViewLocationFormats = new[] { "~/{1}/{0}.cshtml", "~/Shared/{0}.cshtml" },
+                PartialViewLocationFormats = new[] { "~/{1}/{0}.cshtml", "~/Shared/{0}.cshtml" },
                 FileExtensions = new[] { "cshtml" }
             });
+
 
             // Remove superflous header
             MvcHandler.DisableMvcResponseHeader = true;
