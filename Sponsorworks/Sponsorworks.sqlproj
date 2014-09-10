@@ -66,12 +66,14 @@
     <Folder Include="id\Views\" />
     <Folder Include="dbo\User Defined Types\" />
     <Folder Include="Security\" />
+    <Folder Include="entity\" />
+    <Folder Include="entity\Views\" />
+    <Folder Include="id\Functions\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Domains.sql" />
     <Build Include="dbo\Tables\DomainOwnerRoles.sql" />
     <Build Include="dbo\Tables\Divisions.sql" />
-    <Build Include="dbo\Tables\DivisionOwnerRoles.sql" />
     <Build Include="dbo\Tables\Users.sql" />
     <Build Include="dbo\Tables\Roles.sql" />
     <Build Include="dbo\Tables\UserRoles.sql" />
@@ -87,9 +89,7 @@
     <Build Include="dbo\Tables\TicketPatronageRoles.sql" />
     <Build Include="dbo\Tables\Events.sql" />
     <Build Include="dbo\Tables\Resources.sql" />
-    <Build Include="dbo\Tables\ResourceOverridesOwnerRoles.sql" />
     <Build Include="dbo\Tables\TicketAllocationRoles.sql" />
-    <Build Include="dbo\Tables\ResourceOverrides.sql" />
     <Build Include="dbo\Tables\FieldTypes.sql" />
     <Build Include="dbo\Tables\TicketOwners.sql" />
     <Build Include="dbo\Tables\FieldOwnerRoles.sql" />
@@ -115,11 +115,6 @@
     <Build Include="dbo\Tables\ResourceTypes.sql" />
     <Build Include="dbo\Tables\EventAllocationStatus.sql" />
     <Build Include="dbo\Tables\AllocationStatus.sql" />
-    <Build Include="dbo\Tables\DivisionMembers.sql" />
-    <Build Include="dbo\Tables\DivisionMemberRoles.sql" />
-    <Build Include="dbo\Tables\RoleOwnerRoles.sql" />
-    <Build Include="dbo\Tables\OwnedRoles.sql" />
-    <Build Include="dbo\Tables\RoleOwnerAllowedRoles.sql" />
     <Build Include="dbo\Tables\LocalAccountOwnerRoles.sql" />
     <Build Include="dbo\Tables\ExternalAccounts.sql" />
     <Build Include="dbo\Tables\ExternalAccountProviders.sql" />
@@ -142,6 +137,21 @@
     <Build Include="dbo\Tables\DomainSecurity.sql" />
     <Build Include="dbo\Tables\DomainPalettes.sql" />
     <Build Include="dbo\Tables\DomainImages.sql" />
+    <Build Include="id\Views\UserRelationships.sql" />
+    <Build Include="id\Views\Roles.sql" />
+    <Build Include="id\Views\RoleRelationships.sql" />
+    <Build Include="id\Views\RoleMembers.sql" />
+    <Build Include="entity\Views\Tickets.sql" />
+    <Build Include="entity\Views\Venues.sql" />
+    <Build Include="entity\Views\Events.sql" />
+    <Build Include="Security\entity.sql" />
+    <Build Include="dbo\Tables\ResourceOwnerRoles.sql" />
+    <Build Include="dbo\Tables\OwnedResources.sql" />
+    <Build Include="dbo\Tables\DomainResources.sql" />
+    <Build Include="entity\Views\TicketRequests.sql" />
+    <Build Include="entity\Views\TicketAllocations.sql" />
+    <Build Include="entity\Views\Domains.sql" />
+    <Build Include="id\Functions\GetBaseClaim.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeployment.sql" />

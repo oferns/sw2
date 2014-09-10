@@ -1,7 +1,6 @@
 ﻿namespace App.Tests
 {
     using System.Web.Mvc;
-    using App;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
@@ -11,10 +10,10 @@
         public void ShouldReturnIndexViewResult()
         {
             // Arrange
-            var controller = new HomeController(new Sponsorworks("Sponsorworks"));
+            var controller = new HomeController();
 
             // Act
-            var result = controller.Index();
+            ActionResult result = controller.Index();
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(ViewResult));

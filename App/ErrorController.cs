@@ -5,7 +5,7 @@
 
     // Allow anyone to see the error page
     [AllowAnonymous]
-    public sealed class ErrorController : Controller
+    public sealed class ErrorController : BaseController
     {
         // Allow both allowed messages for errors on GET and POST
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]

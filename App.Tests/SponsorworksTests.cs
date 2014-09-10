@@ -1,5 +1,6 @@
 ﻿namespace App.Tests
 {
+    using Data;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]

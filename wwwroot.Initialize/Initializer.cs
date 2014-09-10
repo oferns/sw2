@@ -5,22 +5,35 @@
     using System.Diagnostics;
     using System.Diagnostics.Contracts;
     using System.Globalization;
+    using System.Web;
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
     using App;
     using App.Auth;
+    using Common.Owin;
+    using Common.Tracing;
+    using Contracts;
+    using Data;
+    using Data.Auth;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin;
+    using Microsoft.Owin.Security;
     using Microsoft.Owin.Security.Cookies;
     using Microsoft.Owin.Security.Google;
     using Owin;
+    using SimpleInjector;
+    using SimpleInjector.Advanced;
+    using SimpleInjector.Extensions;
+    using SimpleInjector.Integration.Web.Mvc;
 
     public class Initializer
     {
+        /// <summary>
+        /// Amazing to think this is all we need for logging....sigh!
+        /// </summary>
         internal static TraceSource Log = new TraceSource("App");
-        internal static TraceSource SqlLog = new TraceSource("App.Sql");
 
         /// <summary>
         /// This method is called by OWIN. OWIN deals with the authentication on the site
@@ -28,15 +41,42 @@
         /// [assembly: OwinStartup(typeof(Initializer), "Configuration")]
         /// </summary>
         /// <param name="app">app</param>
-        public static void Configuration(IAppBuilder app)
+        public void Configuration(IAppBuilder app)
         {
+            Log.TraceInformation("OWIN Configuration beginning");
+
+            // Set up the IoC Container
+            var container = new Container();
+
+            // ...register the Linq2Sql database 
+            container.Register(() => new Sponsorworks(ConfigurationManager.ConnectionStrings["Sponsorworks"].ConnectionString));
+
+            // register the IOwinContext for the Account controller
+            container.RegisterPerWebRequest<IOwinContext>(() => container.IsVerifying() ? new MockOwinContext() : HttpContext.Current.GetOwinContext());
+
+            // Register All controllers in the Assembly
+            container.RegisterMvcControllers(typeof(App.Global).Assembly);
+
+            // Allow filter registrations
+            container.RegisterMvcIntegratedFilterProvider();
+
+            // Register the queries 
+            container.RegisterManyForOpenGeneric(typeof(IQueryHandler<,>),
+                                                 typeof(IQueryHandler<,>).Assembly);
+
+            // Verify the container to ensure no errors
+            container.Verify();
+
+            // Set the MVC Dependency resolver to the IoC Resolver
+            DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
+
             // This is like DI for Authentication. The Account Controller recieves these.
-            app.CreatePerOwinContext(() => new Sponsorworks(ConfigurationManager.ConnectionStrings["Sponsorworks"].ConnectionString) { Log = new ActionTextWriter(sql => SqlLog.TraceData(TraceEventType.Verbose, 0, sql)) });
-            app.CreatePerOwinContext<UserStore>(((options, context) => new UserStore(context.Get<Sponsorworks>())));
-            app.CreatePerOwinContext<RoleStore>(((options, context) => new RoleStore(context.Get<Sponsorworks>())));
-            app.CreatePerOwinContext<UserManager>(UserManager.Create);
-            app.CreatePerOwinContext<RoleManager>(((options, context) => new RoleManager(context.Get<RoleStore>())));
-            app.CreatePerOwinContext<SignInManager>(((options, context) => new SignInManager(context.Get<UserManager>(), context.Authentication)));
+            app.CreatePerOwinContext<Sponsorworks>(container.GetInstance<Sponsorworks>);
+            app.CreatePerOwinContext<UserStore>(((options, context) => new UserStore(options, context, container.GetInstance<UserQueries>())));
+            app.CreatePerOwinContext<RoleStore>(((options, context) => new RoleStore(options, context, context.Get<Sponsorworks>())));
+            app.CreatePerOwinContext<UserManager>((options, context) => new UserManager(options, context));
+            app.CreatePerOwinContext<RoleManager>(((options, context) => new RoleManager(options, context, context.Get<RoleStore>())));
+            app.CreatePerOwinContext<SignInManager>(((options, context) => new SignInManager(options, context)));
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
@@ -44,25 +84,29 @@
                 LoginPath = new PathString("/Account/Login"),
                 Provider = new CookieAuthenticationProvider
                 {
-                    OnResponseSignIn = context => Log.TraceData(TraceEventType.Verbose, 0, string.Format(CultureInfo.InvariantCulture, "{0} logged in with {1}", context.Identity.Name, context.AuthenticationType)),
+                    //OnResponseSignIn = context => Log.TraceData(TraceEventType.Verbose, 0, string.Format(CultureInfo.InvariantCulture, "{0} logging in with {1}", context.Identity.Name, context.AuthenticationType)),
+                    //OnApplyRedirect = context => Log.TraceData(TraceEventType.Verbose, 0, string.Format(CultureInfo.InvariantCulture, "{0} redirected to {1}", context.OwinContext.Authentication.User, context.RedirectUri)),
+                    //OnException = context => Log.TraceData(TraceEventType.Error, 0, string.Format(CultureInfo.InvariantCulture, "{0} Cookie Exception: {1}", context.OwinContext.Authentication.User, context.Exception)),
+                    //OnResponseSignedIn = context => Log.TraceData(TraceEventType.Verbose, 0, string.Format(CultureInfo.InvariantCulture, "{0} logged in with {1}", context.Identity.Name, context.AuthenticationType)),
+                    //OnResponseSignOut = context => Log.TraceData(TraceEventType.Verbose, 0, string.Format(CultureInfo.InvariantCulture, "{0} logged out with {1}", context.OwinContext.Authentication.User, context.CookieOptions.Expires)),
                     OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<UserManager, Id_User, Guid>(
                                                                                                                TimeSpan.FromMinutes(30),
                                                                                                                (manager, user) => manager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie),
-                                                                                                               identity => Guid.Parse(identity.GetUserId()))
+                                                                                                               identity => Guid.Parse(identity.GetUserId())),
                 },
                 CookieHttpOnly = true,
                 CookieSecure = CookieSecureOption.Always,
                 CookieName = "SWORKS",
                 // AuthenticationMode = AuthenticationMode.Active
+
             });
+
+            app.UseGoogleAuthentication("554345000289-9b419bpr83t0tkrp6h1hqir30ipc57uv.apps.googleusercontent.com", "AK9FnPGBQXqiixA_8_5RJpgE");
+            app.UseFacebookAuthentication("585022628273869", "14a596a1ef3ef3956a88d4e3e6a3e6a5");
+            // app.UseMicrosoftAccountAuthentication();
 
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
-            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            {
-                ClientId = "554345000289-9b419bpr83t0tkrp6h1hqir30ipc57uv.apps.googleusercontent.com",
-                ClientSecret = "AK9FnPGBQXqiixA_8_5RJpgE"
-            });
         }
 
         /// <summary>
@@ -82,18 +126,6 @@
             ViewEngines.Engines.Clear();
 
             // and add the one we want
-            //ViewEngines.Engines.Add(new RazorViewEngine
-            //{
-            //    // Look in ControllerName/, then / for a layout view 
-            //    AreaMasterLocationFormats = new[] { "~/a{2}/c{1}/{0}.cshtml", "~/a{2}/{0}.cshtml" },
-            //    AreaViewLocationFormats = new[] { "~/a{2}/c{1}/{0}.cshtml", "~/a{2}/{0}.cshtml", "~/a{2}/Shared/{0}.cshtml" },
-            //    AreaPartialViewLocationFormats = new[] { "~/a{2}/c{1}/{0}.cshtml", "~/a{2}/{0}.cshtml", "~/a{2}/Shared/{0}.cshtml" },
-            //    MasterLocationFormats = new[] { "~/c{1}/{0}.cshtml", "~/Shared/{0}.cshtml" },
-            //    ViewLocationFormats = new[] { "~/c{1}/{0}.cshtml", "~/Shared/{0}.cshtml" },
-            //    PartialViewLocationFormats = new[] { "~/c{1}/{0}.cshtml", "~/Shared/{0}.cshtml" },
-            //    FileExtensions = new[] { "cshtml" }
-            //});
-
             ViewEngines.Engines.Add(new RazorViewEngine
             {
                 // Look in ControllerName/, then / for a layout view 
@@ -112,11 +144,14 @@
 
             // Enforce HTTPS everywhere
             GlobalFilters.Filters.Add(new RequireHttpsAttribute());
+
+            // User must be logged on as default. can be overriden with the Anonymous attribute
             GlobalFilters.Filters.Add(new AuthorizeAttribute());
 
+            // Register jQuery
             BundleTable.Bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                                                                                  "~/Scripts/jquery-{version}.js"));
-
+            // Register jQuery validation
             BundleTable.Bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                                                                                     "~/Scripts/jquery.validate*"));
 
@@ -133,12 +168,12 @@
                                                                              "~/Content/bootstrap.css",
                                                                              "~/Content/site.css"));
 
-            // Set EnableOptimizations to false for debugging. For more information,
-            // visit http://go.microsoft.com/fwlink/?LinkId=301862
-            BundleTable.EnableOptimizations = false;
+            //// Set EnableOptimizations to false for debugging. For more information,
+            //// visit http://go.microsoft.com/fwlink/?LinkId=301862
+            //BundleTable.EnableOptimizations = false;
 
 
-            // So we can catch requests that match physical locations (ie /cHome) and 404 them
+            // Very important setting if we want to use the routing structure we have created
             RouteTable.Routes.RouteExistingFiles = true;
 
             // Ignore resource routes

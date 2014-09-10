@@ -1,8 +1,10 @@
 ﻿namespace App.Auth
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics.Contracts;
     using System.Threading.Tasks;
+    using Data;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin;
@@ -10,23 +12,24 @@
 
     public sealed class UserManager : UserManager<Id_User, Guid>
     {
-        public UserManager(IUserStore<Id_User, Guid> store)
-            : base(store)
-        {
-        }
+        private readonly IdentityFactoryOptions<UserManager> options;
+        private readonly IOwinContext context;
 
-        public static UserManager Create(IdentityFactoryOptions<UserManager> options, IOwinContext context)
+        public UserManager(IdentityFactoryOptions<UserManager> options, IOwinContext context)
+            : base(context.Get<UserStore>())
         {
-            Contract.Requires<ArgumentNullException>(options != null, "options");
-            var manager = new UserManager(context.Get<UserStore>());
-            // Configure validation logic for usernames
-            manager.UserValidator = new UserValidator<Id_User, Guid>(manager)
+            Contract.Requires<ArgumentNullException>(options!=null,"options");
+            Contract.Requires<ArgumentNullException>(context != null, "context");
+            this.options = options;
+            this.context = context;
+            
+            this.UserValidator = new UserValidator<Id_User, Guid>(this)
             {
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
             };
-            // Configure validation logic for passwords
-            manager.PasswordValidator = new PasswordValidator
+
+            this.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 6,
                 RequireNonLetterOrDigit = true,
@@ -34,25 +37,37 @@
                 RequireLowercase = true,
                 RequireUppercase = true,
             };
-            // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
-            // You can write your own provider and plug in here.
-            manager.RegisterTwoFactorProvider("PhoneCode", new PhoneNumberTokenProvider<Id_User, Guid>
-            {
-                MessageFormat = "Your security code is: {0}"
-            });
-            manager.RegisterTwoFactorProvider("EmailCode", new EmailTokenProvider<Id_User, Guid>
-            {
-                Subject = "Security Code",
-                BodyFormat = "Your security code is: {0}"
-            });
-            manager.EmailService = new EmailService();
-            manager.SmsService = new SmsService();
+
             IDataProtectionProvider dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = new DataProtectorTokenProvider<Id_User, Guid>(dataProtectionProvider.Create("SWORKS Identity"));
+                this.UserTokenProvider = new DataProtectorTokenProvider<Id_User, Guid>(dataProtectionProvider.Create("SWORKS Identity"));
             }
-            return manager;
+
+            this.EmailService = new EmailService();
+
+        }
+        
+        public override Task<IList<string>> GetValidTwoFactorProvidersAsync(Guid userId)
+        {
+            return base.GetValidTwoFactorProvidersAsync(userId);
+        }
+
+        public override Task<IdentityResult> ResetAccessFailedCountAsync(Guid userId)
+        {
+            return Task.Run(() =>
+            {
+                var store = context.Get<IUserLockoutStore<Id_User, Guid>>();
+                store.ResetAccessFailedCountAsync(new Id_User { Id = userId });
+                return IdentityResult.Success;
+            });
+
+
+        }
+
+        public override Task<Id_User> FindByIdAsync(Guid userId)
+        {
+            return base.FindByIdAsync(userId);
         }
     }
 

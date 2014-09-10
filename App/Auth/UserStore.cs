@@ -2,13 +2,18 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Threading.Tasks;
-    using System.Transactions;
+    using Data;
+    using Data.Auth;
+    using Data.Auth.Queries;
     using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin;
 
-    public sealed class UserStore : IUserStore<Id_User, Guid>,
+    public sealed class UserStore : IUserStore<Id_User, Guid>, IQueryableUserStore<Id_User, Guid>,
         IUserPasswordStore<Id_User, Guid>,
         IUserEmailStore<Id_User, Guid>,
         IUserSecurityStampStore<Id_User, Guid>,
@@ -17,46 +22,32 @@
         IUserLockoutStore<Id_User, Guid>,
         IUserTwoFactorStore<Id_User, Guid>
     {
+        private readonly IOwinContext context;
+        private readonly UserQueries userQueries;
         private readonly Sponsorworks db;
 
-        public UserStore(Sponsorworks db)
+        public UserStore(IdentityFactoryOptions<UserStore> options, IOwinContext context, UserQueries userQueries)
         {
-            Contract.Requires<ArgumentNullException>(db != null, "db");
-            this.db = db;
+            Contract.Requires<ArgumentNullException>(options != null, "options");
+            Contract.Requires<ArgumentNullException>(context != null, "context");
+            Contract.Requires<ArgumentNullException>(userQueries != null, "userQueries");
+
+            this.context = context;
+            this.userQueries = userQueries;
+            db = context.Get<Sponsorworks>();
         }
 
         #region IUserStore
 
         public Task CreateAsync(Id_User user)
         {
-            return Task.Run(() =>
-            {
-                using (var transaction = new TransactionScope())
-                {
-                    user.Id = user.Id == Guid.Empty ? Guid.NewGuid() : user.Id;
-                    db.Users.InsertOnSubmit(new User { Id = user.Id, UserName = user.UserName, Active = true });
-                    db.RoleMembers.InsertOnSubmit(new RoleMember { UserId = user.Id, RoleId = user.RoleId, Active = true });
-                    if (!string.IsNullOrEmpty(user.PasswordHash))
-                    {
-                        db.Accounts.InsertOnSubmit(new Account
-                        {
-                            OwnerUserId = user.Id,
-                            OwnerRoleId = user.RoleId,
-                            EmailAddress = user.EmailAddress,
-                            EmailVerified = user.EmailVerified,
-                            Active = user.Active,
-                            PasswordHash = user.PasswordHash,
-                            SecurityStamp = user.SecurityStamp
-                        });
-                    }
-                    db.SubmitChanges();
-                    transaction.Complete();
-                }
-            });
+            Contract.Assume(user != null, "user");
+            return userQueries.Handle(new CreateUser { User = user });
         }
 
         public Task DeleteAsync(Id_User user)
         {
+            Contract.Assume(user != null, "user");
             return Task.Run(() =>
             {
                 db.Users.DeleteOnSubmit(db.Users.Single(u => u.Id == user.Id));
@@ -66,7 +57,8 @@
 
         public Task<Id_User> FindByIdAsync(Guid userId)
         {
-            return Task.Run(() => db.Id_Users.FirstOrDefault(u => u.Id == userId));
+            Global.Log.TraceData(TraceEventType.Verbose, 1, "Looking for userId " + userId);
+            return userQueries.Handle(new FindById { Id = userId });
         }
 
         public Task<Id_User> FindByNameAsync(string userName)
@@ -76,6 +68,7 @@
 
         public Task UpdateAsync(Id_User user)
         {
+            Contract.Requires<ArgumentOutOfRangeException>(user.Id != Guid.Empty, "user");
             return Task.Run(() =>
             {
                 User actualUser = db.Users.Single(u => u.Id == user.Id);
@@ -153,8 +146,8 @@
         {
             return Task.Run(() =>
             {
-                Account Account = db.Accounts.Single(a => a.OwnerUserId == user.Id);
-                Account.EmailVerified = confirmed;
+                Account account = db.Accounts.Single(a => a.OwnerUserId == user.Id);
+                account.EmailVerified = confirmed;
                 db.SubmitChanges();
             });
         }
@@ -189,8 +182,9 @@
                     ProviderName = login.LoginProvider,
                     Active = true,
                     OwnerUserId = user.Id,
-                    OwnerRoleId = (byte)user.Claims.First(c => c.Type == "activeroleclaim").Value[0],
-                    ProviderOwnerRoleId = (byte)(user.Claims.First(c => c.Type == "Claimtypehere").Value[0]) //TODO: This wont work
+                    OwnerRoleId = user.RoleId,
+                    ProviderOwnerRoleId = (byte)context.Environment["DomainOwnerId"],
+                    ProviderOwnerUserId = Guid.Parse((string)context.Environment["DomainOwnerRoleId"])                    
                 });
                 db.SubmitChanges();
             });
@@ -309,24 +303,41 @@
 
             return Task.Run(() =>
             {
-                AccountLockOut lockOut = db.AccountLockOuts.Single(l => l.OwnerRoleId == user.RoleId && l.OwnerUserId == user.Id);
-                lockOut.FailedAccessCount = 0;
+                AccountLockOut lockOut = db.AccountLockOuts.SingleOrDefault(l => l.OwnerRoleId == user.RoleId && l.OwnerUserId == user.Id);
+                lockOut = lockOut ?? new AccountLockOut
+                {
+                    OwnerUserId = user.Id,
+                    OwnerRoleId = user.RoleId,
+                    //   LockOutOwnerRoleId = user.
+                    FailedAccessCount = 0
+
+                };
+                db.AccountLockOuts.Attach(lockOut);
                 db.SubmitChanges();
             });
         }
 
         public Task SetLockoutEnabledAsync(Id_User user, bool enabled)
         {
-            throw new NotImplementedException();
+            Contract.Assume(user != null);
+            return Task.Run(() => user.LockoutEnabled = enabled);
         }
 
         public Task SetLockoutEndDateAsync(Id_User user, DateTimeOffset lockoutEnd)
         {
             return Task.Run(() =>
             {
-                AccountLockOut lockOut = db.AccountLockOuts.Single(l => l.OwnerRoleId == user.RoleId && l.OwnerUserId == user.Id);
-                lockOut.FailedAccessCount = 0;
-                db.SubmitChanges();
+                user.UnlockDate = DateTime.UtcNow.Add(lockoutEnd.Offset);
+                //AccountLockOut lockOut = db.AccountLockOuts.SingleOrDefault(l => l.OwnerRoleId == user.RoleId && l.OwnerUserId == user.Id);
+                //lockOut = lockOut ?? new AccountLockOut
+                //{
+                //    OwnerRoleId = user.RoleId,
+                //    OwnerUserId = user.Id,
+                //    LockOutOwnerRoleId = (byte)context.Environment["DomainOwnerId"],
+                //    LockOutOwnerUserId= Guid.Parse((string)context.Environment["DomainOwnerRoleId"])
+                //};
+                //lockOut.FailedAccessCount = 0;
+                //db.SubmitChanges();
             });
         }
 
@@ -343,9 +354,17 @@
         public Task SetTwoFactorEnabledAsync(Id_User user, bool enabled)
         {
             Contract.Assume(user != null);
-            throw new NotImplementedException();
+            return Task.Run(() => user.TwoFactorEnabled = enabled);
         }
 
         #endregion
+
+        public IQueryable<Id_User> Users
+        {
+            get
+            {
+                return db.Id_Users;
+            }
+        }
     }
 }

@@ -4,18 +4,23 @@
     using System.Diagnostics.Contracts;
     using System.Security.Claims;
     using System.Threading.Tasks;
+    using Data;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin;
-    using Microsoft.Owin.Security;
 
     public class SignInManager : SignInManager<Id_User, Guid>
     {
-        public SignInManager(UserManager<Id_User, Guid> userManager, IAuthenticationManager authenticationManager)
-            : base(userManager, authenticationManager)
+        private readonly IdentityFactoryOptions<SignInManager> options;
+        private readonly IOwinContext context;
+
+        public SignInManager(IdentityFactoryOptions<SignInManager> options, IOwinContext context)
+            : base(context.Get<UserManager>(), context.Authentication)
         {
-            Contract.Requires<ArgumentNullException>(userManager != null, "userManager");
-            Contract.Requires<ArgumentNullException>(authenticationManager != null, "authenticationManager");
+            Contract.Requires<ArgumentNullException>(options != null, "options");
+            Contract.Requires<ArgumentNullException>(context != null, "context");
+            this.options = options;
+            this.context = context;
         }
 
         public override Task<ClaimsIdentity> CreateUserIdentityAsync(Id_User user)
@@ -24,14 +29,14 @@
             return UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
         }
 
-        public static SignInManager Create(IdentityFactoryOptions<SignInManager> options, IOwinContext context)
+        public override Task SignInAsync(Id_User user, bool isPersistent, bool rememberBrowser)
         {
-            Contract.Requires<ArgumentNullException>(options != null, "options");
-            Contract.Requires<ArgumentNullException>(context != null, "context");
-
-            var userManager = context.GetUserManager<UserManager>();
-            Contract.Assert(userManager != null);
-            return new SignInManager(userManager, context.Authentication);
+            return base.SignInAsync(user, isPersistent, rememberBrowser);
         }
+
+        public override Task<SignInStatus> PasswordSignInAsync(string userName, string password, bool isPersistent, bool shouldLockout)
+        {
+            return base.PasswordSignInAsync(userName, password, isPersistent, shouldLockout);
+        }        
     }
 }

@@ -13,72 +13,65 @@ Post-Deployment Script Template
 /* Set up the System Roles 
 	sysadmin, reseller, admin, guest, company, user
 */
-INSERT [dbo].[Roles] ([Id], [Name], [Description], [IsSystemRole], [OwnerRoleId], [Active]) VALUES (1, N'sysadmin', N'System-wide administrator', 1, 1, 1)
-INSERT [dbo].[Roles] ([Id], [Name], [Description], [IsSystemRole], [OwnerRoleId], [Active]) VALUES (2, N'reseller', N'Reseller account. Local login. Limited Federated access', 1, 2, 1)
-INSERT [dbo].[Roles] ([Id], [Name], [Description], [IsSystemRole], [OwnerRoleId], [Active]) VALUES (3, N'admin', N'Tenant Administrator. Needs Local Account to operate. Think Company Administrator.', 1, 3, 1)
-INSERT [dbo].[Roles] ([Id], [Name], [Description], [IsSystemRole], [OwnerRoleId], [Active]) VALUES (4, N'guest', N'Guest role. No Local Account needed. Federated Identity allowed. ', 1, 4, 1)
-INSERT [dbo].[Roles] ([Id], [Name], [Description], [IsSystemRole], [OwnerRoleId], [Active]) VALUES (5, N'company', N' A company account. No Login', 1, 5, 1)
-INSERT [dbo].[Roles] ([Id], [Name], [Description], [IsSystemRole], [OwnerRoleId], [Active]) VALUES (6, N'user', N'A basic user role', 1, 6, 1)
-/* These last two are custom roles */
-INSERT [dbo].[Roles] ([Id], [Name], [Description], [IsSystemRole], [OwnerRoleId]) VALUES (7, N'Corporate Guest', N'A custom Guest sub role', 0, 4)
-INSERT [dbo].[Roles] ([Id], [Name], [Description], [IsSystemRole], [OwnerRoleId]) VALUES (8, N'Junior admin', N'A custom restricted admin role', 0, 3)
-
+INSERT [dbo].[Roles] ([Id], [Name], [Description], [Active]) VALUES (1, N'sysadmin', N'System-wide administrator', 1)
+INSERT [dbo].[Roles] ([Id], [Name], [Description], [Active]) VALUES (2, N'reseller', N'Reseller account. Local login. Limited Federated access', 1)
+INSERT [dbo].[Roles] ([Id], [Name], [Description], [Active]) VALUES (3, N'admin', N'Tenant Administrator. Needs Local Account to operate. Think Company Administrator.', 1)
+INSERT [dbo].[Roles] ([Id], [Name], [Description], [Active]) VALUES (4, N'guest', N'Guest role. No Local Account needed. Federated Identity allowed. ', 1)
+INSERT [dbo].[Roles] ([Id], [Name], [Description], [Active]) VALUES (5, N'company', N' A company account. No Login', 1)
+INSERT [dbo].[Roles] ([Id], [Name], [Description], [Active]) VALUES (6, N'user', N'A basic user role', 1)
+INSERT [dbo].[Roles] ([Id], [Name], [Description], [Active]) VALUES (7, N'group', N'A group of guests', 1)
+INSERT [dbo].[Roles] ([Id], [Name], [Description], [Active]) VALUES (8, N'division', N'A user division', 1)
 
 /* Set up the System Role Relationships 
-	reseller->admin, reseller->company, reseller->user, company->admin, company->guest, company->user
 */
-INSERT [dbo].[RoleRelationships] ([RoleId], [PartnerRoleId]) VALUES (2, 3)
-INSERT [dbo].[RoleRelationships] ([RoleId], [PartnerRoleId]) VALUES (2, 5)
-INSERT [dbo].[RoleRelationships] ([RoleId], [PartnerRoleId]) VALUES (2, 6)
-INSERT [dbo].[RoleRelationships] ([RoleId], [PartnerRoleId]) VALUES (5, 3)
-INSERT [dbo].[RoleRelationships] ([RoleId], [PartnerRoleId]) VALUES (5, 4)
-INSERT [dbo].[RoleRelationships] ([RoleId], [PartnerRoleId]) VALUES (5, 6)
+INSERT [dbo].[RoleRelationships] ([RoleId], [PartnerRoleId]) VALUES (2, 3) -- reseller->admin
+INSERT [dbo].[RoleRelationships] ([RoleId], [PartnerRoleId]) VALUES (2, 5) -- reseller->company
+INSERT [dbo].[RoleRelationships] ([RoleId], [PartnerRoleId]) VALUES (2, 6) -- reseller->user
+INSERT [dbo].[RoleRelationships] ([RoleId], [PartnerRoleId]) VALUES (2, 8) -- reseller->division
+INSERT [dbo].[RoleRelationships] ([RoleId], [PartnerRoleId]) VALUES (5, 7) -- company->group
+INSERT [dbo].[RoleRelationships] ([RoleId], [PartnerRoleId]) VALUES (5, 3) -- company->admin
+INSERT [dbo].[RoleRelationships] ([RoleId], [PartnerRoleId]) VALUES (5, 4) -- company->guest
+INSERT [dbo].[RoleRelationships] ([RoleId], [PartnerRoleId]) VALUES (5, 6) -- company->user
+INSERT [dbo].[RoleRelationships] ([RoleId], [PartnerRoleId]) VALUES (5, 8) -- company->division
+INSERT [dbo].[RoleRelationships] ([RoleId], [PartnerRoleId]) VALUES (8, 8) -- division->division
+INSERT [dbo].[RoleRelationships] ([RoleId], [PartnerRoleId]) VALUES (8, 6) -- divsion->user
+INSERT [dbo].[RoleRelationships] ([RoleId], [PartnerRoleId]) VALUES (7, 4) -- group-> guest
+
 
 /* Add roles to the restriction tables. Only users in these roles will be able to be added to the relevant tables */ 
 INSERT [dbo].[DomainOwnerRoles] ([RoleId]) VALUES (1) --  sysadmin - Restricts who can own a Domain
 INSERT [dbo].[DomainOwnerRoles] ([RoleId]) VALUES (2) --  reseller - Restricts who can own a Domain
 INSERT [dbo].[DomainOwnerRoles] ([RoleId]) VALUES (5) --  company - Restricts who can own a Domain
 
-INSERT [dbo].[DivisionOwnerRoles] ([RoleId]) VALUES (2) -- reseller - Restricts who can own a Division
-INSERT [dbo].[DivisionOwnerRoles] ([RoleId]) VALUES (5) -- company - Restricts who can own a Division
-INSERT [dbo].[DivisionMemberRoles] ([RoleId]) VALUES (3) -- admin - Restricts who can be a Division Member
-INSERT [dbo].[DivisionMemberRoles] ([RoleId]) VALUES (6) -- user - Restricts who can be a Division Member
-INSERT [dbo].[TicketRequestorRoles] ([RoleId]) VALUES (3) -- admin - Restricts who can be a request Tickets
-INSERT [dbo].[TicketRequestorRoles] ([RoleId]) VALUES (6) -- user - Restricts who can be a request Tickets
+INSERT [dbo].[TicketRequestorRoles] ([RoleId]) VALUES (3) -- admin - Restricts who can request Tickets
+INSERT [dbo].[TicketRequestorRoles] ([RoleId]) VALUES (6) -- user - Restricts who can request Tickets
+
 INSERT [dbo].[AccountOwnerRoles] ([RoleId]) VALUES (1) -- sysadmin - Restricts who can have a local account to login with
 INSERT [dbo].[AccountOwnerRoles] ([RoleId]) VALUES (3) -- admin - Restricts who can have a local account to login with
 INSERT [dbo].[AccountOwnerRoles] ([RoleId]) VALUES (6) -- user - Restricts who can have a local account to login with
+
 INSERT [dbo].[ExternalAccountOwnerRoles] ([RoleId], [Active]) VALUES (3,1) -- admin - Restricts who can have a External account to login with
 INSERT [dbo].[ExternalAccountOwnerRoles] ([RoleId], [Active]) VALUES (4,1) -- guest - Restricts who can have a External account to login with
 INSERT [dbo].[ExternalAccountOwnerRoles] ([RoleId], [Active]) VALUES (6,1) -- user - Restricts who can have a External account to login with
 
 INSERT [dbo].[EventOwnerRoles] ([RoleId]) VALUES (5) -- company - Restricts who can own an event
+
 INSERT [dbo].[TicketPatronageRoles] ([RoleId]) VALUES (4) -- guest - Restricts who can be invited to an Event
-INSERT [dbo].[ResourceOverridesOwnerRoles] ([RoleId]) VALUES (2) -- reseller - Restricts who can own a resource Override
-INSERT [dbo].[ResourceOverridesOwnerRoles] ([RoleId]) VALUES (5) -- company - Restricts who can own a resource Override
+INSERT [dbo].[TicketPatronageRoles] ([RoleId]) VALUES (7) -- group - Restricts who can be invited to an Event
+
+INSERT [dbo].[ResourceOwnerRoles] ([RoleId]) VALUES (2) -- reseller - Restricts who can own a resource Override
+INSERT [dbo].[ResourceOwnerRoles] ([RoleId]) VALUES (5) -- company - Restricts who can own a resource Override
+
 INSERT [dbo].[TicketAllocationRoles] ([RoleId]) VALUES (3) -- admin - Restricts who can allocate tickets
+
 INSERT [dbo].[FieldOwnerRoles] ([RoleId]) VALUES (2) -- reseller - Restricts who can own fields
 INSERT [dbo].[FieldOwnerRoles] ([RoleId]) VALUES (5) -- company - Restricts who can own fields
+
 INSERT [dbo].[TicketOwnerRoles] ([RoleId]) VALUES (5) -- company - Restricts who can own tickets
+
 INSERT [dbo].[VenueOwnerRoles] ([RoleId]) VALUES (5) -- company - - Restricts who can own Venues
-INSERT [dbo].[RoleOwnerRoles] ([RoleId]) VALUES (1) -- sysadmin - - Restricts who can own Roles
-INSERT [dbo].[RoleOwnerRoles] ([RoleId]) VALUES (2) -- reseller - - Restricts who can own Roles
-INSERT [dbo].[RoleOwnerRoles] ([RoleId]) VALUES (5) -- company - - Restricts who can own Roles
 
-/* Create permissions to allow role members to create child roles based on the system roles */
-INSERT [dbo].[RoleOwnerAllowedRoles] VALUES (1,1) --  sysadmins can create other sysadmin sub roles
-INSERT [dbo].[RoleOwnerAllowedRoles] VALUES (2,1) --  sysadmins can create reseller sub roles
-INSERT [dbo].[RoleOwnerAllowedRoles] VALUES (3,1) --  sysadmins can create admin sub roles
-INSERT [dbo].[RoleOwnerAllowedRoles] VALUES (4,1) --  sysadmins can create guest sub roles
-INSERT [dbo].[RoleOwnerAllowedRoles] VALUES (5,1) --  sysadmins can create company sub roles
-INSERT [dbo].[RoleOwnerAllowedRoles] VALUES (6,1) --  sysadmins can create user sub roles
-INSERT [dbo].[RoleOwnerAllowedRoles] VALUES (3,2) --  Resellers can create admin sub roles
-INSERT [dbo].[RoleOwnerAllowedRoles] VALUES (4,2) --  Resellers can create user sub roles
-INSERT [dbo].[RoleOwnerAllowedRoles] VALUES (3,5) --  Companies can create admin sub roles
-INSERT [dbo].[RoleOwnerAllowedRoles] VALUES (4,5) --  Companies can create user sub roles
-INSERT [dbo].[RoleOwnerAllowedRoles] VALUES (6,5) --  Companies can create guest sub roles
-
-/* Set up some users. and their roles and their  children*/
+/* Set up some users. and their roles and their relations*/
 /* sysadmins 1 */
 INSERT [dbo].[Users] ([Id], [UserName], [Active]) VALUES (N'f50613a5-f898-4825-96a1-889655f651b8', N'Sysadmin', 1)
 INSERT [dbo].[RoleMembers] ([RoleId], [UserId], [Active]) VALUES (1, N'f50613a5-f898-4825-96a1-889655f651b8', 1) 
@@ -87,7 +80,8 @@ INSERT [dbo].[RoleMembers] ([RoleId], [UserId], [Active]) VALUES (1, N'f50613a5-
 /*5d415835-a304-45ae-b979-5f0eca28d261 - Synergy */
 INSERT [dbo].[Users] ([Id], [UserName], [Active]) VALUES (N'5d415835-a304-45ae-b979-5f0eca28d261', N'Synergy', 1)
 INSERT [dbo].[RoleMembers] ([RoleId], [UserId], [Active]) VALUES (2, N'5d415835-a304-45ae-b979-5f0eca28d261', 1) 
-/* admins  3*/
+
+/* admins  3 */
 INSERT [dbo].[Users] ([Id], [UserName], [Active]) VALUES (N'ce82f51a-7c53-490b-9d40-317aec1c9f35', N'Brian Murphy', 1)
 INSERT [dbo].[RoleMembers] ([RoleId], [UserId], [Active]) VALUES (3, N'ce82f51a-7c53-490b-9d40-317aec1c9f35', 1) 
 INSERT [dbo].[UserRelationships] ([RoleId], [UserId], [PartnerRoleId], [PartnerUserId], [Active]) 
@@ -156,7 +150,7 @@ INSERT [dbo].[UserRelationships] ([RoleId], [UserId], [PartnerRoleId], [PartnerU
 INSERT [dbo].[Users] ([Id], [UserName], [Active]) VALUES (N'24D14D4E-DEA4-4ED3-A30A-412DFBDF854D', N'Liverpool FC', 1)
 INSERT [dbo].[RoleMembers] ([RoleId], [UserId], [Active]) VALUES (5, N'24D14D4E-DEA4-4ED3-A30A-412DFBDF854D', 1) 
 
-/* admins */
+/* admins 3 */
 INSERT [dbo].[Users] ([Id], [UserName], [Active]) VALUES (N'09F4F1C0-0F15-4C6C-8C4E-31A6C6B628A8', N'Si Yun-ki', 1)
 INSERT [dbo].[RoleMembers] ([RoleId], [UserId], [Active]) VALUES (3, N'09F4F1C0-0F15-4C6C-8C4E-31A6C6B628A8', 1) 
 INSERT [dbo].[UserRelationships] ([RoleId], [UserId], [PartnerRoleId], [PartnerUserId], [Active])  
@@ -191,23 +185,15 @@ INSERT [dbo].[Users] ([Id], [UserName], [Active]) VALUES (N'512CC3D5-D6E3-4CA7-A
 INSERT [dbo].[RoleMembers] ([RoleId], [UserId], [Active]) VALUES (5, N'512CC3D5-D6E3-4CA7-AAD2-9E80A5B31008', 1) 
 
 
-
-/* Add sub role owners*/
-INSERT [dbo].[OwnedRoles] VALUES (7,2, '5d415835-a304-45ae-b979-5f0eca28d261') -- Synergy/reseller owns custom sub user
-INSERT [dbo].[OwnedRoles] VALUES (8,5, '5d415835-a304-45ae-b979-5f0eca28d261') -- Synergy/company owns custom sub guest
-
 /* Create some domains and give them a role/user combination
-sponsorworks.co.uk -> Ollie Ferns/sysadmin
-localhost -> Ollie Ferns/sysadmin
-events.standardlifeinvestments.com -> Ollie Ferns/sysadmin
-standardlifetrophy.com -> Ollie Ferns/sysadmin
+
 */ 
 SET IDENTITY_INSERT [dbo].[Domains] ON
 
-INSERT [dbo].[Domains] ([Id], [Domain], [Subdomain], [TopLevelDomain], [OwnerRoleId], [OwnerUserId]) VALUES (1, N'localhost',null, null, 1, N'f50613a5-f898-4825-96a1-889655f651b8')
-INSERT [dbo].[Domains] ([Id], [Domain], [Subdomain], [TopLevelDomain], [OwnerRoleId], [OwnerUserId]) VALUES (2, N'sponsorworks','*', '.co.uk', 1, N'f50613a5-f898-4825-96a1-889655f651b8')
-INSERT [dbo].[Domains] ([Id], [Domain], [Subdomain], [TopLevelDomain], [OwnerRoleId], [OwnerUserId]) VALUES (3, N'standardlifeinvestments','events','.com', 1, N'f50613a5-f898-4825-96a1-889655f651b8')
-INSERT [dbo].[Domains] ([Id], [Domain], [Subdomain], [TopLevelDomain], [OwnerRoleId], [OwnerUserId]) VALUES (4, N'standardcharteredtrophy','*','.com', 1, N'f50613a5-f898-4825-96a1-889655f651b8')
+INSERT [dbo].[Domains] ([Id], [Domain], [Subdomain], [TopLevelDomain], [OwnerRoleId], [OwnerUserId]) VALUES (1, N'localhost','', '', 1, N'f50613a5-f898-4825-96a1-889655f651b8')
+INSERT [dbo].[Domains] ([Id], [Domain], [Subdomain], [TopLevelDomain], [OwnerRoleId], [OwnerUserId]) VALUES (2, N'sponsorworks','www', '.co.uk', 1, N'f50613a5-f898-4825-96a1-889655f651b8')
+INSERT [dbo].[Domains] ([Id], [Domain], [Subdomain], [TopLevelDomain], [OwnerRoleId], [OwnerUserId]) VALUES (3, N'standardlifeinvestments','events','.com', 5, N'BD2D40AB-26F8-4CF9-9F1C-6633EFD1CEBF')
+INSERT [dbo].[Domains] ([Id], [Domain], [Subdomain], [TopLevelDomain], [OwnerRoleId], [OwnerUserId]) VALUES (4, N'standardcharteredtrophy','www','.com', 2, N'5d415835-a304-45ae-b979-5f0eca28d261')
 
 SET IDENTITY_INSERT [dbo].[Domains] OFF
 
@@ -218,11 +204,6 @@ INSERT [dbo].[AllocationStatus] ([Name], [Description]) VALUES (N'Rejected', 'Re
 INSERT [dbo].[AllocationStatus] ([Name], [Description]) VALUES (N'Expired', 'Expired')
 INSERT [dbo].[AllocationStatus] ([Name], [Description]) VALUES (N'Deleted', 'Deleted')
 INSERT [dbo].[AllocationStatus] ([Name], [Description]) VALUES (N'Cancelled', 'Cancelled')
-
-/* add a couple of divisions for demo data. Only reseller and company roles can own a division */
-INSERT [dbo].[Divisions] ([Name], [OwnerRoleId], [OwnerUserId]) VALUES (N'Marketing', 5, N'5d415835-a304-45ae-b979-5f0eca28d261') -- Owner Role/User: company/Synergy 
-INSERT [dbo].[Divisions] ([Name], [OwnerRoleId], [OwnerUserId]) VALUES (N'Finance', 5, N'5d415835-a304-45ae-b979-5f0eca28d261') -- Owner Role/User: company/Synergy 
-INSERT [dbo].[Divisions] ([Name], [OwnerRoleId], [OwnerUserId]) VALUES (N'Sales', 5, N'5d415835-a304-45ae-b979-5f0eca28d261') -- Owner Role/User: company/Synergy 
 
 /* add some domain settings to demonstrate individual cookie security settings */
 INSERT [dbo].[DomainSecurity] ([DomainId], [CookieName], [AbsoluteExpirationInHours], [SlidingExpirationInMinutes], [AllowPerpetualLogin]) VALUES (1, 'LOCALAUTH', -1,20,1)

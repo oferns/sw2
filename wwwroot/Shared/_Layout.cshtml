@@ -8,8 +8,6 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
-    @Theme.GetStyles()
-
     @RenderSection("Head", required: false)
     <meta name="description" content="@ViewBag.Description" />
 </head>
@@ -20,7 +18,7 @@
                 <div class="wrapper">
                     <header class="padded-container">
                         <div class="logo">
-                            @Theme.Logo
+                            
                         </div>
                         <h1>This is the Root Header</h1>
                         @Html.Partial("_LoginPartial")

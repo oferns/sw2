@@ -5,13 +5,16 @@
     using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Threading.Tasks;
+    using Data;
     using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin;
 
     public sealed class RoleStore : IRoleStore<Role, UInt16>
     {
         private readonly Sponsorworks db;
 
-        public RoleStore(Sponsorworks db)
+        public RoleStore(IdentityFactoryOptions<RoleStore> options, IOwinContext context, Sponsorworks db)
         {
             Contract.Requires<ArgumentNullException>(db != null, "db");
             this.db = db;
@@ -21,7 +24,7 @@
         {
             return Task.Run(() =>
             {
-                db.Roles.InsertOnSubmit(new App.Role { Id = (byte)role.Id, Name = role.Name, IsSystemRole = false });
+                db.Roles.InsertOnSubmit(new Data.Role { Id = (byte)role.Id, Name = role.Name, IsSystemRole = false });
                 db.SubmitChanges(ConflictMode.FailOnFirstConflict);
             });
         }

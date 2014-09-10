@@ -2,6 +2,7 @@
 {
     using System.Web.Mvc;
     using App.Admin;
+    using Data;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]

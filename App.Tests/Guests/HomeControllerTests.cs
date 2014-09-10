@@ -2,6 +2,7 @@
 {
     using System.Web.Mvc;
     using App.Guests;
+    using Data;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]

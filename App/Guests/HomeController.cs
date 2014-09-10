@@ -3,6 +3,7 @@
     using System;
     using System.Diagnostics.Contracts;
     using System.Web.Mvc;
+    using Data;
 
     public sealed class HomeController : Controller
     {

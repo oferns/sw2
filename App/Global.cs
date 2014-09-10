@@ -1,19 +1,14 @@
 ﻿namespace App
 {
     using System;
-    using System.Configuration;
     using System.Diagnostics;
     using System.Diagnostics.Contracts;
     using System.IO;
-    using System.Reflection;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Routing;
     using System.Web.UI;
     using System.Web.UI.WebControls;
-    using SimpleInjector;
-    using SimpleInjector.Advanced;
-    using SimpleInjector.Integration.Web.Mvc;
 
     public class Global : HttpApplication
     {
@@ -21,14 +16,6 @@
         /// Amazing to think this is all we need for logging....sigh!
         /// </summary>
         internal static TraceSource Log = new TraceSource("App");
-
-        internal static TraceSource SqlLog = new TraceSource("App.Sql");
-
-        /// <summary>
-        /// This is the IoC container used for this instance. Remember, one instance can be used by IIS for many requests.
-        /// Application_Start happpens once every instance. That is where the container gets created.
-        /// </summary>
-        internal Container Container;
 
         /// <summary>
         /// Renders a webcontrol as a MvcHtmlString. Used in the Theme helpers
@@ -69,48 +56,23 @@
             // Let's start a log! We can listen to this with tracelisteners in the web config
             Log.TraceInformation("Sponsorworks starting");
 
-            // Set up the IoC Container
-            Container = new Container();
-            
-            // Allow property injection for some of the less friendly MVC classes we have overriden
-            Container.Options.PropertySelectionBehavior = new ImportPropertySelectionBehavior();
-            
-            // ...register the Linq2Sql database 
-            Container.Register(() => new Sponsorworks(ConfigurationManager.ConnectionStrings["Sponsorworks"].ConnectionString) { Log = new ActionTextWriter(sql => SqlLog.TraceData(TraceEventType.Verbose, 0, sql)) });
-
-            // register the IOwinContext for the Account controller
-            Container.RegisterPerWebRequest(() => Container.IsVerifying() ? new MockOwinContext() : HttpContext.Current.GetOwinContext());
-
-            // Register All controllers in the Assembly
-            Container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
-
-            // Allow filter registrations
-            Container.RegisterMvcIntegratedFilterProvider();
-
-            // Verify the container to ensure no errors
-            Container.Verify();
-
-            // Set the MVC Dependency resolver to the IoC Resolver
-            DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(Container));
-
             // Register all the MVC Areas in this assembly. Do this after ignores and before the default route
             AreaRegistration.RegisterAllAreas();
 
-            // Try and map the Account route
             try
             {
-                Log.TraceInformation("Attempting to map the Account Route");
+                Log.TraceInformation("Attempting to map the ActionOnly Route");
                 RouteTable.Routes.MapRoute(
-                                           name: "Account",
-                                           url: "Account/{action}",
-                                           defaults: new { area = string.Empty, controller = "Account", action = "Login" },
+                                           name: "ActionOnly",
+                                           url: "{action}",
+                                           defaults: new { area = string.Empty, controller = "Home", action = "Index" },
                                            namespaces: new[] { "App" }
                     );
             }
                 // It's already been mapped...
             catch (ArgumentException)
             {
-                Log.TraceInformation("Account Route mapping skipped. Already mapped by the host application");
+                Log.TraceInformation("Default Route mapping skipped. Already mapped by the host application");
             }
 
             // Try and map the default route
@@ -145,6 +107,10 @@
             {
                 Log.TraceData(TraceEventType.Verbose, 0, string.Format("Begin Request {0} from {1}", Request.RawUrl, Request.UserHostAddress));
             }
+
+            HttpContext.Current.Items.Add("DomainOwnerId", "F50613A5-F898-4825-96A1-889655F651B8");
+            HttpContext.Current.Items.Add("DomainOwnerRoleId", "1");
+            HttpContext.Current.Items.Add("DomainId", "2");
         }
 
         /// <summary>

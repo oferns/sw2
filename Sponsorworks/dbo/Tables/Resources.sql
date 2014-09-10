@@ -5,8 +5,10 @@
     [DisplayName]    [dbo].[ShortString] NOT NULL,
     [DefaultValue]   [dbo].[LongString]  NOT NULL,
     CONSTRAINT [PK_Resources] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_Resources_Resources] FOREIGN KEY ([Id]) REFERENCES [dbo].[Resources] ([Id])
+    CONSTRAINT [FK_Resources_ResourceTypes] FOREIGN KEY ([ResourceTypeId]) REFERENCES [dbo].[ResourceTypes] ([Id])
 );
+
+
 
 
 

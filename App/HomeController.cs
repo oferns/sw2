@@ -4,21 +4,28 @@
     using System.Diagnostics.Contracts;
     using System.Web.Mvc;
 
-    public sealed class HomeController : Controller
+    public sealed class HomeController : BaseController
     {
-        private readonly Sponsorworks db;
-
-        public HomeController(Sponsorworks db)
-        {
-            Contract.Requires<ArgumentNullException>(db != null, "db");
-            this.db = db;
-        }
-
         [HttpGet]
         [AllowAnonymous]
         public ActionResult Index()
         {
-            return View("Index");
+            return View();
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult About()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult Terms()
+        {
+            return View();
+        }
+
     }
 }
