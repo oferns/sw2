@@ -24,7 +24,7 @@
         {
             return Task.Run(() =>
             {
-                db.Roles.InsertOnSubmit(new Data.Role { Id = (byte)role.Id, Name = role.Name, IsSystemRole = false });
+                db.Roles.InsertOnSubmit(new Data.Role { Id = (byte)role.Id, Name = role.Name });
                 db.SubmitChanges(ConflictMode.FailOnFirstConflict);
             });
         }

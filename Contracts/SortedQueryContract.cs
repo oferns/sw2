@@ -18,6 +18,7 @@ namespace Contracts
     /// <typeparam name="T">
     /// The typed result
     /// </typeparam>
+    [ContractClassFor(typeof(ISortedQuery<>))]
     internal abstract class SortedQueryContract<T> : ISortedQuery<T>
     {
         /// <summary>
@@ -45,7 +46,7 @@ namespace Contracts
             get
             {
                 Contract.Ensures(Contract.Result<SortOrder>() != SortOrder.Unspecified, "SortOrder");
-                return SortOrder.Unspecified;
+                return default(SortOrder);
             }
 
             set

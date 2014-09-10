@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>wwwroot</RootNamespace>
-    <AssemblyName>wwwroot</AssemblyName>
+    <RootNamespace>Web</RootNamespace>
+    <AssemblyName>Web</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <BuildMvcViews>true</BuildMvcViews>
@@ -395,9 +395,9 @@
       <Project>{623f56e9-c2c3-4e02-9871-6237ca3422c0}</Project>
       <Name>App</Name>
     </ProjectReference>
-    <ProjectReference Include="..\wwwroot.Initialize\wwwroot.Initialize.csproj">
+    <ProjectReference Include="..\Web.Initialize\Web.Initialize.csproj">
       <Project>{4df59e02-c4d2-493b-8c90-6f0617458f51}</Project>
-      <Name>wwwroot.Initialize</Name>
+      <Name>Web.Initialize</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

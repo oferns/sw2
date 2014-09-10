@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wwwroot", "wwwroot\wwwroot.csproj", "{948F36BE-882E-4F99-A0D5-D26D3F025583}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{948F36BE-882E-4F99-A0D5-D26D3F025583}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App", "App\App.csproj", "{623F56E9-C2C3-4E02-9871-6237CA3422C0}"
 EndProject
@@ -18,13 +18,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Tests", "App.Tests\App.
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Sponsorworks", "Sponsorworks\Sponsorworks.sqlproj", "{86ACA332-7E7B-43B8-BCE6-8BBA9328D9AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wwwroot.Initialize", "wwwroot.Initialize\wwwroot.Initialize.csproj", "{4DF59E02-C4D2-493B-8C90-6F0617458F51}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Initialize", "Web.Initialize\Web.Initialize.csproj", "{4DF59E02-C4D2-493B-8C90-6F0617458F51}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{E733225A-B307-40D9-BB2F-ACB415E1860E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{6175DB16-0F31-4121-85EC-8E212364281D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{ED0FA859-D61C-46C4-A0D4-E27C54851D29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Tests", "Web.Tests\Web.Tests.csproj", "{15971601-F7E9-4B27-8184-4D15A4DD0687}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,12 +68,16 @@ Global
 		{ED0FA859-D61C-46C4-A0D4-E27C54851D29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED0FA859-D61C-46C4-A0D4-E27C54851D29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED0FA859-D61C-46C4-A0D4-E27C54851D29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15971601-F7E9-4B27-8184-4D15A4DD0687}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15971601-F7E9-4B27-8184-4D15A4DD0687}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15971601-F7E9-4B27-8184-4D15A4DD0687}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15971601-F7E9-4B27-8184-4D15A4DD0687}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35;packages\EnterpriseLibrary.Common.5.0.505.0\lib\NET35;packages\TransientFaultHandling.Core.5.1.1209.0\lib\NET4;packages\EnterpriseLibrary.WindowsAzure.TransientFaultHandling.5.1.1212.0\lib\NET4;packages\EnterpriseLibrary.WindowsAzure.TransientFaultHandling.5.1.1212.0\DesignTime;packages\TransientFaultHandling.Core.5.1.1209.1\lib\NET4
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35;packages\EnterpriseLibrary.Common.5.0.505.0\lib\NET35;packages\TransientFaultHandling.Core.5.1.1209.0\lib\NET4;packages\EnterpriseLibrary.WindowsAzure.TransientFaultHandling.5.1.1212.0\lib\NET4;packages\EnterpriseLibrary.WindowsAzure.TransientFaultHandling.5.1.1212.0\DesignTime;packages\TransientFaultHandling.Core.5.1.1209.1\lib\NET4
 	EndGlobalSection
 EndGlobal

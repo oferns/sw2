@@ -7,8 +7,8 @@
     <ProjectGuid>{4DF59E02-C4D2-493B-8C90-6F0617458F51}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>wwwroot.Initialize</RootNamespace>
-    <AssemblyName>wwwroot.Initialize</AssemblyName>
+    <RootNamespace>Web.Initialize</RootNamespace>
+    <AssemblyName>Web.Initialize</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>

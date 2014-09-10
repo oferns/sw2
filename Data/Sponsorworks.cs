@@ -55,18 +55,6 @@ namespace Data
     partial void InsertAllocationStatus(AllocationStatus instance);
     partial void UpdateAllocationStatus(AllocationStatus instance);
     partial void DeleteAllocationStatus(AllocationStatus instance);
-    partial void InsertDivisionMemberRole(DivisionMemberRole instance);
-    partial void UpdateDivisionMemberRole(DivisionMemberRole instance);
-    partial void DeleteDivisionMemberRole(DivisionMemberRole instance);
-    partial void InsertDivisionMember(DivisionMember instance);
-    partial void UpdateDivisionMember(DivisionMember instance);
-    partial void DeleteDivisionMember(DivisionMember instance);
-    partial void InsertDivisionOwnerRole(DivisionOwnerRole instance);
-    partial void UpdateDivisionOwnerRole(DivisionOwnerRole instance);
-    partial void DeleteDivisionOwnerRole(DivisionOwnerRole instance);
-    partial void InsertDivision(Division instance);
-    partial void UpdateDivision(Division instance);
-    partial void DeleteDivision(Division instance);
     partial void InsertDomainImage(DomainImage instance);
     partial void UpdateDomainImage(DomainImage instance);
     partial void DeleteDomainImage(DomainImage instance);
@@ -76,6 +64,9 @@ namespace Data
     partial void InsertDomainPalette(DomainPalette instance);
     partial void UpdateDomainPalette(DomainPalette instance);
     partial void DeleteDomainPalette(DomainPalette instance);
+    partial void InsertDomainResource(DomainResource instance);
+    partial void UpdateDomainResource(DomainResource instance);
+    partial void DeleteDomainResource(DomainResource instance);
     partial void InsertDomain(Domain instance);
     partial void UpdateDomain(Domain instance);
     partial void DeleteDomain(Domain instance);
@@ -130,18 +121,15 @@ namespace Data
     partial void InsertImageType(ImageType instance);
     partial void UpdateImageType(ImageType instance);
     partial void DeleteImageType(ImageType instance);
-    partial void InsertOwnedRole(OwnedRole instance);
-    partial void UpdateOwnedRole(OwnedRole instance);
-    partial void DeleteOwnedRole(OwnedRole instance);
+    partial void InsertOwnedResource(OwnedResource instance);
+    partial void UpdateOwnedResource(OwnedResource instance);
+    partial void DeleteOwnedResource(OwnedResource instance);
     partial void InsertPaletteType(PaletteType instance);
     partial void UpdatePaletteType(PaletteType instance);
     partial void DeletePaletteType(PaletteType instance);
-    partial void InsertResourceOverride(ResourceOverride instance);
-    partial void UpdateResourceOverride(ResourceOverride instance);
-    partial void DeleteResourceOverride(ResourceOverride instance);
-    partial void InsertResourceOverridesOwnerRole(ResourceOverridesOwnerRole instance);
-    partial void UpdateResourceOverridesOwnerRole(ResourceOverridesOwnerRole instance);
-    partial void DeleteResourceOverridesOwnerRole(ResourceOverridesOwnerRole instance);
+    partial void InsertResourceOwnerRole(ResourceOwnerRole instance);
+    partial void UpdateResourceOwnerRole(ResourceOwnerRole instance);
+    partial void DeleteResourceOwnerRole(ResourceOwnerRole instance);
     partial void InsertResource(Resource instance);
     partial void UpdateResource(Resource instance);
     partial void DeleteResource(Resource instance);
@@ -151,12 +139,6 @@ namespace Data
     partial void InsertRoleMember(RoleMember instance);
     partial void UpdateRoleMember(RoleMember instance);
     partial void DeleteRoleMember(RoleMember instance);
-    partial void InsertRoleOwnerAllowedRole(RoleOwnerAllowedRole instance);
-    partial void UpdateRoleOwnerAllowedRole(RoleOwnerAllowedRole instance);
-    partial void DeleteRoleOwnerAllowedRole(RoleOwnerAllowedRole instance);
-    partial void InsertRoleOwnerRole(RoleOwnerRole instance);
-    partial void UpdateRoleOwnerRole(RoleOwnerRole instance);
-    partial void DeleteRoleOwnerRole(RoleOwnerRole instance);
     partial void InsertRoleRelationship(RoleRelationship instance);
     partial void UpdateRoleRelationship(RoleRelationship instance);
     partial void DeleteRoleRelationship(RoleRelationship instance);
@@ -325,38 +307,6 @@ namespace Data
 			}
 		}
 		
-		public System.Data.Linq.Table<DivisionMemberRole> DivisionMemberRoles
-		{
-			get
-			{
-				return this.GetTable<DivisionMemberRole>();
-			}
-		}
-		
-		public System.Data.Linq.Table<DivisionMember> DivisionMembers
-		{
-			get
-			{
-				return this.GetTable<DivisionMember>();
-			}
-		}
-		
-		public System.Data.Linq.Table<DivisionOwnerRole> DivisionOwnerRoles
-		{
-			get
-			{
-				return this.GetTable<DivisionOwnerRole>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Division> Divisions
-		{
-			get
-			{
-				return this.GetTable<Division>();
-			}
-		}
-		
 		public System.Data.Linq.Table<DomainImage> DomainImages
 		{
 			get
@@ -381,11 +331,27 @@ namespace Data
 			}
 		}
 		
+		public System.Data.Linq.Table<DomainResource> DomainResources
+		{
+			get
+			{
+				return this.GetTable<DomainResource>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Domain> Domains
 		{
 			get
 			{
 				return this.GetTable<Domain>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Entity_Domain> Entity_Domains
+		{
+			get
+			{
+				return this.GetTable<Entity_Domain>();
 			}
 		}
 		
@@ -434,6 +400,14 @@ namespace Data
 			get
 			{
 				return this.GetTable<Event>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Entity_Event> Entity_Events
+		{
+			get
+			{
+				return this.GetTable<Entity_Event>();
 			}
 		}
 		
@@ -525,11 +499,11 @@ namespace Data
 			}
 		}
 		
-		public System.Data.Linq.Table<OwnedRole> OwnedRoles
+		public System.Data.Linq.Table<OwnedResource> OwnedResources
 		{
 			get
 			{
-				return this.GetTable<OwnedRole>();
+				return this.GetTable<OwnedResource>();
 			}
 		}
 		
@@ -541,19 +515,11 @@ namespace Data
 			}
 		}
 		
-		public System.Data.Linq.Table<ResourceOverride> ResourceOverrides
+		public System.Data.Linq.Table<ResourceOwnerRole> ResourceOwnerRoles
 		{
 			get
 			{
-				return this.GetTable<ResourceOverride>();
-			}
-		}
-		
-		public System.Data.Linq.Table<ResourceOverridesOwnerRole> ResourceOverridesOwnerRoles
-		{
-			get
-			{
-				return this.GetTable<ResourceOverridesOwnerRole>();
+				return this.GetTable<ResourceOwnerRole>();
 			}
 		}
 		
@@ -581,19 +547,19 @@ namespace Data
 			}
 		}
 		
-		public System.Data.Linq.Table<RoleOwnerAllowedRole> RoleOwnerAllowedRoles
+		public System.Data.Linq.Table<Id_RoleMember> Id_RoleMembers
 		{
 			get
 			{
-				return this.GetTable<RoleOwnerAllowedRole>();
+				return this.GetTable<Id_RoleMember>();
 			}
 		}
 		
-		public System.Data.Linq.Table<RoleOwnerRole> RoleOwnerRoles
+		public System.Data.Linq.Table<Id_RoleRelationship> Id_RoleRelationships
 		{
 			get
 			{
-				return this.GetTable<RoleOwnerRole>();
+				return this.GetTable<Id_RoleRelationship>();
 			}
 		}
 		
@@ -634,6 +600,14 @@ namespace Data
 			get
 			{
 				return this.GetTable<TicketAllocation>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Entity_TicketAllocation> Entity_TicketAllocations
+		{
+			get
+			{
+				return this.GetTable<Entity_TicketAllocation>();
 			}
 		}
 		
@@ -698,6 +672,22 @@ namespace Data
 			get
 			{
 				return this.GetTable<TicketRequest>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Entity_TicketRequest> Entity_TicketRequests
+		{
+			get
+			{
+				return this.GetTable<Entity_TicketRequest>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Entity_Ticket> Entity_Tickets
+		{
+			get
+			{
+				return this.GetTable<Entity_Ticket>();
 			}
 		}
 		
@@ -781,6 +771,14 @@ namespace Data
 			}
 		}
 		
+		public System.Data.Linq.Table<Id_UserRelationship> Id_UserRelationships
+		{
+			get
+			{
+				return this.GetTable<Id_UserRelationship>();
+			}
+		}
+		
 		public System.Data.Linq.Table<User> Users
 		{
 			get
@@ -819,6 +817,21 @@ namespace Data
 			{
 				return this.GetTable<Venue>();
 			}
+		}
+		
+		public System.Data.Linq.Table<Entity_Venue> Entity_Venues
+		{
+			get
+			{
+				return this.GetTable<Entity_Venue>();
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="id.GetBaseClaim", IsComposable=true)]
+		[return: global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(768)")]
+		public string Id_GetBaseClaim([global::System.Data.Linq.Mapping.ParameterAttribute(Name="SubDomain", DbType="NVarChar(256)")] string subDomain, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Domain", DbType="NVarChar(256)")] string domain, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="TopLevelDomain", DbType="NVarChar(256)")] string topLevelDomain)
+		{
+			return ((string)(this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), subDomain, domain, topLevelDomain).ReturnValue));
 		}
 	}
 	
@@ -2819,785 +2832,6 @@ namespace Data
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DivisionMemberRoles")]
-	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class DivisionMemberRole : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private byte _RoleId;
-		
-		private EntityRef<Role> _Role;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnRoleIdChanging(byte value);
-    partial void OnRoleIdChanged();
-    #endregion
-		
-		public DivisionMemberRole()
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoleId", DbType="TinyInt NOT NULL", IsPrimaryKey=true)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-		public byte RoleId
-		{
-			get
-			{
-				return this._RoleId;
-			}
-			set
-			{
-				if ((this._RoleId != value))
-				{
-					if (this._Role.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnRoleIdChanging(value);
-					this.SendPropertyChanging();
-					this._RoleId = value;
-					this.SendPropertyChanged("RoleId");
-					this.OnRoleIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_DivisionMemberRoles_Roles", Storage="_Role", ThisKey="RoleId", OtherKey="Id", IsForeignKey=true)]
-		public Role Role
-		{
-			get
-			{
-				return this._Role.Entity;
-			}
-			set
-			{
-				Role previousValue = this._Role.Entity;
-				if (((previousValue != value) 
-							|| (this._Role.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Role.Entity = null;
-						previousValue.DivisionMemberRole = null;
-					}
-					this._Role.Entity = value;
-					if ((value != null))
-					{
-						value.DivisionMemberRole = this;
-						this._RoleId = value.Id;
-					}
-					else
-					{
-						this._RoleId = default(byte);
-					}
-					this.SendPropertyChanged("Role");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void Initialize()
-		{
-			this._Role = default(EntityRef<Role>);
-			OnCreated();
-		}
-		
-		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnDeserializing(StreamingContext context)
-		{
-			this.Initialize();
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DivisionMembers")]
-	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class DivisionMember : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private int _DivisionId;
-		
-		private byte _MemberRoleId;
-		
-		private System.Guid _MemberUserId;
-		
-		private byte _DivisionOwnerRoleId;
-		
-		private System.Guid _DivisionOwnnerUserId;
-		
-		private EntityRef<UserRelationship> _UserRelationship;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnDivisionIdChanging(int value);
-    partial void OnDivisionIdChanged();
-    partial void OnMemberRoleIdChanging(byte value);
-    partial void OnMemberRoleIdChanged();
-    partial void OnMemberUserIdChanging(System.Guid value);
-    partial void OnMemberUserIdChanged();
-    partial void OnDivisionOwnerRoleIdChanging(byte value);
-    partial void OnDivisionOwnerRoleIdChanged();
-    partial void OnDivisionOwnnerUserIdChanging(System.Guid value);
-    partial void OnDivisionOwnnerUserIdChanged();
-    #endregion
-		
-		public DivisionMember()
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DivisionId", DbType="Int NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public int DivisionId
-		{
-			get
-			{
-				return this._DivisionId;
-			}
-			set
-			{
-				if ((this._DivisionId != value))
-				{
-					this.OnDivisionIdChanging(value);
-					this.SendPropertyChanging();
-					this._DivisionId = value;
-					this.SendPropertyChanged("DivisionId");
-					this.OnDivisionIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MemberRoleId", DbType="TinyInt NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public byte MemberRoleId
-		{
-			get
-			{
-				return this._MemberRoleId;
-			}
-			set
-			{
-				if ((this._MemberRoleId != value))
-				{
-					if (this._UserRelationship.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnMemberRoleIdChanging(value);
-					this.SendPropertyChanging();
-					this._MemberRoleId = value;
-					this.SendPropertyChanged("MemberRoleId");
-					this.OnMemberRoleIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MemberUserId", DbType="UniqueIdentifier NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public System.Guid MemberUserId
-		{
-			get
-			{
-				return this._MemberUserId;
-			}
-			set
-			{
-				if ((this._MemberUserId != value))
-				{
-					if (this._UserRelationship.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnMemberUserIdChanging(value);
-					this.SendPropertyChanging();
-					this._MemberUserId = value;
-					this.SendPropertyChanged("MemberUserId");
-					this.OnMemberUserIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DivisionOwnerRoleId", DbType="TinyInt NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-		public byte DivisionOwnerRoleId
-		{
-			get
-			{
-				return this._DivisionOwnerRoleId;
-			}
-			set
-			{
-				if ((this._DivisionOwnerRoleId != value))
-				{
-					if (this._UserRelationship.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnDivisionOwnerRoleIdChanging(value);
-					this.SendPropertyChanging();
-					this._DivisionOwnerRoleId = value;
-					this.SendPropertyChanged("DivisionOwnerRoleId");
-					this.OnDivisionOwnerRoleIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DivisionOwnnerUserId", DbType="UniqueIdentifier NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
-		public System.Guid DivisionOwnnerUserId
-		{
-			get
-			{
-				return this._DivisionOwnnerUserId;
-			}
-			set
-			{
-				if ((this._DivisionOwnnerUserId != value))
-				{
-					if (this._UserRelationship.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnDivisionOwnnerUserIdChanging(value);
-					this.SendPropertyChanging();
-					this._DivisionOwnnerUserId = value;
-					this.SendPropertyChanged("DivisionOwnnerUserId");
-					this.OnDivisionOwnnerUserIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_DivisionMembers_MemberRelationships", Storage="_UserRelationship", ThisKey="DivisionOwnerRoleId,DivisionOwnnerUserId,MemberRoleId,MemberUserId", OtherKey="RoleId,UserId,PartnerRoleId,PartnerUserId", IsForeignKey=true)]
-		public UserRelationship UserRelationship
-		{
-			get
-			{
-				return this._UserRelationship.Entity;
-			}
-			set
-			{
-				UserRelationship previousValue = this._UserRelationship.Entity;
-				if (((previousValue != value) 
-							|| (this._UserRelationship.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._UserRelationship.Entity = null;
-						previousValue.DivisionMembers.Remove(this);
-					}
-					this._UserRelationship.Entity = value;
-					if ((value != null))
-					{
-						value.DivisionMembers.Add(this);
-						this._DivisionOwnerRoleId = value.RoleId;
-						this._DivisionOwnnerUserId = value.UserId;
-						this._MemberRoleId = value.PartnerRoleId;
-						this._MemberUserId = value.PartnerUserId;
-					}
-					else
-					{
-						this._DivisionOwnerRoleId = default(byte);
-						this._DivisionOwnnerUserId = default(System.Guid);
-						this._MemberRoleId = default(byte);
-						this._MemberUserId = default(System.Guid);
-					}
-					this.SendPropertyChanged("UserRelationship");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void Initialize()
-		{
-			this._UserRelationship = default(EntityRef<UserRelationship>);
-			OnCreated();
-		}
-		
-		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnDeserializing(StreamingContext context)
-		{
-			this.Initialize();
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DivisionOwnerRoles")]
-	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class DivisionOwnerRole : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private byte _RoleId;
-		
-		private EntityRef<Role> _Role;
-		
-		private EntitySet<Division> _Divisions;
-		
-		private bool serializing;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnRoleIdChanging(byte value);
-    partial void OnRoleIdChanged();
-    #endregion
-		
-		public DivisionOwnerRole()
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoleId", DbType="TinyInt NOT NULL", IsPrimaryKey=true)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-		public byte RoleId
-		{
-			get
-			{
-				return this._RoleId;
-			}
-			set
-			{
-				if ((this._RoleId != value))
-				{
-					if (this._Role.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnRoleIdChanging(value);
-					this.SendPropertyChanging();
-					this._RoleId = value;
-					this.SendPropertyChanged("RoleId");
-					this.OnRoleIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_DivisionOwnerRoles_Roles", Storage="_Role", ThisKey="RoleId", OtherKey="Id", IsForeignKey=true)]
-		public Role Role
-		{
-			get
-			{
-				return this._Role.Entity;
-			}
-			set
-			{
-				Role previousValue = this._Role.Entity;
-				if (((previousValue != value) 
-							|| (this._Role.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Role.Entity = null;
-						previousValue.DivisionOwnerRole = null;
-					}
-					this._Role.Entity = value;
-					if ((value != null))
-					{
-						value.DivisionOwnerRole = this;
-						this._RoleId = value.Id;
-					}
-					else
-					{
-						this._RoleId = default(byte);
-					}
-					this.SendPropertyChanged("Role");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Divisions_DivisionOwnerRoles", Storage="_Divisions", ThisKey="RoleId", OtherKey="OwnerRoleId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2, EmitDefaultValue=false)]
-		public EntitySet<Division> Divisions
-		{
-			get
-			{
-				if ((this.serializing 
-							&& (this._Divisions.HasLoadedOrAssignedValues == false)))
-				{
-					return null;
-				}
-				return this._Divisions;
-			}
-			set
-			{
-				this._Divisions.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Divisions(Division entity)
-		{
-			this.SendPropertyChanging();
-			entity.DivisionOwnerRole = this;
-		}
-		
-		private void detach_Divisions(Division entity)
-		{
-			this.SendPropertyChanging();
-			entity.DivisionOwnerRole = null;
-		}
-		
-		private void Initialize()
-		{
-			this._Role = default(EntityRef<Role>);
-			this._Divisions = new EntitySet<Division>(new Action<Division>(this.attach_Divisions), new Action<Division>(this.detach_Divisions));
-			OnCreated();
-		}
-		
-		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnDeserializing(StreamingContext context)
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Runtime.Serialization.OnSerializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnSerializing(StreamingContext context)
-		{
-			this.serializing = true;
-		}
-		
-		[global::System.Runtime.Serialization.OnSerializedAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnSerialized(StreamingContext context)
-		{
-			this.serializing = false;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Divisions")]
-	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class Division : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Name;
-		
-		private byte _OwnerRoleId;
-		
-		private System.Guid _OwnerUserId;
-		
-		private EntityRef<DivisionOwnerRole> _DivisionOwnerRole;
-		
-		private EntityRef<RoleMember> _RoleMember;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnOwnerRoleIdChanging(byte value);
-    partial void OnOwnerRoleIdChanged();
-    partial void OnOwnerUserIdChanging(System.Guid value);
-    partial void OnOwnerUserIdChanged();
-    #endregion
-		
-		public Division()
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerRoleId", DbType="TinyInt NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public byte OwnerRoleId
-		{
-			get
-			{
-				return this._OwnerRoleId;
-			}
-			set
-			{
-				if ((this._OwnerRoleId != value))
-				{
-					if ((this._DivisionOwnerRole.HasLoadedOrAssignedValue || this._RoleMember.HasLoadedOrAssignedValue))
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnOwnerRoleIdChanging(value);
-					this.SendPropertyChanging();
-					this._OwnerRoleId = value;
-					this.SendPropertyChanged("OwnerRoleId");
-					this.OnOwnerRoleIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerUserId", DbType="UniqueIdentifier NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public System.Guid OwnerUserId
-		{
-			get
-			{
-				return this._OwnerUserId;
-			}
-			set
-			{
-				if ((this._OwnerUserId != value))
-				{
-					if (this._RoleMember.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnOwnerUserIdChanging(value);
-					this.SendPropertyChanging();
-					this._OwnerUserId = value;
-					this.SendPropertyChanged("OwnerUserId");
-					this.OnOwnerUserIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Divisions_DivisionOwnerRoles", Storage="_DivisionOwnerRole", ThisKey="OwnerRoleId", OtherKey="RoleId", IsForeignKey=true)]
-		public DivisionOwnerRole DivisionOwnerRole
-		{
-			get
-			{
-				return this._DivisionOwnerRole.Entity;
-			}
-			set
-			{
-				DivisionOwnerRole previousValue = this._DivisionOwnerRole.Entity;
-				if (((previousValue != value) 
-							|| (this._DivisionOwnerRole.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._DivisionOwnerRole.Entity = null;
-						previousValue.Divisions.Remove(this);
-					}
-					this._DivisionOwnerRole.Entity = value;
-					if ((value != null))
-					{
-						value.Divisions.Add(this);
-						this._OwnerRoleId = value.RoleId;
-					}
-					else
-					{
-						this._OwnerRoleId = default(byte);
-					}
-					this.SendPropertyChanged("DivisionOwnerRole");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Divisions_RoleMembers", Storage="_RoleMember", ThisKey="OwnerRoleId,OwnerUserId", OtherKey="RoleId,UserId", IsForeignKey=true)]
-		public RoleMember RoleMember
-		{
-			get
-			{
-				return this._RoleMember.Entity;
-			}
-			set
-			{
-				RoleMember previousValue = this._RoleMember.Entity;
-				if (((previousValue != value) 
-							|| (this._RoleMember.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._RoleMember.Entity = null;
-						previousValue.Divisions.Remove(this);
-					}
-					this._RoleMember.Entity = value;
-					if ((value != null))
-					{
-						value.Divisions.Add(this);
-						this._OwnerRoleId = value.RoleId;
-						this._OwnerUserId = value.UserId;
-					}
-					else
-					{
-						this._OwnerRoleId = default(byte);
-						this._OwnerUserId = default(System.Guid);
-					}
-					this.SendPropertyChanged("RoleMember");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void Initialize()
-		{
-			this._DivisionOwnerRole = default(EntityRef<DivisionOwnerRole>);
-			this._RoleMember = default(EntityRef<RoleMember>);
-			OnCreated();
-		}
-		
-		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnDeserializing(StreamingContext context)
-		{
-			this.Initialize();
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DomainImages")]
 	[global::System.Runtime.Serialization.DataContractAttribute()]
 	public partial class DomainImage : INotifyPropertyChanging, INotifyPropertyChanged
@@ -4083,6 +3317,310 @@ namespace Data
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DomainResources")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class DomainResource : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _DomainId;
+		
+		private int _ResourceId;
+		
+		private string _Value;
+		
+		private byte _OwnerRoleId;
+		
+		private System.Guid _OwnerUserId;
+		
+		private System.Nullable<System.DateTime> _StartDate;
+		
+		private System.Nullable<System.DateTime> _EndDate;
+		
+		private EntityRef<OwnedResource> _OwnedResource;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnDomainIdChanging(int value);
+    partial void OnDomainIdChanged();
+    partial void OnResourceIdChanging(int value);
+    partial void OnResourceIdChanged();
+    partial void OnValueChanging(string value);
+    partial void OnValueChanged();
+    partial void OnOwnerRoleIdChanging(byte value);
+    partial void OnOwnerRoleIdChanged();
+    partial void OnOwnerUserIdChanging(System.Guid value);
+    partial void OnOwnerUserIdChanged();
+    partial void OnStartDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnStartDateChanged();
+    partial void OnEndDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnEndDateChanged();
+    #endregion
+		
+		public DomainResource()
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DomainId", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public int DomainId
+		{
+			get
+			{
+				return this._DomainId;
+			}
+			set
+			{
+				if ((this._DomainId != value))
+				{
+					this.OnDomainIdChanging(value);
+					this.SendPropertyChanging();
+					this._DomainId = value;
+					this.SendPropertyChanged("DomainId");
+					this.OnDomainIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ResourceId", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public int ResourceId
+		{
+			get
+			{
+				return this._ResourceId;
+			}
+			set
+			{
+				if ((this._ResourceId != value))
+				{
+					if (this._OwnedResource.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnResourceIdChanging(value);
+					this.SendPropertyChanging();
+					this._ResourceId = value;
+					this.SendPropertyChanged("ResourceId");
+					this.OnResourceIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Value", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public string Value
+		{
+			get
+			{
+				return this._Value;
+			}
+			set
+			{
+				if ((this._Value != value))
+				{
+					this.OnValueChanging(value);
+					this.SendPropertyChanging();
+					this._Value = value;
+					this.SendPropertyChanged("Value");
+					this.OnValueChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerRoleId", DbType="TinyInt NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+		public byte OwnerRoleId
+		{
+			get
+			{
+				return this._OwnerRoleId;
+			}
+			set
+			{
+				if ((this._OwnerRoleId != value))
+				{
+					if (this._OwnedResource.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnOwnerRoleIdChanging(value);
+					this.SendPropertyChanging();
+					this._OwnerRoleId = value;
+					this.SendPropertyChanged("OwnerRoleId");
+					this.OnOwnerRoleIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerUserId", DbType="UniqueIdentifier NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		public System.Guid OwnerUserId
+		{
+			get
+			{
+				return this._OwnerUserId;
+			}
+			set
+			{
+				if ((this._OwnerUserId != value))
+				{
+					if (this._OwnedResource.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnOwnerUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._OwnerUserId = value;
+					this.SendPropertyChanged("OwnerUserId");
+					this.OnOwnerUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartDate", DbType="DateTime")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+		public System.Nullable<System.DateTime> StartDate
+		{
+			get
+			{
+				return this._StartDate;
+			}
+			set
+			{
+				if ((this._StartDate != value))
+				{
+					this.OnStartDateChanging(value);
+					this.SendPropertyChanging();
+					this._StartDate = value;
+					this.SendPropertyChanged("StartDate");
+					this.OnStartDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndDate", DbType="DateTime")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
+		public System.Nullable<System.DateTime> EndDate
+		{
+			get
+			{
+				return this._EndDate;
+			}
+			set
+			{
+				if ((this._EndDate != value))
+				{
+					this.OnEndDateChanging(value);
+					this.SendPropertyChanging();
+					this._EndDate = value;
+					this.SendPropertyChanged("EndDate");
+					this.OnEndDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_DomainResources_OwnedResources", Storage="_OwnedResource", ThisKey="ResourceId,OwnerRoleId,OwnerUserId", OtherKey="ResourceId,OwnerRoleId,OwnerUserId", IsForeignKey=true)]
+		public OwnedResource OwnedResource
+		{
+			get
+			{
+				return this._OwnedResource.Entity;
+			}
+			set
+			{
+				OwnedResource previousValue = this._OwnedResource.Entity;
+				if (((previousValue != value) 
+							|| (this._OwnedResource.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._OwnedResource.Entity = null;
+						previousValue.DomainResources.Remove(this);
+					}
+					this._OwnedResource.Entity = value;
+					if ((value != null))
+					{
+						value.DomainResources.Add(this);
+						this._ResourceId = value.ResourceId;
+						this._OwnerRoleId = value.OwnerRoleId;
+						this._OwnerUserId = value.OwnerUserId;
+					}
+					else
+					{
+						this._ResourceId = default(int);
+						this._OwnerRoleId = default(byte);
+						this._OwnerUserId = default(System.Guid);
+					}
+					this.SendPropertyChanged("OwnedResource");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void Initialize()
+		{
+			this._OwnedResource = default(EntityRef<OwnedResource>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Domains")]
 	[global::System.Runtime.Serialization.DataContractAttribute()]
 	public partial class Domain : INotifyPropertyChanging, INotifyPropertyChanged
@@ -4097,6 +3635,12 @@ namespace Data
 		private string _Subdomain;
 		
 		private string _TopLevelDomain;
+		
+		private short _HttpPort;
+		
+		private short _HttpsPort;
+		
+		private string _Cookie;
 		
 		private byte _OwnerRoleId;
 		
@@ -4122,6 +3666,12 @@ namespace Data
     partial void OnSubdomainChanged();
     partial void OnTopLevelDomainChanging(string value);
     partial void OnTopLevelDomainChanged();
+    partial void OnHttpPortChanging(short value);
+    partial void OnHttpPortChanged();
+    partial void OnHttpsPortChanging(short value);
+    partial void OnHttpsPortChanged();
+    partial void OnCookieChanging(string value);
+    partial void OnCookieChanged();
     partial void OnOwnerRoleIdChanging(byte value);
     partial void OnOwnerRoleIdChanged();
     partial void OnOwnerUserIdChanging(System.Guid value);
@@ -4175,7 +3725,7 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Subdomain", DbType="NVarChar(256)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Subdomain", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public string Subdomain
 		{
@@ -4196,7 +3746,7 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TopLevelDomain", DbType="NVarChar(256)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TopLevelDomain", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public string TopLevelDomain
 		{
@@ -4217,8 +3767,71 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerRoleId", DbType="TinyInt NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HttpPort", DbType="SmallInt NOT NULL")]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+		public short HttpPort
+		{
+			get
+			{
+				return this._HttpPort;
+			}
+			set
+			{
+				if ((this._HttpPort != value))
+				{
+					this.OnHttpPortChanging(value);
+					this.SendPropertyChanging();
+					this._HttpPort = value;
+					this.SendPropertyChanged("HttpPort");
+					this.OnHttpPortChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HttpsPort", DbType="SmallInt NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		public short HttpsPort
+		{
+			get
+			{
+				return this._HttpsPort;
+			}
+			set
+			{
+				if ((this._HttpsPort != value))
+				{
+					this.OnHttpsPortChanging(value);
+					this.SendPropertyChanging();
+					this._HttpsPort = value;
+					this.SendPropertyChanged("HttpsPort");
+					this.OnHttpsPortChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cookie", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+		public string Cookie
+		{
+			get
+			{
+				return this._Cookie;
+			}
+			set
+			{
+				if ((this._Cookie != value))
+				{
+					this.OnCookieChanging(value);
+					this.SendPropertyChanging();
+					this._Cookie = value;
+					this.SendPropertyChanged("Cookie");
+					this.OnCookieChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerRoleId", DbType="TinyInt NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
 		public byte OwnerRoleId
 		{
 			get
@@ -4243,7 +3856,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerUserId", DbType="UniqueIdentifier NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9)]
 		public System.Guid OwnerUserId
 		{
 			get
@@ -4338,7 +3951,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_DomainSettings_Domains", Storage="_DomainSecurity", ThisKey="Id", OtherKey="DomainId", IsUnique=true, IsForeignKey=false, DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=10, EmitDefaultValue=false)]
 		public DomainSecurity DomainSecurity
 		{
 			get
@@ -4419,6 +4032,187 @@ namespace Data
 		public void OnSerialized(StreamingContext context)
 		{
 			this.serializing = false;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="entity.Domains")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class Entity_Domain
+	{
+		
+		private int _DomainId;
+		
+		private string _BaseClaim;
+		
+		private short _HttpPort;
+		
+		private short _HttpsPort;
+		
+		private string _Cookie;
+		
+		private byte _OwnerRoleId;
+		
+		private string _OwnerRole;
+		
+		private System.Guid _OwnerUserId;
+		
+		private string _OwnerUser;
+		
+		public Entity_Domain()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DomainId", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public int DomainId
+		{
+			get
+			{
+				return this._DomainId;
+			}
+			set
+			{
+				if ((this._DomainId != value))
+				{
+					this._DomainId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BaseClaim", DbType="NVarChar(768) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public string BaseClaim
+		{
+			get
+			{
+				return this._BaseClaim;
+			}
+			set
+			{
+				if ((this._BaseClaim != value))
+				{
+					this._BaseClaim = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HttpPort", DbType="SmallInt NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public short HttpPort
+		{
+			get
+			{
+				return this._HttpPort;
+			}
+			set
+			{
+				if ((this._HttpPort != value))
+				{
+					this._HttpPort = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HttpsPort", DbType="SmallInt NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public short HttpsPort
+		{
+			get
+			{
+				return this._HttpsPort;
+			}
+			set
+			{
+				if ((this._HttpsPort != value))
+				{
+					this._HttpsPort = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cookie", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+		public string Cookie
+		{
+			get
+			{
+				return this._Cookie;
+			}
+			set
+			{
+				if ((this._Cookie != value))
+				{
+					this._Cookie = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerRoleId", DbType="TinyInt NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		public byte OwnerRoleId
+		{
+			get
+			{
+				return this._OwnerRoleId;
+			}
+			set
+			{
+				if ((this._OwnerRoleId != value))
+				{
+					this._OwnerRoleId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerRole", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+		public string OwnerRole
+		{
+			get
+			{
+				return this._OwnerRole;
+			}
+			set
+			{
+				if ((this._OwnerRole != value))
+				{
+					this._OwnerRole = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerUserId", DbType="UniqueIdentifier NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
+		public System.Guid OwnerUserId
+		{
+			get
+			{
+				return this._OwnerUserId;
+			}
+			set
+			{
+				if ((this._OwnerUserId != value))
+				{
+					this._OwnerUserId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerUser", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9)]
+		public string OwnerUser
+		{
+			get
+			{
+				return this._OwnerUser;
+			}
+			set
+			{
+				if ((this._OwnerUser != value))
+				{
+					this._OwnerUser = value;
+				}
+			}
 		}
 	}
 	
@@ -5992,6 +5786,263 @@ namespace Data
 		public void OnSerialized(StreamingContext context)
 		{
 			this.serializing = false;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="entity.Events")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class Entity_Event
+	{
+		
+		private int _EventId;
+		
+		private string _EventName;
+		
+		private System.Nullable<System.DateTime> _StartDate;
+		
+		private System.Nullable<System.DateTime> _EndDate;
+		
+		private byte _OwnerRoleId;
+		
+		private string _RoleName;
+		
+		private System.Guid _OwnerUserId;
+		
+		private string _UserName;
+		
+		private System.Nullable<int> _ParentEventId;
+		
+		private string _ParentEventName;
+		
+		private int _Depth;
+		
+		private int _TicketCount;
+		
+		private int _TotalAllocation;
+		
+		public Entity_Event()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventId", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public int EventId
+		{
+			get
+			{
+				return this._EventId;
+			}
+			set
+			{
+				if ((this._EventId != value))
+				{
+					this._EventId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public string EventName
+		{
+			get
+			{
+				return this._EventName;
+			}
+			set
+			{
+				if ((this._EventName != value))
+				{
+					this._EventName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartDate", DbType="DateTime")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public System.Nullable<System.DateTime> StartDate
+		{
+			get
+			{
+				return this._StartDate;
+			}
+			set
+			{
+				if ((this._StartDate != value))
+				{
+					this._StartDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndDate", DbType="DateTime")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public System.Nullable<System.DateTime> EndDate
+		{
+			get
+			{
+				return this._EndDate;
+			}
+			set
+			{
+				if ((this._EndDate != value))
+				{
+					this._EndDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerRoleId", DbType="TinyInt NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+		public byte OwnerRoleId
+		{
+			get
+			{
+				return this._OwnerRoleId;
+			}
+			set
+			{
+				if ((this._OwnerRoleId != value))
+				{
+					this._OwnerRoleId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoleName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		public string RoleName
+		{
+			get
+			{
+				return this._RoleName;
+			}
+			set
+			{
+				if ((this._RoleName != value))
+				{
+					this._RoleName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerUserId", DbType="UniqueIdentifier NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+		public System.Guid OwnerUserId
+		{
+			get
+			{
+				return this._OwnerUserId;
+			}
+			set
+			{
+				if ((this._OwnerUserId != value))
+				{
+					this._OwnerUserId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
+		public string UserName
+		{
+			get
+			{
+				return this._UserName;
+			}
+			set
+			{
+				if ((this._UserName != value))
+				{
+					this._UserName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParentEventId", DbType="Int")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9)]
+		public System.Nullable<int> ParentEventId
+		{
+			get
+			{
+				return this._ParentEventId;
+			}
+			set
+			{
+				if ((this._ParentEventId != value))
+				{
+					this._ParentEventId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParentEventName", DbType="NVarChar(256)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=10)]
+		public string ParentEventName
+		{
+			get
+			{
+				return this._ParentEventName;
+			}
+			set
+			{
+				if ((this._ParentEventName != value))
+				{
+					this._ParentEventName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Depth", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=11)]
+		public int Depth
+		{
+			get
+			{
+				return this._Depth;
+			}
+			set
+			{
+				if ((this._Depth != value))
+				{
+					this._Depth = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketCount", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=12)]
+		public int TicketCount
+		{
+			get
+			{
+				return this._TicketCount;
+			}
+			set
+			{
+				if ((this._TicketCount != value))
+				{
+					this._TicketCount = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalAllocation", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=13)]
+		public int TotalAllocation
+		{
+			get
+			{
+				return this._TotalAllocation;
+			}
+			set
+			{
+				if ((this._TotalAllocation != value))
+				{
+					this._TotalAllocation = value;
+				}
+			}
 		}
 	}
 	
@@ -8369,57 +8420,65 @@ namespace Data
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.OwnedRoles")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.OwnedResources")]
 	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class OwnedRole : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class OwnedResource : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private byte _RoleId;
+		private int _ResourceId;
 		
 		private byte _OwnerRoleId;
 		
 		private System.Guid _OwnerUserId;
 		
+		private bool _Active;
+		
+		private EntitySet<DomainResource> _DomainResources;
+		
+		private EntityRef<ResourceOwnerRole> _ResourceOwnerRole;
+		
 		private EntityRef<RoleMember> _RoleMember;
 		
-		private EntityRef<RoleOwnerRole> _RoleOwnerRole;
+		private bool serializing;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnRoleIdChanging(byte value);
-    partial void OnRoleIdChanged();
+    partial void OnResourceIdChanging(int value);
+    partial void OnResourceIdChanged();
     partial void OnOwnerRoleIdChanging(byte value);
     partial void OnOwnerRoleIdChanged();
     partial void OnOwnerUserIdChanging(System.Guid value);
     partial void OnOwnerUserIdChanged();
+    partial void OnActiveChanging(bool value);
+    partial void OnActiveChanged();
     #endregion
 		
-		public OwnedRole()
+		public OwnedResource()
 		{
 			this.Initialize();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoleId", DbType="TinyInt NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ResourceId", DbType="Int NOT NULL", IsPrimaryKey=true)]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-		public byte RoleId
+		public int ResourceId
 		{
 			get
 			{
-				return this._RoleId;
+				return this._ResourceId;
 			}
 			set
 			{
-				if ((this._RoleId != value))
+				if ((this._ResourceId != value))
 				{
-					this.OnRoleIdChanging(value);
+					this.OnResourceIdChanging(value);
 					this.SendPropertyChanging();
-					this._RoleId = value;
-					this.SendPropertyChanged("RoleId");
-					this.OnRoleIdChanged();
+					this._ResourceId = value;
+					this.SendPropertyChanged("ResourceId");
+					this.OnResourceIdChanged();
 				}
 			}
 		}
@@ -8436,7 +8495,7 @@ namespace Data
 			{
 				if ((this._OwnerRoleId != value))
 				{
-					if ((this._RoleMember.HasLoadedOrAssignedValue || this._RoleOwnerRole.HasLoadedOrAssignedValue))
+					if ((this._ResourceOwnerRole.HasLoadedOrAssignedValue || this._RoleMember.HasLoadedOrAssignedValue))
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -8474,7 +8533,81 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_OwnedRoles_RoleMembers", Storage="_RoleMember", ThisKey="OwnerRoleId,OwnerUserId", OtherKey="RoleId,UserId", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Active", DbType="Bit NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public bool Active
+		{
+			get
+			{
+				return this._Active;
+			}
+			set
+			{
+				if ((this._Active != value))
+				{
+					this.OnActiveChanging(value);
+					this.SendPropertyChanging();
+					this._Active = value;
+					this.SendPropertyChanged("Active");
+					this.OnActiveChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_DomainResources_OwnedResources", Storage="_DomainResources", ThisKey="ResourceId,OwnerRoleId,OwnerUserId", OtherKey="ResourceId,OwnerRoleId,OwnerUserId", DeleteRule="NO ACTION")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5, EmitDefaultValue=false)]
+		public EntitySet<DomainResource> DomainResources
+		{
+			get
+			{
+				if ((this.serializing 
+							&& (this._DomainResources.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
+				return this._DomainResources;
+			}
+			set
+			{
+				this._DomainResources.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_OwnedResources_ResourceOwnerRoles", Storage="_ResourceOwnerRole", ThisKey="OwnerRoleId", OtherKey="RoleId", IsForeignKey=true)]
+		public ResourceOwnerRole ResourceOwnerRole
+		{
+			get
+			{
+				return this._ResourceOwnerRole.Entity;
+			}
+			set
+			{
+				ResourceOwnerRole previousValue = this._ResourceOwnerRole.Entity;
+				if (((previousValue != value) 
+							|| (this._ResourceOwnerRole.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._ResourceOwnerRole.Entity = null;
+						previousValue.OwnedResources.Remove(this);
+					}
+					this._ResourceOwnerRole.Entity = value;
+					if ((value != null))
+					{
+						value.OwnedResources.Add(this);
+						this._OwnerRoleId = value.RoleId;
+					}
+					else
+					{
+						this._OwnerRoleId = default(byte);
+					}
+					this.SendPropertyChanged("ResourceOwnerRole");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_OwnedResources_RoleMembers", Storage="_RoleMember", ThisKey="OwnerRoleId,OwnerUserId", OtherKey="RoleId,UserId", IsForeignKey=true)]
 		public RoleMember RoleMember
 		{
 			get
@@ -8491,12 +8624,12 @@ namespace Data
 					if ((previousValue != null))
 					{
 						this._RoleMember.Entity = null;
-						previousValue.OwnedRoles.Remove(this);
+						previousValue.OwnedResources.Remove(this);
 					}
 					this._RoleMember.Entity = value;
 					if ((value != null))
 					{
-						value.OwnedRoles.Add(this);
+						value.OwnedResources.Add(this);
 						this._OwnerRoleId = value.RoleId;
 						this._OwnerUserId = value.UserId;
 					}
@@ -8506,40 +8639,6 @@ namespace Data
 						this._OwnerUserId = default(System.Guid);
 					}
 					this.SendPropertyChanged("RoleMember");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_OwnedRoles_RoleOwnerRoles", Storage="_RoleOwnerRole", ThisKey="OwnerRoleId", OtherKey="RoleId", IsForeignKey=true)]
-		public RoleOwnerRole RoleOwnerRole
-		{
-			get
-			{
-				return this._RoleOwnerRole.Entity;
-			}
-			set
-			{
-				RoleOwnerRole previousValue = this._RoleOwnerRole.Entity;
-				if (((previousValue != value) 
-							|| (this._RoleOwnerRole.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._RoleOwnerRole.Entity = null;
-						previousValue.OwnedRoles.Remove(this);
-					}
-					this._RoleOwnerRole.Entity = value;
-					if ((value != null))
-					{
-						value.OwnedRoles.Add(this);
-						this._OwnerRoleId = value.RoleId;
-					}
-					else
-					{
-						this._OwnerRoleId = default(byte);
-					}
-					this.SendPropertyChanged("RoleOwnerRole");
 				}
 			}
 		}
@@ -8564,10 +8663,23 @@ namespace Data
 			}
 		}
 		
+		private void attach_DomainResources(DomainResource entity)
+		{
+			this.SendPropertyChanging();
+			entity.OwnedResource = this;
+		}
+		
+		private void detach_DomainResources(DomainResource entity)
+		{
+			this.SendPropertyChanging();
+			entity.OwnedResource = null;
+		}
+		
 		private void Initialize()
 		{
+			this._DomainResources = new EntitySet<DomainResource>(new Action<DomainResource>(this.attach_DomainResources), new Action<DomainResource>(this.detach_DomainResources));
+			this._ResourceOwnerRole = default(EntityRef<ResourceOwnerRole>);
 			this._RoleMember = default(EntityRef<RoleMember>);
-			this._RoleOwnerRole = default(EntityRef<RoleOwnerRole>);
 			OnCreated();
 		}
 		
@@ -8576,6 +8688,20 @@ namespace Data
 		public void OnDeserializing(StreamingContext context)
 		{
 			this.Initialize();
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
 		}
 	}
 	
@@ -8655,251 +8781,16 @@ namespace Data
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ResourceOverrides")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ResourceOwnerRoles")]
 	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class ResourceOverride : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ResourceId;
-		
-		private byte _OwnerRoleId;
-		
-		private System.Guid _OwnerUserId;
-		
-		private string _Value;
-		
-		private EntityRef<ResourceOverridesOwnerRole> _ResourceOverridesOwnerRole;
-		
-		private EntityRef<RoleMember> _RoleMember;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnResourceIdChanging(int value);
-    partial void OnResourceIdChanged();
-    partial void OnOwnerRoleIdChanging(byte value);
-    partial void OnOwnerRoleIdChanged();
-    partial void OnOwnerUserIdChanging(System.Guid value);
-    partial void OnOwnerUserIdChanged();
-    partial void OnValueChanging(string value);
-    partial void OnValueChanged();
-    #endregion
-		
-		public ResourceOverride()
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ResourceId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-		public int ResourceId
-		{
-			get
-			{
-				return this._ResourceId;
-			}
-			set
-			{
-				if ((this._ResourceId != value))
-				{
-					this.OnResourceIdChanging(value);
-					this.SendPropertyChanging();
-					this._ResourceId = value;
-					this.SendPropertyChanged("ResourceId");
-					this.OnResourceIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerRoleId", DbType="TinyInt NOT NULL", IsPrimaryKey=true)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public byte OwnerRoleId
-		{
-			get
-			{
-				return this._OwnerRoleId;
-			}
-			set
-			{
-				if ((this._OwnerRoleId != value))
-				{
-					if ((this._ResourceOverridesOwnerRole.HasLoadedOrAssignedValue || this._RoleMember.HasLoadedOrAssignedValue))
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnOwnerRoleIdChanging(value);
-					this.SendPropertyChanging();
-					this._OwnerRoleId = value;
-					this.SendPropertyChanged("OwnerRoleId");
-					this.OnOwnerRoleIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerUserId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public System.Guid OwnerUserId
-		{
-			get
-			{
-				return this._OwnerUserId;
-			}
-			set
-			{
-				if ((this._OwnerUserId != value))
-				{
-					if (this._RoleMember.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnOwnerUserIdChanging(value);
-					this.SendPropertyChanging();
-					this._OwnerUserId = value;
-					this.SendPropertyChanged("OwnerUserId");
-					this.OnOwnerUserIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Value", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public string Value
-		{
-			get
-			{
-				return this._Value;
-			}
-			set
-			{
-				if ((this._Value != value))
-				{
-					this.OnValueChanging(value);
-					this.SendPropertyChanging();
-					this._Value = value;
-					this.SendPropertyChanged("Value");
-					this.OnValueChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_ResourceOverrides_ResourceOverridesOwnerRoles", Storage="_ResourceOverridesOwnerRole", ThisKey="OwnerRoleId", OtherKey="RoleId", IsForeignKey=true)]
-		public ResourceOverridesOwnerRole ResourceOverridesOwnerRole
-		{
-			get
-			{
-				return this._ResourceOverridesOwnerRole.Entity;
-			}
-			set
-			{
-				ResourceOverridesOwnerRole previousValue = this._ResourceOverridesOwnerRole.Entity;
-				if (((previousValue != value) 
-							|| (this._ResourceOverridesOwnerRole.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._ResourceOverridesOwnerRole.Entity = null;
-						previousValue.ResourceOverrides.Remove(this);
-					}
-					this._ResourceOverridesOwnerRole.Entity = value;
-					if ((value != null))
-					{
-						value.ResourceOverrides.Add(this);
-						this._OwnerRoleId = value.RoleId;
-					}
-					else
-					{
-						this._OwnerRoleId = default(byte);
-					}
-					this.SendPropertyChanged("ResourceOverridesOwnerRole");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_ResourceOverrides_RoleMembers", Storage="_RoleMember", ThisKey="OwnerRoleId,OwnerUserId", OtherKey="RoleId,UserId", IsForeignKey=true)]
-		public RoleMember RoleMember
-		{
-			get
-			{
-				return this._RoleMember.Entity;
-			}
-			set
-			{
-				RoleMember previousValue = this._RoleMember.Entity;
-				if (((previousValue != value) 
-							|| (this._RoleMember.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._RoleMember.Entity = null;
-						previousValue.ResourceOverrides.Remove(this);
-					}
-					this._RoleMember.Entity = value;
-					if ((value != null))
-					{
-						value.ResourceOverrides.Add(this);
-						this._OwnerRoleId = value.RoleId;
-						this._OwnerUserId = value.UserId;
-					}
-					else
-					{
-						this._OwnerRoleId = default(byte);
-						this._OwnerUserId = default(System.Guid);
-					}
-					this.SendPropertyChanged("RoleMember");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void Initialize()
-		{
-			this._ResourceOverridesOwnerRole = default(EntityRef<ResourceOverridesOwnerRole>);
-			this._RoleMember = default(EntityRef<RoleMember>);
-			OnCreated();
-		}
-		
-		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnDeserializing(StreamingContext context)
-		{
-			this.Initialize();
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ResourceOverridesOwnerRoles")]
-	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class ResourceOverridesOwnerRole : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class ResourceOwnerRole : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private byte _RoleId;
 		
-		private EntitySet<ResourceOverride> _ResourceOverrides;
+		private EntitySet<OwnedResource> _OwnedResources;
 		
 		private EntityRef<Role> _Role;
 		
@@ -8913,7 +8804,7 @@ namespace Data
     partial void OnRoleIdChanged();
     #endregion
 		
-		public ResourceOverridesOwnerRole()
+		public ResourceOwnerRole()
 		{
 			this.Initialize();
 		}
@@ -8943,22 +8834,22 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_ResourceOverrides_ResourceOverridesOwnerRoles", Storage="_ResourceOverrides", ThisKey="RoleId", OtherKey="OwnerRoleId", DeleteRule="NO ACTION")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_OwnedResources_ResourceOwnerRoles", Storage="_OwnedResources", ThisKey="RoleId", OtherKey="OwnerRoleId", DeleteRule="NO ACTION")]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2, EmitDefaultValue=false)]
-		public EntitySet<ResourceOverride> ResourceOverrides
+		public EntitySet<OwnedResource> OwnedResources
 		{
 			get
 			{
 				if ((this.serializing 
-							&& (this._ResourceOverrides.HasLoadedOrAssignedValues == false)))
+							&& (this._OwnedResources.HasLoadedOrAssignedValues == false)))
 				{
 					return null;
 				}
-				return this._ResourceOverrides;
+				return this._OwnedResources;
 			}
 			set
 			{
-				this._ResourceOverrides.Assign(value);
+				this._OwnedResources.Assign(value);
 			}
 		}
 		
@@ -8979,12 +8870,12 @@ namespace Data
 					if ((previousValue != null))
 					{
 						this._Role.Entity = null;
-						previousValue.ResourceOverridesOwnerRole = null;
+						previousValue.ResourceOwnerRole = null;
 					}
 					this._Role.Entity = value;
 					if ((value != null))
 					{
-						value.ResourceOverridesOwnerRole = this;
+						value.ResourceOwnerRole = this;
 						this._RoleId = value.Id;
 					}
 					else
@@ -9016,21 +8907,21 @@ namespace Data
 			}
 		}
 		
-		private void attach_ResourceOverrides(ResourceOverride entity)
+		private void attach_OwnedResources(OwnedResource entity)
 		{
 			this.SendPropertyChanging();
-			entity.ResourceOverridesOwnerRole = this;
+			entity.ResourceOwnerRole = this;
 		}
 		
-		private void detach_ResourceOverrides(ResourceOverride entity)
+		private void detach_OwnedResources(OwnedResource entity)
 		{
 			this.SendPropertyChanging();
-			entity.ResourceOverridesOwnerRole = null;
+			entity.ResourceOwnerRole = null;
 		}
 		
 		private void Initialize()
 		{
-			this._ResourceOverrides = new EntitySet<ResourceOverride>(new Action<ResourceOverride>(this.attach_ResourceOverrides), new Action<ResourceOverride>(this.detach_ResourceOverrides));
+			this._OwnedResources = new EntitySet<OwnedResource>(new Action<OwnedResource>(this.attach_OwnedResources), new Action<OwnedResource>(this.detach_OwnedResources));
 			this._Role = default(EntityRef<Role>);
 			OnCreated();
 		}
@@ -9074,11 +8965,7 @@ namespace Data
 		
 		private string _DefaultValue;
 		
-		private EntityRef<Resource> _Resources_Resource;
-		
-		private EntityRef<Resource> _Resources_Resource1;
-		
-		private bool serializing;
+		private EntityRef<ResourceType> _ResourceType;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -9113,10 +9000,6 @@ namespace Data
 			{
 				if ((this._Id != value))
 				{
-					if (this._Resources_Resource.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnIdChanging(value);
 					this.SendPropertyChanging();
 					this._Id = value;
@@ -9138,6 +9021,10 @@ namespace Data
 			{
 				if ((this._ResourceTypeId != value))
 				{
+					if (this._ResourceType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnResourceTypeIdChanging(value);
 					this.SendPropertyChanging();
 					this._ResourceTypeId = value;
@@ -9210,71 +9097,36 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Resources_Resources", Storage="_Resources_Resource", ThisKey="Id", OtherKey="Id", IsForeignKey=true)]
-		public Resource Resources_Resource
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Resources_ResourceTypes", Storage="_ResourceType", ThisKey="ResourceTypeId", OtherKey="Id", IsForeignKey=true)]
+		public ResourceType ResourceType
 		{
 			get
 			{
-				return this._Resources_Resource.Entity;
+				return this._ResourceType.Entity;
 			}
 			set
 			{
-				Resource previousValue = this._Resources_Resource.Entity;
+				ResourceType previousValue = this._ResourceType.Entity;
 				if (((previousValue != value) 
-							|| (this._Resources_Resource.HasLoadedOrAssignedValue == false)))
+							|| (this._ResourceType.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._Resources_Resource.Entity = null;
-						previousValue.Resources_Resource1 = null;
+						this._ResourceType.Entity = null;
+						previousValue.Resources.Remove(this);
 					}
-					this._Resources_Resource.Entity = value;
+					this._ResourceType.Entity = value;
 					if ((value != null))
 					{
-						value.Resources_Resource1 = this;
-						this._Id = value.Id;
+						value.Resources.Add(this);
+						this._ResourceTypeId = value.Id;
 					}
 					else
 					{
-						this._Id = default(int);
+						this._ResourceTypeId = default(byte);
 					}
-					this.SendPropertyChanged("Resources_Resource");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Resources_Resources", Storage="_Resources_Resource1", ThisKey="Id", OtherKey="Id", IsUnique=true, IsForeignKey=false, DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6, EmitDefaultValue=false)]
-		public Resource Resources_Resource1
-		{
-			get
-			{
-				if ((this.serializing 
-							&& (this._Resources_Resource1.HasLoadedOrAssignedValue == false)))
-				{
-					return null;
-				}
-				return this._Resources_Resource1.Entity;
-			}
-			set
-			{
-				Resource previousValue = this._Resources_Resource1.Entity;
-				if (((previousValue != value) 
-							|| (this._Resources_Resource1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Resources_Resource1.Entity = null;
-						previousValue.Resources_Resource = null;
-					}
-					this._Resources_Resource1.Entity = value;
-					if ((value != null))
-					{
-						value.Resources_Resource = this;
-					}
-					this.SendPropertyChanged("Resources_Resource1");
+					this.SendPropertyChanged("ResourceType");
 				}
 			}
 		}
@@ -9301,8 +9153,7 @@ namespace Data
 		
 		private void Initialize()
 		{
-			this._Resources_Resource = default(EntityRef<Resource>);
-			this._Resources_Resource1 = default(EntityRef<Resource>);
+			this._ResourceType = default(EntityRef<ResourceType>);
 			OnCreated();
 		}
 		
@@ -9311,20 +9162,6 @@ namespace Data
 		public void OnDeserializing(StreamingContext context)
 		{
 			this.Initialize();
-		}
-		
-		[global::System.Runtime.Serialization.OnSerializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnSerializing(StreamingContext context)
-		{
-			this.serializing = true;
-		}
-		
-		[global::System.Runtime.Serialization.OnSerializedAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnSerialized(StreamingContext context)
-		{
-			this.serializing = false;
 		}
 	}
 	
@@ -9340,6 +9177,10 @@ namespace Data
 		private string _Name;
 		
 		private string _Description;
+		
+		private EntitySet<Resource> _Resources;
+		
+		private bool serializing;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -9421,6 +9262,25 @@ namespace Data
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Resources_ResourceTypes", Storage="_Resources", ThisKey="Id", OtherKey="ResourceTypeId", DeleteRule="NO ACTION")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4, EmitDefaultValue=false)]
+		public EntitySet<Resource> Resources
+		{
+			get
+			{
+				if ((this.serializing 
+							&& (this._Resources.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
+				return this._Resources;
+			}
+			set
+			{
+				this._Resources.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -9441,8 +9301,21 @@ namespace Data
 			}
 		}
 		
+		private void attach_Resources(Resource entity)
+		{
+			this.SendPropertyChanging();
+			entity.ResourceType = this;
+		}
+		
+		private void detach_Resources(Resource entity)
+		{
+			this.SendPropertyChanging();
+			entity.ResourceType = null;
+		}
+		
 		private void Initialize()
 		{
+			this._Resources = new EntitySet<Resource>(new Action<Resource>(this.attach_Resources), new Action<Resource>(this.detach_Resources));
 			OnCreated();
 		}
 		
@@ -9451,6 +9324,20 @@ namespace Data
 		public void OnDeserializing(StreamingContext context)
 		{
 			this.Initialize();
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
 		}
 	}
 	
@@ -9473,17 +9360,13 @@ namespace Data
 		
 		private EntitySet<AccountTwoFactorOwner> _AccountTwoFactorOwners;
 		
-		private EntitySet<Division> _Divisions;
-		
 		private EntitySet<Domain> _Domains;
 		
 		private EntitySet<Event> _Events;
 		
 		private EntitySet<ExternalAccountProviderOwner> _ExternalAccountProviderOwners;
 		
-		private EntitySet<OwnedRole> _OwnedRoles;
-		
-		private EntitySet<ResourceOverride> _ResourceOverrides;
+		private EntitySet<OwnedResource> _OwnedResources;
 		
 		private EntitySet<TicketOwner> _TicketOwners;
 		
@@ -9666,27 +9549,8 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Divisions_RoleMembers", Storage="_Divisions", ThisKey="RoleId,UserId", OtherKey="OwnerRoleId,OwnerUserId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7, EmitDefaultValue=false)]
-		public EntitySet<Division> Divisions
-		{
-			get
-			{
-				if ((this.serializing 
-							&& (this._Divisions.HasLoadedOrAssignedValues == false)))
-				{
-					return null;
-				}
-				return this._Divisions;
-			}
-			set
-			{
-				this._Divisions.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Domains_RoleMembers", Storage="_Domains", ThisKey="RoleId,UserId", OtherKey="OwnerRoleId,OwnerUserId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7, EmitDefaultValue=false)]
 		public EntitySet<Domain> Domains
 		{
 			get
@@ -9705,7 +9569,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Events_RoleMembers", Storage="_Events", ThisKey="RoleId,UserId", OtherKey="OwnerRoleId,OwnerUserId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8, EmitDefaultValue=false)]
 		public EntitySet<Event> Events
 		{
 			get
@@ -9724,7 +9588,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_ExternalAccountProviderOwners_RoleMembers", Storage="_ExternalAccountProviderOwners", ThisKey="RoleId,UserId", OtherKey="OwnerRoleId,OwnerUserId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=10, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9, EmitDefaultValue=false)]
 		public EntitySet<ExternalAccountProviderOwner> ExternalAccountProviderOwners
 		{
 			get
@@ -9742,46 +9606,27 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_OwnedRoles_RoleMembers", Storage="_OwnedRoles", ThisKey="RoleId,UserId", OtherKey="OwnerRoleId,OwnerUserId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=11, EmitDefaultValue=false)]
-		public EntitySet<OwnedRole> OwnedRoles
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_OwnedResources_RoleMembers", Storage="_OwnedResources", ThisKey="RoleId,UserId", OtherKey="OwnerRoleId,OwnerUserId", DeleteRule="NO ACTION")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=10, EmitDefaultValue=false)]
+		public EntitySet<OwnedResource> OwnedResources
 		{
 			get
 			{
 				if ((this.serializing 
-							&& (this._OwnedRoles.HasLoadedOrAssignedValues == false)))
+							&& (this._OwnedResources.HasLoadedOrAssignedValues == false)))
 				{
 					return null;
 				}
-				return this._OwnedRoles;
+				return this._OwnedResources;
 			}
 			set
 			{
-				this._OwnedRoles.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_ResourceOverrides_RoleMembers", Storage="_ResourceOverrides", ThisKey="RoleId,UserId", OtherKey="OwnerRoleId,OwnerUserId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=12, EmitDefaultValue=false)]
-		public EntitySet<ResourceOverride> ResourceOverrides
-		{
-			get
-			{
-				if ((this.serializing 
-							&& (this._ResourceOverrides.HasLoadedOrAssignedValues == false)))
-				{
-					return null;
-				}
-				return this._ResourceOverrides;
-			}
-			set
-			{
-				this._ResourceOverrides.Assign(value);
+				this._OwnedResources.Assign(value);
 			}
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_TicketOwners_RoleMembers", Storage="_TicketOwners", ThisKey="RoleId,UserId", OtherKey="OwnerRoleId,OwnerUserId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=13, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=11, EmitDefaultValue=false)]
 		public EntitySet<TicketOwner> TicketOwners
 		{
 			get
@@ -9800,7 +9645,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_TwoFactorAccountOwners_RoleMembers", Storage="_TwoFactorAccountOwners", ThisKey="RoleId,UserId", OtherKey="OwnerRoleId,OwnerUserId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=14, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=12, EmitDefaultValue=false)]
 		public EntitySet<TwoFactorAccountOwner> TwoFactorAccountOwners
 		{
 			get
@@ -9819,7 +9664,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_UserAllocationStatus_RoleMembers", Storage="_UserAllocationStatus", ThisKey="RoleId,UserId", OtherKey="OwnerRoleId,OwnerUserId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=15, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=13, EmitDefaultValue=false)]
 		public EntitySet<UserAllocationStatus> UserAllocationStatus
 		{
 			get
@@ -9838,7 +9683,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_UserEmailAddresses_RoleMembers", Storage="_UserEmailAddresses", ThisKey="RoleId,UserId", OtherKey="OwnerRoleId,OwnerUserId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=16, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=14, EmitDefaultValue=false)]
 		public EntitySet<UserEmailAddress> UserEmailAddresses
 		{
 			get
@@ -9857,7 +9702,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_UserRelationships_PartnerRoleMembers", Storage="_UserRelationships", ThisKey="RoleId,UserId", OtherKey="PartnerRoleId,PartnerUserId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=17, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=15, EmitDefaultValue=false)]
 		public EntitySet<UserRelationship> UserRelationships
 		{
 			get
@@ -9876,7 +9721,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_UserRelationships_RoleMembers", Storage="_UserRelationships_RoleMembers", ThisKey="RoleId,UserId", OtherKey="RoleId,UserId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=18, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=16, EmitDefaultValue=false)]
 		public EntitySet<UserRelationship> UserRelationships_RoleMembers
 		{
 			get
@@ -9963,7 +9808,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_VenueOwners_RoleMembers", Storage="_VenueOwners", ThisKey="RoleId,UserId", OtherKey="OwnerRoleId,OwnerUserId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=19, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=17, EmitDefaultValue=false)]
 		public EntitySet<VenueOwner> VenueOwners
 		{
 			get
@@ -10025,18 +9870,6 @@ namespace Data
 			entity.RoleMember = null;
 		}
 		
-		private void attach_Divisions(Division entity)
-		{
-			this.SendPropertyChanging();
-			entity.RoleMember = this;
-		}
-		
-		private void detach_Divisions(Division entity)
-		{
-			this.SendPropertyChanging();
-			entity.RoleMember = null;
-		}
-		
 		private void attach_Domains(Domain entity)
 		{
 			this.SendPropertyChanging();
@@ -10073,25 +9906,13 @@ namespace Data
 			entity.RoleMember = null;
 		}
 		
-		private void attach_OwnedRoles(OwnedRole entity)
+		private void attach_OwnedResources(OwnedResource entity)
 		{
 			this.SendPropertyChanging();
 			entity.RoleMember = this;
 		}
 		
-		private void detach_OwnedRoles(OwnedRole entity)
-		{
-			this.SendPropertyChanging();
-			entity.RoleMember = null;
-		}
-		
-		private void attach_ResourceOverrides(ResourceOverride entity)
-		{
-			this.SendPropertyChanging();
-			entity.RoleMember = this;
-		}
-		
-		private void detach_ResourceOverrides(ResourceOverride entity)
+		private void detach_OwnedResources(OwnedResource entity)
 		{
 			this.SendPropertyChanging();
 			entity.RoleMember = null;
@@ -10186,12 +10007,10 @@ namespace Data
 			this._Account = default(EntityRef<Account>);
 			this._AccountLockOutOwners = new EntitySet<AccountLockOutOwner>(new Action<AccountLockOutOwner>(this.attach_AccountLockOutOwners), new Action<AccountLockOutOwner>(this.detach_AccountLockOutOwners));
 			this._AccountTwoFactorOwners = new EntitySet<AccountTwoFactorOwner>(new Action<AccountTwoFactorOwner>(this.attach_AccountTwoFactorOwners), new Action<AccountTwoFactorOwner>(this.detach_AccountTwoFactorOwners));
-			this._Divisions = new EntitySet<Division>(new Action<Division>(this.attach_Divisions), new Action<Division>(this.detach_Divisions));
 			this._Domains = new EntitySet<Domain>(new Action<Domain>(this.attach_Domains), new Action<Domain>(this.detach_Domains));
 			this._Events = new EntitySet<Event>(new Action<Event>(this.attach_Events), new Action<Event>(this.detach_Events));
 			this._ExternalAccountProviderOwners = new EntitySet<ExternalAccountProviderOwner>(new Action<ExternalAccountProviderOwner>(this.attach_ExternalAccountProviderOwners), new Action<ExternalAccountProviderOwner>(this.detach_ExternalAccountProviderOwners));
-			this._OwnedRoles = new EntitySet<OwnedRole>(new Action<OwnedRole>(this.attach_OwnedRoles), new Action<OwnedRole>(this.detach_OwnedRoles));
-			this._ResourceOverrides = new EntitySet<ResourceOverride>(new Action<ResourceOverride>(this.attach_ResourceOverrides), new Action<ResourceOverride>(this.detach_ResourceOverrides));
+			this._OwnedResources = new EntitySet<OwnedResource>(new Action<OwnedResource>(this.attach_OwnedResources), new Action<OwnedResource>(this.detach_OwnedResources));
 			this._TicketOwners = new EntitySet<TicketOwner>(new Action<TicketOwner>(this.attach_TicketOwners), new Action<TicketOwner>(this.detach_TicketOwners));
 			this._TwoFactorAccountOwners = new EntitySet<TwoFactorAccountOwner>(new Action<TwoFactorAccountOwner>(this.attach_TwoFactorAccountOwners), new Action<TwoFactorAccountOwner>(this.detach_TwoFactorAccountOwners));
 			this._UserAllocationStatus = new EntitySet<UserAllocationStatus>(new Action<UserAllocationStatus>(this.attach_UserAllocationStatus), new Action<UserAllocationStatus>(this.detach_UserAllocationStatus));
@@ -10226,220 +10045,156 @@ namespace Data
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.RoleOwnerAllowedRoles")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="id.RoleMembers")]
 	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class RoleOwnerAllowedRole : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class Id_RoleMember
 	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		private System.Guid _UserId;
 		
-		private byte _AllowedRoleId;
-		
-		private byte _RoleOwnerRoleId;
-		
-		private EntityRef<RoleOwnerRole> _RoleOwnerRole;
-		
-		private EntityRef<Role> _Role;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnAllowedRoleIdChanging(byte value);
-    partial void OnAllowedRoleIdChanged();
-    partial void OnRoleOwnerRoleIdChanging(byte value);
-    partial void OnRoleOwnerRoleIdChanged();
-    #endregion
-		
-		public RoleOwnerAllowedRole()
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AllowedRoleId", DbType="TinyInt NOT NULL", IsPrimaryKey=true)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-		public byte AllowedRoleId
-		{
-			get
-			{
-				return this._AllowedRoleId;
-			}
-			set
-			{
-				if ((this._AllowedRoleId != value))
-				{
-					if (this._Role.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnAllowedRoleIdChanging(value);
-					this.SendPropertyChanging();
-					this._AllowedRoleId = value;
-					this.SendPropertyChanged("AllowedRoleId");
-					this.OnAllowedRoleIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoleOwnerRoleId", DbType="TinyInt NOT NULL", IsPrimaryKey=true)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public byte RoleOwnerRoleId
-		{
-			get
-			{
-				return this._RoleOwnerRoleId;
-			}
-			set
-			{
-				if ((this._RoleOwnerRoleId != value))
-				{
-					if (this._RoleOwnerRole.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnRoleOwnerRoleIdChanging(value);
-					this.SendPropertyChanging();
-					this._RoleOwnerRoleId = value;
-					this.SendPropertyChanged("RoleOwnerRoleId");
-					this.OnRoleOwnerRoleIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_RoleOwnerAllowedRoles_RoleOwnerRoles", Storage="_RoleOwnerRole", ThisKey="RoleOwnerRoleId", OtherKey="RoleId", IsForeignKey=true)]
-		public RoleOwnerRole RoleOwnerRole
-		{
-			get
-			{
-				return this._RoleOwnerRole.Entity;
-			}
-			set
-			{
-				RoleOwnerRole previousValue = this._RoleOwnerRole.Entity;
-				if (((previousValue != value) 
-							|| (this._RoleOwnerRole.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._RoleOwnerRole.Entity = null;
-						previousValue.RoleOwnerAllowedRoles.Remove(this);
-					}
-					this._RoleOwnerRole.Entity = value;
-					if ((value != null))
-					{
-						value.RoleOwnerAllowedRoles.Add(this);
-						this._RoleOwnerRoleId = value.RoleId;
-					}
-					else
-					{
-						this._RoleOwnerRoleId = default(byte);
-					}
-					this.SendPropertyChanged("RoleOwnerRole");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_RoleOwnerAllowedRoles_Roles", Storage="_Role", ThisKey="AllowedRoleId", OtherKey="Id", IsForeignKey=true)]
-		public Role Role
-		{
-			get
-			{
-				return this._Role.Entity;
-			}
-			set
-			{
-				Role previousValue = this._Role.Entity;
-				if (((previousValue != value) 
-							|| (this._Role.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Role.Entity = null;
-						previousValue.RoleOwnerAllowedRoles.Remove(this);
-					}
-					this._Role.Entity = value;
-					if ((value != null))
-					{
-						value.RoleOwnerAllowedRoles.Add(this);
-						this._AllowedRoleId = value.Id;
-					}
-					else
-					{
-						this._AllowedRoleId = default(byte);
-					}
-					this.SendPropertyChanged("Role");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void Initialize()
-		{
-			this._RoleOwnerRole = default(EntityRef<RoleOwnerRole>);
-			this._Role = default(EntityRef<Role>);
-			OnCreated();
-		}
-		
-		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnDeserializing(StreamingContext context)
-		{
-			this.Initialize();
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.RoleOwnerRoles")]
-	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class RoleOwnerRole : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		private string _UserName;
 		
 		private byte _RoleId;
 		
-		private EntitySet<OwnedRole> _OwnedRoles;
+		private string _RoleName;
 		
-		private EntitySet<RoleOwnerAllowedRole> _RoleOwnerAllowedRoles;
+		private string _HashedId;
 		
-		private EntityRef<Role> _Role;
+		private bool _Active;
 		
-		private bool serializing;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnRoleIdChanging(byte value);
-    partial void OnRoleIdChanged();
-    #endregion
-		
-		public RoleOwnerRole()
+		public Id_RoleMember()
 		{
-			this.Initialize();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoleId", DbType="TinyInt NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="UniqueIdentifier NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public System.Guid UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					this._UserId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public string UserName
+		{
+			get
+			{
+				return this._UserName;
+			}
+			set
+			{
+				if ((this._UserName != value))
+				{
+					this._UserName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoleId", DbType="TinyInt NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public byte RoleId
+		{
+			get
+			{
+				return this._RoleId;
+			}
+			set
+			{
+				if ((this._RoleId != value))
+				{
+					this._RoleId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoleName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public string RoleName
+		{
+			get
+			{
+				return this._RoleName;
+			}
+			set
+			{
+				if ((this._RoleName != value))
+				{
+					this._RoleName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HashedId", DbType="VarChar(39)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+		public string HashedId
+		{
+			get
+			{
+				return this._HashedId;
+			}
+			set
+			{
+				if ((this._HashedId != value))
+				{
+					this._HashedId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Active", DbType="Bit NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		public bool Active
+		{
+			get
+			{
+				return this._Active;
+			}
+			set
+			{
+				if ((this._Active != value))
+				{
+					this._Active = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="id.RoleRelationships")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class Id_RoleRelationship
+	{
+		
+		private byte _RoleId;
+		
+		private string _Name;
+		
+		private string _Description;
+		
+		private bool _Active;
+		
+		private byte _PartnerRoleId;
+		
+		private string _PartnerRoleName;
+		
+		private string _PartnerRoleDescription;
+		
+		private bool _PartnerRoleActive;
+		
+		public Id_RoleRelationship()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoleId", DbType="TinyInt NOT NULL")]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public byte RoleId
 		{
@@ -10451,162 +10206,128 @@ namespace Data
 			{
 				if ((this._RoleId != value))
 				{
-					if (this._Role.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnRoleIdChanging(value);
-					this.SendPropertyChanging();
 					this._RoleId = value;
-					this.SendPropertyChanged("RoleId");
-					this.OnRoleIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_OwnedRoles_RoleOwnerRoles", Storage="_OwnedRoles", ThisKey="RoleId", OtherKey="OwnerRoleId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2, EmitDefaultValue=false)]
-		public EntitySet<OwnedRole> OwnedRoles
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public string Name
 		{
 			get
 			{
-				if ((this.serializing 
-							&& (this._OwnedRoles.HasLoadedOrAssignedValues == false)))
-				{
-					return null;
-				}
-				return this._OwnedRoles;
+				return this._Name;
 			}
 			set
 			{
-				this._OwnedRoles.Assign(value);
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_RoleOwnerAllowedRoles_RoleOwnerRoles", Storage="_RoleOwnerAllowedRoles", ThisKey="RoleId", OtherKey="RoleOwnerRoleId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3, EmitDefaultValue=false)]
-		public EntitySet<RoleOwnerAllowedRole> RoleOwnerAllowedRoles
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(4000) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public string Description
 		{
 			get
 			{
-				if ((this.serializing 
-							&& (this._RoleOwnerAllowedRoles.HasLoadedOrAssignedValues == false)))
-				{
-					return null;
-				}
-				return this._RoleOwnerAllowedRoles;
+				return this._Description;
 			}
 			set
 			{
-				this._RoleOwnerAllowedRoles.Assign(value);
+				if ((this._Description != value))
+				{
+					this._Description = value;
+				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_RoleOwnerRoles_Roles", Storage="_Role", ThisKey="RoleId", OtherKey="Id", IsForeignKey=true)]
-		public Role Role
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Active", DbType="Bit NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public bool Active
 		{
 			get
 			{
-				return this._Role.Entity;
+				return this._Active;
 			}
 			set
 			{
-				Role previousValue = this._Role.Entity;
-				if (((previousValue != value) 
-							|| (this._Role.HasLoadedOrAssignedValue == false)))
+				if ((this._Active != value))
 				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Role.Entity = null;
-						previousValue.RoleOwnerRole = null;
-					}
-					this._Role.Entity = value;
-					if ((value != null))
-					{
-						value.RoleOwnerRole = this;
-						this._RoleId = value.Id;
-					}
-					else
-					{
-						this._RoleId = default(byte);
-					}
-					this.SendPropertyChanged("Role");
+					this._Active = value;
 				}
 			}
 		}
 		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PartnerRoleId", DbType="TinyInt NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+		public byte PartnerRoleId
 		{
-			if ((this.PropertyChanging != null))
+			get
 			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
+				return this._PartnerRoleId;
+			}
+			set
+			{
+				if ((this._PartnerRoleId != value))
+				{
+					this._PartnerRoleId = value;
+				}
 			}
 		}
 		
-		protected virtual void SendPropertyChanged(String propertyName)
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PartnerRoleName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		public string PartnerRoleName
 		{
-			if ((this.PropertyChanged != null))
+			get
 			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+				return this._PartnerRoleName;
+			}
+			set
+			{
+				if ((this._PartnerRoleName != value))
+				{
+					this._PartnerRoleName = value;
+				}
 			}
 		}
 		
-		private void attach_OwnedRoles(OwnedRole entity)
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PartnerRoleDescription", DbType="NVarChar(4000) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+		public string PartnerRoleDescription
 		{
-			this.SendPropertyChanging();
-			entity.RoleOwnerRole = this;
+			get
+			{
+				return this._PartnerRoleDescription;
+			}
+			set
+			{
+				if ((this._PartnerRoleDescription != value))
+				{
+					this._PartnerRoleDescription = value;
+				}
+			}
 		}
 		
-		private void detach_OwnedRoles(OwnedRole entity)
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PartnerRoleActive", DbType="Bit NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
+		public bool PartnerRoleActive
 		{
-			this.SendPropertyChanging();
-			entity.RoleOwnerRole = null;
-		}
-		
-		private void attach_RoleOwnerAllowedRoles(RoleOwnerAllowedRole entity)
-		{
-			this.SendPropertyChanging();
-			entity.RoleOwnerRole = this;
-		}
-		
-		private void detach_RoleOwnerAllowedRoles(RoleOwnerAllowedRole entity)
-		{
-			this.SendPropertyChanging();
-			entity.RoleOwnerRole = null;
-		}
-		
-		private void Initialize()
-		{
-			this._OwnedRoles = new EntitySet<OwnedRole>(new Action<OwnedRole>(this.attach_OwnedRoles), new Action<OwnedRole>(this.detach_OwnedRoles));
-			this._RoleOwnerAllowedRoles = new EntitySet<RoleOwnerAllowedRole>(new Action<RoleOwnerAllowedRole>(this.attach_RoleOwnerAllowedRoles), new Action<RoleOwnerAllowedRole>(this.detach_RoleOwnerAllowedRoles));
-			this._Role = default(EntityRef<Role>);
-			OnCreated();
-		}
-		
-		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnDeserializing(StreamingContext context)
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Runtime.Serialization.OnSerializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnSerializing(StreamingContext context)
-		{
-			this.serializing = true;
-		}
-		
-		[global::System.Runtime.Serialization.OnSerializedAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnSerialized(StreamingContext context)
-		{
-			this.serializing = false;
+			get
+			{
+				return this._PartnerRoleActive;
+			}
+			set
+			{
+				if ((this._PartnerRoleActive != value))
+				{
+					this._PartnerRoleActive = value;
+				}
+			}
 		}
 	}
 	
@@ -10856,10 +10577,6 @@ namespace Data
 		
 		private string _Description;
 		
-		private bool _IsSystemRole;
-		
-		private byte _OwnerRoleId;
-		
 		private bool _Active;
 		
 		private EntityRef<AccountLockOutOwnerRole> _AccountLockOutOwnerRole;
@@ -10867,10 +10584,6 @@ namespace Data
 		private EntityRef<AccountOwnerRole> _AccountOwnerRole;
 		
 		private EntityRef<TwoFactorAccountOwnerRole> _TwoFactorAccountOwnerRole;
-		
-		private EntityRef<DivisionMemberRole> _DivisionMemberRole;
-		
-		private EntityRef<DivisionOwnerRole> _DivisionOwnerRole;
 		
 		private EntityRef<DomainOwnerRole> _DomainOwnerRole;
 		
@@ -10882,19 +10595,11 @@ namespace Data
 		
 		private EntityRef<FieldOwnerRole> _FieldOwnerRole;
 		
-		private EntityRef<ResourceOverridesOwnerRole> _ResourceOverridesOwnerRole;
-		
-		private EntitySet<RoleOwnerAllowedRole> _RoleOwnerAllowedRoles;
-		
-		private EntityRef<RoleOwnerRole> _RoleOwnerRole;
+		private EntityRef<ResourceOwnerRole> _ResourceOwnerRole;
 		
 		private EntitySet<RoleRelationship> _RoleRelationships;
 		
 		private EntitySet<RoleRelationship> _RoleRelationships_Roles;
-		
-		private EntityRef<Role> _OwnerRole;
-		
-		private EntitySet<Role> _Roles_OwnerRoles;
 		
 		private EntityRef<TicketAllocationRole> _TicketAllocationRole;
 		
@@ -10924,10 +10629,6 @@ namespace Data
     partial void OnNameChanged();
     partial void OnDescriptionChanging(string value);
     partial void OnDescriptionChanged();
-    partial void OnIsSystemRoleChanging(bool value);
-    partial void OnIsSystemRoleChanged();
-    partial void OnOwnerRoleIdChanging(byte value);
-    partial void OnOwnerRoleIdChanged();
     partial void OnActiveChanging(bool value);
     partial void OnActiveChanged();
     #endregion
@@ -11000,54 +10701,8 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSystemRole", DbType="Bit NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public bool IsSystemRole
-		{
-			get
-			{
-				return this._IsSystemRole;
-			}
-			set
-			{
-				if ((this._IsSystemRole != value))
-				{
-					this.OnIsSystemRoleChanging(value);
-					this.SendPropertyChanging();
-					this._IsSystemRole = value;
-					this.SendPropertyChanged("IsSystemRole");
-					this.OnIsSystemRoleChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerRoleId", DbType="TinyInt NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-		public byte OwnerRoleId
-		{
-			get
-			{
-				return this._OwnerRoleId;
-			}
-			set
-			{
-				if ((this._OwnerRoleId != value))
-				{
-					if (this._OwnerRole.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnOwnerRoleIdChanging(value);
-					this.SendPropertyChanging();
-					this._OwnerRoleId = value;
-					this.SendPropertyChanged("OwnerRoleId");
-					this.OnOwnerRoleIdChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Active", DbType="Bit NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public bool Active
 		{
 			get
@@ -11068,7 +10723,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_AccountLockOutOwnerRoles_AccountLockOutOwnerRoles", Storage="_AccountLockOutOwnerRole", ThisKey="Id", OtherKey="OwnerRoleId", IsUnique=true, IsForeignKey=false, DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5, EmitDefaultValue=false)]
 		public AccountLockOutOwnerRole AccountLockOutOwnerRole
 		{
 			get
@@ -11103,7 +10758,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_AccountRoles_Roles", Storage="_AccountOwnerRole", ThisKey="Id", OtherKey="RoleId", IsUnique=true, IsForeignKey=false, DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6, EmitDefaultValue=false)]
 		public AccountOwnerRole AccountOwnerRole
 		{
 			get
@@ -11138,7 +10793,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_AccountTwoFactorOwnerRoles_Roles", Storage="_TwoFactorAccountOwnerRole", ThisKey="Id", OtherKey="RoleId", IsUnique=true, IsForeignKey=false, DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7, EmitDefaultValue=false)]
 		public TwoFactorAccountOwnerRole TwoFactorAccountOwnerRole
 		{
 			get
@@ -11172,78 +10827,8 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_DivisionMemberRoles_Roles", Storage="_DivisionMemberRole", ThisKey="Id", OtherKey="RoleId", IsUnique=true, IsForeignKey=false, DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=10, EmitDefaultValue=false)]
-		public DivisionMemberRole DivisionMemberRole
-		{
-			get
-			{
-				if ((this.serializing 
-							&& (this._DivisionMemberRole.HasLoadedOrAssignedValue == false)))
-				{
-					return null;
-				}
-				return this._DivisionMemberRole.Entity;
-			}
-			set
-			{
-				DivisionMemberRole previousValue = this._DivisionMemberRole.Entity;
-				if (((previousValue != value) 
-							|| (this._DivisionMemberRole.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._DivisionMemberRole.Entity = null;
-						previousValue.Role = null;
-					}
-					this._DivisionMemberRole.Entity = value;
-					if ((value != null))
-					{
-						value.Role = this;
-					}
-					this.SendPropertyChanged("DivisionMemberRole");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_DivisionOwnerRoles_Roles", Storage="_DivisionOwnerRole", ThisKey="Id", OtherKey="RoleId", IsUnique=true, IsForeignKey=false, DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=11, EmitDefaultValue=false)]
-		public DivisionOwnerRole DivisionOwnerRole
-		{
-			get
-			{
-				if ((this.serializing 
-							&& (this._DivisionOwnerRole.HasLoadedOrAssignedValue == false)))
-				{
-					return null;
-				}
-				return this._DivisionOwnerRole.Entity;
-			}
-			set
-			{
-				DivisionOwnerRole previousValue = this._DivisionOwnerRole.Entity;
-				if (((previousValue != value) 
-							|| (this._DivisionOwnerRole.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._DivisionOwnerRole.Entity = null;
-						previousValue.Role = null;
-					}
-					this._DivisionOwnerRole.Entity = value;
-					if ((value != null))
-					{
-						value.Role = this;
-					}
-					this.SendPropertyChanged("DivisionOwnerRole");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_DomainOwnerRoles_Roles", Storage="_DomainOwnerRole", ThisKey="Id", OtherKey="RoleId", IsUnique=true, IsForeignKey=false, DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=12, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8, EmitDefaultValue=false)]
 		public DomainOwnerRole DomainOwnerRole
 		{
 			get
@@ -11278,7 +10863,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_EventOwnerRoles_Roles", Storage="_EventOwnerRole", ThisKey="Id", OtherKey="RoleId", IsUnique=true, IsForeignKey=false, DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=13, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9, EmitDefaultValue=false)]
 		public EventOwnerRole EventOwnerRole
 		{
 			get
@@ -11313,7 +10898,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_ExternalAccountOwnerRoles_Roles", Storage="_ExternalAccountOwnerRole", ThisKey="Id", OtherKey="RoleId", IsUnique=true, IsForeignKey=false, DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=14, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=10, EmitDefaultValue=false)]
 		public ExternalAccountOwnerRole ExternalAccountOwnerRole
 		{
 			get
@@ -11348,7 +10933,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_ExternalAccountProviderOwnerRoles_Roles", Storage="_ExternalAccountProviderOwnerRole", ThisKey="Id", OtherKey="RoleId", IsUnique=true, IsForeignKey=false, DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=15, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=11, EmitDefaultValue=false)]
 		public ExternalAccountProviderOwnerRole ExternalAccountProviderOwnerRole
 		{
 			get
@@ -11383,7 +10968,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_FieldOwnerRoles_Roles", Storage="_FieldOwnerRole", ThisKey="Id", OtherKey="RoleId", IsUnique=true, IsForeignKey=false, DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=16, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=12, EmitDefaultValue=false)]
 		public FieldOwnerRole FieldOwnerRole
 		{
 			get
@@ -11417,97 +11002,43 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_ResourceOwnerRoles_Roles", Storage="_ResourceOverridesOwnerRole", ThisKey="Id", OtherKey="RoleId", IsUnique=true, IsForeignKey=false, DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=17, EmitDefaultValue=false)]
-		public ResourceOverridesOwnerRole ResourceOverridesOwnerRole
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_ResourceOwnerRoles_Roles", Storage="_ResourceOwnerRole", ThisKey="Id", OtherKey="RoleId", IsUnique=true, IsForeignKey=false, DeleteRule="NO ACTION")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=13, EmitDefaultValue=false)]
+		public ResourceOwnerRole ResourceOwnerRole
 		{
 			get
 			{
 				if ((this.serializing 
-							&& (this._ResourceOverridesOwnerRole.HasLoadedOrAssignedValue == false)))
+							&& (this._ResourceOwnerRole.HasLoadedOrAssignedValue == false)))
 				{
 					return null;
 				}
-				return this._ResourceOverridesOwnerRole.Entity;
+				return this._ResourceOwnerRole.Entity;
 			}
 			set
 			{
-				ResourceOverridesOwnerRole previousValue = this._ResourceOverridesOwnerRole.Entity;
+				ResourceOwnerRole previousValue = this._ResourceOwnerRole.Entity;
 				if (((previousValue != value) 
-							|| (this._ResourceOverridesOwnerRole.HasLoadedOrAssignedValue == false)))
+							|| (this._ResourceOwnerRole.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._ResourceOverridesOwnerRole.Entity = null;
+						this._ResourceOwnerRole.Entity = null;
 						previousValue.Role = null;
 					}
-					this._ResourceOverridesOwnerRole.Entity = value;
+					this._ResourceOwnerRole.Entity = value;
 					if ((value != null))
 					{
 						value.Role = this;
 					}
-					this.SendPropertyChanged("ResourceOverridesOwnerRole");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_RoleOwnerAllowedRoles_Roles", Storage="_RoleOwnerAllowedRoles", ThisKey="Id", OtherKey="AllowedRoleId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=18, EmitDefaultValue=false)]
-		public EntitySet<RoleOwnerAllowedRole> RoleOwnerAllowedRoles
-		{
-			get
-			{
-				if ((this.serializing 
-							&& (this._RoleOwnerAllowedRoles.HasLoadedOrAssignedValues == false)))
-				{
-					return null;
-				}
-				return this._RoleOwnerAllowedRoles;
-			}
-			set
-			{
-				this._RoleOwnerAllowedRoles.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_RoleOwnerRoles_Roles", Storage="_RoleOwnerRole", ThisKey="Id", OtherKey="RoleId", IsUnique=true, IsForeignKey=false, DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=19, EmitDefaultValue=false)]
-		public RoleOwnerRole RoleOwnerRole
-		{
-			get
-			{
-				if ((this.serializing 
-							&& (this._RoleOwnerRole.HasLoadedOrAssignedValue == false)))
-				{
-					return null;
-				}
-				return this._RoleOwnerRole.Entity;
-			}
-			set
-			{
-				RoleOwnerRole previousValue = this._RoleOwnerRole.Entity;
-				if (((previousValue != value) 
-							|| (this._RoleOwnerRole.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._RoleOwnerRole.Entity = null;
-						previousValue.Role = null;
-					}
-					this._RoleOwnerRole.Entity = value;
-					if ((value != null))
-					{
-						value.Role = this;
-					}
-					this.SendPropertyChanged("RoleOwnerRole");
+					this.SendPropertyChanged("ResourceOwnerRole");
 				}
 			}
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_RoleRelationships_PartnerRoles", Storage="_RoleRelationships", ThisKey="Id", OtherKey="PartnerRoleId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=20, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=14, EmitDefaultValue=false)]
 		public EntitySet<RoleRelationship> RoleRelationships
 		{
 			get
@@ -11526,7 +11057,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_RoleRelationships_Roles", Storage="_RoleRelationships_Roles", ThisKey="Id", OtherKey="RoleId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=21, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=15, EmitDefaultValue=false)]
 		public EntitySet<RoleRelationship> RoleRelationships_Roles
 		{
 			get
@@ -11544,61 +11075,8 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Roles_OwnerRoles", Storage="_OwnerRole", ThisKey="OwnerRoleId", OtherKey="Id", IsForeignKey=true)]
-		public Role OwnerRole
-		{
-			get
-			{
-				return this._OwnerRole.Entity;
-			}
-			set
-			{
-				Role previousValue = this._OwnerRole.Entity;
-				if (((previousValue != value) 
-							|| (this._OwnerRole.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._OwnerRole.Entity = null;
-						previousValue.Roles_OwnerRoles.Remove(this);
-					}
-					this._OwnerRole.Entity = value;
-					if ((value != null))
-					{
-						value.Roles_OwnerRoles.Add(this);
-						this._OwnerRoleId = value.Id;
-					}
-					else
-					{
-						this._OwnerRoleId = default(byte);
-					}
-					this.SendPropertyChanged("OwnerRole");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Roles_OwnerRoles", Storage="_Roles_OwnerRoles", ThisKey="Id", OtherKey="OwnerRoleId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=22, EmitDefaultValue=false)]
-		public EntitySet<Role> Roles_OwnerRoles
-		{
-			get
-			{
-				if ((this.serializing 
-							&& (this._Roles_OwnerRoles.HasLoadedOrAssignedValues == false)))
-				{
-					return null;
-				}
-				return this._Roles_OwnerRoles;
-			}
-			set
-			{
-				this._Roles_OwnerRoles.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_TicketAllocationRoles_Roles", Storage="_TicketAllocationRole", ThisKey="Id", OtherKey="RoleId", IsUnique=true, IsForeignKey=false, DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=23, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=16, EmitDefaultValue=false)]
 		public TicketAllocationRole TicketAllocationRole
 		{
 			get
@@ -11633,7 +11111,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_TicketAllocatorRoles_Roles", Storage="_TicketAllocatorRole", ThisKey="Id", OtherKey="RoleId", IsUnique=true, IsForeignKey=false, DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=24, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=17, EmitDefaultValue=false)]
 		public TicketAllocatorRole TicketAllocatorRole
 		{
 			get
@@ -11668,7 +11146,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_TicketOwnerRoles_Roles", Storage="_TicketOwnerRole", ThisKey="Id", OtherKey="RoleId", IsUnique=true, IsForeignKey=false, DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=25, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=18, EmitDefaultValue=false)]
 		public TicketOwnerRole TicketOwnerRole
 		{
 			get
@@ -11703,7 +11181,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_TicketPatronageRoles_Roles", Storage="_TicketPatronageRole", ThisKey="Id", OtherKey="RoleId", IsUnique=true, IsForeignKey=false, DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=26, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=19, EmitDefaultValue=false)]
 		public TicketPatronageRole TicketPatronageRole
 		{
 			get
@@ -11738,7 +11216,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_TicketRequestRoles_Roles", Storage="_TicketRequestorRole", ThisKey="Id", OtherKey="RoleId", IsUnique=true, IsForeignKey=false, DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=27, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=20, EmitDefaultValue=false)]
 		public TicketRequestorRole TicketRequestorRole
 		{
 			get
@@ -11773,7 +11251,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_TicketStatusUpdaterRoles_Roles", Storage="_TicketStatusUpdaterRole", ThisKey="Id", OtherKey="RoleId", IsUnique=true, IsForeignKey=false, DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=28, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=21, EmitDefaultValue=false)]
 		public TicketStatusUpdaterRole TicketStatusUpdaterRole
 		{
 			get
@@ -11808,7 +11286,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_UserRole_Role", Storage="_RoleMembers", ThisKey="Id", OtherKey="RoleId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=29, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=22, EmitDefaultValue=false)]
 		public EntitySet<RoleMember> RoleMembers
 		{
 			get
@@ -11827,7 +11305,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_VenueOwnerRoles_Roles", Storage="_VenueOwnerRole", ThisKey="Id", OtherKey="RoleId", IsUnique=true, IsForeignKey=false, DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=30, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=23, EmitDefaultValue=false)]
 		public VenueOwnerRole VenueOwnerRole
 		{
 			get
@@ -11881,18 +11359,6 @@ namespace Data
 			}
 		}
 		
-		private void attach_RoleOwnerAllowedRoles(RoleOwnerAllowedRole entity)
-		{
-			this.SendPropertyChanging();
-			entity.Role = this;
-		}
-		
-		private void detach_RoleOwnerAllowedRoles(RoleOwnerAllowedRole entity)
-		{
-			this.SendPropertyChanging();
-			entity.Role = null;
-		}
-		
 		private void attach_RoleRelationships(RoleRelationship entity)
 		{
 			this.SendPropertyChanging();
@@ -11917,18 +11383,6 @@ namespace Data
 			entity.RoleRelationships_Role = null;
 		}
 		
-		private void attach_Roles_OwnerRoles(Role entity)
-		{
-			this.SendPropertyChanging();
-			entity.OwnerRole = this;
-		}
-		
-		private void detach_Roles_OwnerRoles(Role entity)
-		{
-			this.SendPropertyChanging();
-			entity.OwnerRole = null;
-		}
-		
 		private void attach_RoleMembers(RoleMember entity)
 		{
 			this.SendPropertyChanging();
@@ -11946,20 +11400,14 @@ namespace Data
 			this._AccountLockOutOwnerRole = default(EntityRef<AccountLockOutOwnerRole>);
 			this._AccountOwnerRole = default(EntityRef<AccountOwnerRole>);
 			this._TwoFactorAccountOwnerRole = default(EntityRef<TwoFactorAccountOwnerRole>);
-			this._DivisionMemberRole = default(EntityRef<DivisionMemberRole>);
-			this._DivisionOwnerRole = default(EntityRef<DivisionOwnerRole>);
 			this._DomainOwnerRole = default(EntityRef<DomainOwnerRole>);
 			this._EventOwnerRole = default(EntityRef<EventOwnerRole>);
 			this._ExternalAccountOwnerRole = default(EntityRef<ExternalAccountOwnerRole>);
 			this._ExternalAccountProviderOwnerRole = default(EntityRef<ExternalAccountProviderOwnerRole>);
 			this._FieldOwnerRole = default(EntityRef<FieldOwnerRole>);
-			this._ResourceOverridesOwnerRole = default(EntityRef<ResourceOverridesOwnerRole>);
-			this._RoleOwnerAllowedRoles = new EntitySet<RoleOwnerAllowedRole>(new Action<RoleOwnerAllowedRole>(this.attach_RoleOwnerAllowedRoles), new Action<RoleOwnerAllowedRole>(this.detach_RoleOwnerAllowedRoles));
-			this._RoleOwnerRole = default(EntityRef<RoleOwnerRole>);
+			this._ResourceOwnerRole = default(EntityRef<ResourceOwnerRole>);
 			this._RoleRelationships = new EntitySet<RoleRelationship>(new Action<RoleRelationship>(this.attach_RoleRelationships), new Action<RoleRelationship>(this.detach_RoleRelationships));
 			this._RoleRelationships_Roles = new EntitySet<RoleRelationship>(new Action<RoleRelationship>(this.attach_RoleRelationships_Roles), new Action<RoleRelationship>(this.detach_RoleRelationships_Roles));
-			this._OwnerRole = default(EntityRef<Role>);
-			this._Roles_OwnerRoles = new EntitySet<Role>(new Action<Role>(this.attach_Roles_OwnerRoles), new Action<Role>(this.detach_Roles_OwnerRoles));
 			this._TicketAllocationRole = default(EntityRef<TicketAllocationRole>);
 			this._TicketAllocatorRole = default(EntityRef<TicketAllocatorRole>);
 			this._TicketOwnerRole = default(EntityRef<TicketOwnerRole>);
@@ -12003,12 +11451,6 @@ namespace Data
 		private string _Name;
 		
 		private string _Description;
-		
-		private bool _IsSystemRole;
-		
-		private byte _OwnerRoleId;
-		
-		private string _OwnerRoleName;
 		
 		private bool _Active;
 		
@@ -12069,59 +11511,8 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSystemRole", DbType="Bit NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public bool IsSystemRole
-		{
-			get
-			{
-				return this._IsSystemRole;
-			}
-			set
-			{
-				if ((this._IsSystemRole != value))
-				{
-					this._IsSystemRole = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerRoleId", DbType="TinyInt NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-		public byte OwnerRoleId
-		{
-			get
-			{
-				return this._OwnerRoleId;
-			}
-			set
-			{
-				if ((this._OwnerRoleId != value))
-				{
-					this._OwnerRoleId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerRoleName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
-		public string OwnerRoleName
-		{
-			get
-			{
-				return this._OwnerRoleName;
-			}
-			set
-			{
-				if ((this._OwnerRoleName != value))
-				{
-					this._OwnerRoleName = value;
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Active", DbType="Bit NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public bool Active
 		{
 			get
@@ -12138,7 +11529,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Members", DbType="Int")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
 		public System.Nullable<int> Members
 		{
 			get
@@ -13182,6 +12573,282 @@ namespace Data
 		public void OnSerialized(StreamingContext context)
 		{
 			this.serializing = false;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="entity.TicketAllocations")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class Entity_TicketAllocation
+	{
+		
+		private int _AllocationId;
+		
+		private string _Ticket;
+		
+		private string _EventName;
+		
+		private string _EventOwnerUserName;
+		
+		private string _EventOwnerRole;
+		
+		private string _PatronUserName;
+		
+		private string _RequestorRole;
+		
+		private int _AllocationStatusId;
+		
+		private string _AllocationStatus;
+		
+		private int _RequestedAmount;
+		
+		private byte _EventOwnerRoleId;
+		
+		private System.Guid _EventOwnerUserId;
+		
+		private byte _PatronRoleId;
+		
+		private System.Guid _PatronUserId;
+		
+		public Entity_TicketAllocation()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AllocationId", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public int AllocationId
+		{
+			get
+			{
+				return this._AllocationId;
+			}
+			set
+			{
+				if ((this._AllocationId != value))
+				{
+					this._AllocationId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ticket", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public string Ticket
+		{
+			get
+			{
+				return this._Ticket;
+			}
+			set
+			{
+				if ((this._Ticket != value))
+				{
+					this._Ticket = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public string EventName
+		{
+			get
+			{
+				return this._EventName;
+			}
+			set
+			{
+				if ((this._EventName != value))
+				{
+					this._EventName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventOwnerUserName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public string EventOwnerUserName
+		{
+			get
+			{
+				return this._EventOwnerUserName;
+			}
+			set
+			{
+				if ((this._EventOwnerUserName != value))
+				{
+					this._EventOwnerUserName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventOwnerRole", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+		public string EventOwnerRole
+		{
+			get
+			{
+				return this._EventOwnerRole;
+			}
+			set
+			{
+				if ((this._EventOwnerRole != value))
+				{
+					this._EventOwnerRole = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PatronUserName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		public string PatronUserName
+		{
+			get
+			{
+				return this._PatronUserName;
+			}
+			set
+			{
+				if ((this._PatronUserName != value))
+				{
+					this._PatronUserName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestorRole", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+		public string RequestorRole
+		{
+			get
+			{
+				return this._RequestorRole;
+			}
+			set
+			{
+				if ((this._RequestorRole != value))
+				{
+					this._RequestorRole = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AllocationStatusId", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
+		public int AllocationStatusId
+		{
+			get
+			{
+				return this._AllocationStatusId;
+			}
+			set
+			{
+				if ((this._AllocationStatusId != value))
+				{
+					this._AllocationStatusId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AllocationStatus", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9)]
+		public string AllocationStatus
+		{
+			get
+			{
+				return this._AllocationStatus;
+			}
+			set
+			{
+				if ((this._AllocationStatus != value))
+				{
+					this._AllocationStatus = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestedAmount", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=10)]
+		public int RequestedAmount
+		{
+			get
+			{
+				return this._RequestedAmount;
+			}
+			set
+			{
+				if ((this._RequestedAmount != value))
+				{
+					this._RequestedAmount = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventOwnerRoleId", DbType="TinyInt NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=11)]
+		public byte EventOwnerRoleId
+		{
+			get
+			{
+				return this._EventOwnerRoleId;
+			}
+			set
+			{
+				if ((this._EventOwnerRoleId != value))
+				{
+					this._EventOwnerRoleId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventOwnerUserId", DbType="UniqueIdentifier NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=12)]
+		public System.Guid EventOwnerUserId
+		{
+			get
+			{
+				return this._EventOwnerUserId;
+			}
+			set
+			{
+				if ((this._EventOwnerUserId != value))
+				{
+					this._EventOwnerUserId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PatronRoleId", DbType="TinyInt NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=13)]
+		public byte PatronRoleId
+		{
+			get
+			{
+				return this._PatronRoleId;
+			}
+			set
+			{
+				if ((this._PatronRoleId != value))
+				{
+					this._PatronRoleId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PatronUserId", DbType="UniqueIdentifier NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=14)]
+		public System.Guid PatronUserId
+		{
+			get
+			{
+				return this._PatronUserId;
+			}
+			set
+			{
+				if ((this._PatronUserId != value))
+				{
+					this._PatronUserId = value;
+				}
+			}
 		}
 	}
 	
@@ -15194,6 +14861,444 @@ namespace Data
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="entity.TicketRequests")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class Entity_TicketRequest
+	{
+		
+		private int _RequestId;
+		
+		private string _Ticket;
+		
+		private string _EventName;
+		
+		private string _EventOwnerUserName;
+		
+		private string _EventOwnerRole;
+		
+		private string _RequestorUserName;
+		
+		private string _RequestorRole;
+		
+		private int _Amount;
+		
+		private byte _EventOwnerRoleId;
+		
+		private System.Guid _EventOwnerUserId;
+		
+		private byte _RequestorRoleId;
+		
+		private System.Guid _RequestorUserId;
+		
+		private bool _IsAllocated;
+		
+		public Entity_TicketRequest()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestId", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public int RequestId
+		{
+			get
+			{
+				return this._RequestId;
+			}
+			set
+			{
+				if ((this._RequestId != value))
+				{
+					this._RequestId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ticket", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public string Ticket
+		{
+			get
+			{
+				return this._Ticket;
+			}
+			set
+			{
+				if ((this._Ticket != value))
+				{
+					this._Ticket = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public string EventName
+		{
+			get
+			{
+				return this._EventName;
+			}
+			set
+			{
+				if ((this._EventName != value))
+				{
+					this._EventName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventOwnerUserName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public string EventOwnerUserName
+		{
+			get
+			{
+				return this._EventOwnerUserName;
+			}
+			set
+			{
+				if ((this._EventOwnerUserName != value))
+				{
+					this._EventOwnerUserName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventOwnerRole", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+		public string EventOwnerRole
+		{
+			get
+			{
+				return this._EventOwnerRole;
+			}
+			set
+			{
+				if ((this._EventOwnerRole != value))
+				{
+					this._EventOwnerRole = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestorUserName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		public string RequestorUserName
+		{
+			get
+			{
+				return this._RequestorUserName;
+			}
+			set
+			{
+				if ((this._RequestorUserName != value))
+				{
+					this._RequestorUserName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestorRole", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+		public string RequestorRole
+		{
+			get
+			{
+				return this._RequestorRole;
+			}
+			set
+			{
+				if ((this._RequestorRole != value))
+				{
+					this._RequestorRole = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Amount", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
+		public int Amount
+		{
+			get
+			{
+				return this._Amount;
+			}
+			set
+			{
+				if ((this._Amount != value))
+				{
+					this._Amount = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventOwnerRoleId", DbType="TinyInt NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9)]
+		public byte EventOwnerRoleId
+		{
+			get
+			{
+				return this._EventOwnerRoleId;
+			}
+			set
+			{
+				if ((this._EventOwnerRoleId != value))
+				{
+					this._EventOwnerRoleId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventOwnerUserId", DbType="UniqueIdentifier NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=10)]
+		public System.Guid EventOwnerUserId
+		{
+			get
+			{
+				return this._EventOwnerUserId;
+			}
+			set
+			{
+				if ((this._EventOwnerUserId != value))
+				{
+					this._EventOwnerUserId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestorRoleId", DbType="TinyInt NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=11)]
+		public byte RequestorRoleId
+		{
+			get
+			{
+				return this._RequestorRoleId;
+			}
+			set
+			{
+				if ((this._RequestorRoleId != value))
+				{
+					this._RequestorRoleId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestorUserId", DbType="UniqueIdentifier NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=12)]
+		public System.Guid RequestorUserId
+		{
+			get
+			{
+				return this._RequestorUserId;
+			}
+			set
+			{
+				if ((this._RequestorUserId != value))
+				{
+					this._RequestorUserId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsAllocated", DbType="Bit NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=13)]
+		public bool IsAllocated
+		{
+			get
+			{
+				return this._IsAllocated;
+			}
+			set
+			{
+				if ((this._IsAllocated != value))
+				{
+					this._IsAllocated = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="entity.Tickets")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class Entity_Ticket
+	{
+		
+		private int _EventId;
+		
+		private int _TicketId;
+		
+		private string _EventName;
+		
+		private string _TicketName;
+		
+		private int _Allocation;
+		
+		private byte _OwnerRoleId;
+		
+		private string _RoleName;
+		
+		private System.Guid _OwnerUserId;
+		
+		private string _UserName;
+		
+		public Entity_Ticket()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventId", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public int EventId
+		{
+			get
+			{
+				return this._EventId;
+			}
+			set
+			{
+				if ((this._EventId != value))
+				{
+					this._EventId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketId", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public int TicketId
+		{
+			get
+			{
+				return this._TicketId;
+			}
+			set
+			{
+				if ((this._TicketId != value))
+				{
+					this._TicketId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public string EventName
+		{
+			get
+			{
+				return this._EventName;
+			}
+			set
+			{
+				if ((this._EventName != value))
+				{
+					this._EventName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public string TicketName
+		{
+			get
+			{
+				return this._TicketName;
+			}
+			set
+			{
+				if ((this._TicketName != value))
+				{
+					this._TicketName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Allocation", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+		public int Allocation
+		{
+			get
+			{
+				return this._Allocation;
+			}
+			set
+			{
+				if ((this._Allocation != value))
+				{
+					this._Allocation = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerRoleId", DbType="TinyInt NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		public byte OwnerRoleId
+		{
+			get
+			{
+				return this._OwnerRoleId;
+			}
+			set
+			{
+				if ((this._OwnerRoleId != value))
+				{
+					this._OwnerRoleId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoleName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+		public string RoleName
+		{
+			get
+			{
+				return this._RoleName;
+			}
+			set
+			{
+				if ((this._RoleName != value))
+				{
+					this._RoleName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerUserId", DbType="UniqueIdentifier NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
+		public System.Guid OwnerUserId
+		{
+			get
+			{
+				return this._OwnerUserId;
+			}
+			set
+			{
+				if ((this._OwnerUserId != value))
+				{
+					this._OwnerUserId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9)]
+		public string UserName
+		{
+			get
+			{
+				return this._UserName;
+			}
+			set
+			{
+				if ((this._UserName != value))
+				{
+					this._UserName = value;
+				}
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tickets")]
 	[global::System.Runtime.Serialization.DataContractAttribute()]
 	public partial class Ticket : INotifyPropertyChanging, INotifyPropertyChanged
@@ -16985,8 +17090,6 @@ namespace Data
 		
 		private bool _Active;
 		
-		private EntitySet<DivisionMember> _DivisionMembers;
-		
 		private EntitySet<EventFieldValue> _EventFieldValues;
 		
 		private EntitySet<ExternalAccount> _ExternalAccounts;
@@ -17149,27 +17252,8 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_DivisionMembers_MemberRelationships", Storage="_DivisionMembers", ThisKey="RoleId,UserId,PartnerRoleId,PartnerUserId", OtherKey="DivisionOwnerRoleId,DivisionOwnnerUserId,MemberRoleId,MemberUserId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6, EmitDefaultValue=false)]
-		public EntitySet<DivisionMember> DivisionMembers
-		{
-			get
-			{
-				if ((this.serializing 
-							&& (this._DivisionMembers.HasLoadedOrAssignedValues == false)))
-				{
-					return null;
-				}
-				return this._DivisionMembers;
-			}
-			set
-			{
-				this._DivisionMembers.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_EventFieldValues_UserRelationships", Storage="_EventFieldValues", ThisKey="RoleId,UserId,PartnerRoleId,PartnerUserId", OtherKey="EventOwnerRoleId,EventOwnerUserId,SubmittingRoleId,SubmittingUserId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6, EmitDefaultValue=false)]
 		public EntitySet<EventFieldValue> EventFieldValues
 		{
 			get
@@ -17188,7 +17272,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_ExternalAccounts_UserRelationships", Storage="_ExternalAccounts", ThisKey="RoleId,UserId,PartnerRoleId,PartnerUserId", OtherKey="ProviderOwnerRoleId,ProviderOwnerUserId,OwnerRoleId,OwnerUserId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7, EmitDefaultValue=false)]
 		public EntitySet<ExternalAccount> ExternalAccounts
 		{
 			get
@@ -17207,7 +17291,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_TicketAllocations_OwnerAllocatorRelationships", Storage="_TicketAllocations", ThisKey="RoleId,UserId,PartnerRoleId,PartnerUserId", OtherKey="EventOwnerRoleId,EventOwnerUserId,AllocatorRoleId,AllocatorUserId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8, EmitDefaultValue=false)]
 		public EntitySet<TicketAllocation> TicketAllocations
 		{
 			get
@@ -17226,7 +17310,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_TicketAllocations_OwnerPatronRelationships", Storage="_TicketAllocations_OwnerPatronRelationships", ThisKey="RoleId,UserId,PartnerRoleId,PartnerUserId", OtherKey="AllocatorRoleId,AllocatorUserId,PatronRoleId,PatronUserId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=10, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9, EmitDefaultValue=false)]
 		public EntitySet<TicketAllocation> TicketAllocations_OwnerPatronRelationships
 		{
 			get
@@ -17245,7 +17329,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_TicketAllocations_OwnerStatusUpdaterRelationships", Storage="_TicketAllocations_OwnerStatusUpdaterRelationships", ThisKey="RoleId,UserId,PartnerRoleId,PartnerUserId", OtherKey="EventOwnerRoleId,EventOwnerUserId,LastStatusUpdateRoleId,LastStatusUpdateUserId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=11, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=10, EmitDefaultValue=false)]
 		public EntitySet<TicketAllocation> TicketAllocations_OwnerStatusUpdaterRelationships
 		{
 			get
@@ -17264,7 +17348,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_TicketRequests_UserRelationships", Storage="_TicketRequests", ThisKey="RoleId,UserId,PartnerRoleId,PartnerUserId", OtherKey="RequestorRoleId,RequestorUserId,EventOwnerRoleId,EventOwnerUserId", DeleteRule="NO ACTION")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=12, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=11, EmitDefaultValue=false)]
 		public EntitySet<TicketRequest> TicketRequests
 		{
 			get
@@ -17410,18 +17494,6 @@ namespace Data
 			}
 		}
 		
-		private void attach_DivisionMembers(DivisionMember entity)
-		{
-			this.SendPropertyChanging();
-			entity.UserRelationship = this;
-		}
-		
-		private void detach_DivisionMembers(DivisionMember entity)
-		{
-			this.SendPropertyChanging();
-			entity.UserRelationship = null;
-		}
-		
 		private void attach_EventFieldValues(EventFieldValue entity)
 		{
 			this.SendPropertyChanging();
@@ -17496,7 +17568,6 @@ namespace Data
 		
 		private void Initialize()
 		{
-			this._DivisionMembers = new EntitySet<DivisionMember>(new Action<DivisionMember>(this.attach_DivisionMembers), new Action<DivisionMember>(this.detach_DivisionMembers));
 			this._EventFieldValues = new EntitySet<EventFieldValue>(new Action<EventFieldValue>(this.attach_EventFieldValues), new Action<EventFieldValue>(this.detach_EventFieldValues));
 			this._ExternalAccounts = new EntitySet<ExternalAccount>(new Action<ExternalAccount>(this.attach_ExternalAccounts), new Action<ExternalAccount>(this.detach_ExternalAccounts));
 			this._TicketAllocations = new EntitySet<TicketAllocation>(new Action<TicketAllocation>(this.attach_TicketAllocations), new Action<TicketAllocation>(this.detach_TicketAllocations));
@@ -17528,6 +17599,187 @@ namespace Data
 		public void OnSerialized(StreamingContext context)
 		{
 			this.serializing = false;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="id.UserRelationships")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class Id_UserRelationship
+	{
+		
+		private byte _RoleId;
+		
+		private string _RoleName;
+		
+		private System.Guid _UserId;
+		
+		private string _UserName;
+		
+		private byte _PartnerRoleId;
+		
+		private string _PartnerRoleName;
+		
+		private System.Guid _PartnerUserId;
+		
+		private string _PartnerUserName;
+		
+		private bool _Active;
+		
+		public Id_UserRelationship()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoleId", DbType="TinyInt NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public byte RoleId
+		{
+			get
+			{
+				return this._RoleId;
+			}
+			set
+			{
+				if ((this._RoleId != value))
+				{
+					this._RoleId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoleName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public string RoleName
+		{
+			get
+			{
+				return this._RoleName;
+			}
+			set
+			{
+				if ((this._RoleName != value))
+				{
+					this._RoleName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="UniqueIdentifier NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public System.Guid UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					this._UserId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public string UserName
+		{
+			get
+			{
+				return this._UserName;
+			}
+			set
+			{
+				if ((this._UserName != value))
+				{
+					this._UserName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PartnerRoleId", DbType="TinyInt NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+		public byte PartnerRoleId
+		{
+			get
+			{
+				return this._PartnerRoleId;
+			}
+			set
+			{
+				if ((this._PartnerRoleId != value))
+				{
+					this._PartnerRoleId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PartnerRoleName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		public string PartnerRoleName
+		{
+			get
+			{
+				return this._PartnerRoleName;
+			}
+			set
+			{
+				if ((this._PartnerRoleName != value))
+				{
+					this._PartnerRoleName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PartnerUserId", DbType="UniqueIdentifier NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+		public System.Guid PartnerUserId
+		{
+			get
+			{
+				return this._PartnerUserId;
+			}
+			set
+			{
+				if ((this._PartnerUserId != value))
+				{
+					this._PartnerUserId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PartnerUserName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
+		public string PartnerUserName
+		{
+			get
+			{
+				return this._PartnerUserName;
+			}
+			set
+			{
+				if ((this._PartnerUserName != value))
+				{
+					this._PartnerUserName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Active", DbType="Bit NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9)]
+		public bool Active
+		{
+			get
+			{
+				return this._Active;
+			}
+			set
+			{
+				if ((this._Active != value))
+				{
+					this._Active = value;
+				}
+			}
 		}
 	}
 	
@@ -18580,6 +18832,92 @@ namespace Data
 		public void OnSerialized(StreamingContext context)
 		{
 			this.serializing = false;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="entity.Venues")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class Entity_Venue
+	{
+		
+		private int _VenueId;
+		
+		private string _Name;
+		
+		private System.Nullable<int> _OwnerCount;
+		
+		private System.Nullable<int> _EventCount;
+		
+		public Entity_Venue()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VenueId", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public int VenueId
+		{
+			get
+			{
+				return this._VenueId;
+			}
+			set
+			{
+				if ((this._VenueId != value))
+				{
+					this._VenueId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(4000) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OwnerCount", DbType="Int")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public System.Nullable<int> OwnerCount
+		{
+			get
+			{
+				return this._OwnerCount;
+			}
+			set
+			{
+				if ((this._OwnerCount != value))
+				{
+					this._OwnerCount = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventCount", DbType="Int")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public System.Nullable<int> EventCount
+		{
+			get
+			{
+				return this._EventCount;
+			}
+			set
+			{
+				if ((this._EventCount != value))
+				{
+					this._EventCount = value;
+				}
+			}
 		}
 	}
 }

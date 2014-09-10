@@ -9,6 +9,7 @@
 namespace Contracts
 {
     using System.Data.SqlClient;
+    using System.Diagnostics.Contracts;
 
     /// <summary>
     /// The SortedQuery interface.
@@ -16,6 +17,7 @@ namespace Contracts
     /// <typeparam name="TResult">
     ///  The typed result
     /// </typeparam>
+    [ContractClass(typeof(SortedQueryContract<>))]
     public interface ISortedQuery<TResult> : IQuery<TResult>
     {
         /// <summary>

@@ -5,13 +5,13 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Web;
 using Microsoft.Owin;
-using wwwroot.Initialize;
+using Web.Initialize;
 
-[assembly: AssemblyTitle("wwwroot.Initialize")]
+[assembly: AssemblyTitle("Web.Initialize")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("wwwroot.Initialize")]
+[assembly: AssemblyProduct("Web.Initialize")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

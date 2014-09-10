@@ -1,4 +1,4 @@
-﻿namespace wwwroot.Initialize
+﻿namespace Web.Initialize
 {
     using System;
     using System.Configuration;
