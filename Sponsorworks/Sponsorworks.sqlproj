@@ -69,6 +69,14 @@
     <Folder Include="entity\" />
     <Folder Include="entity\Views\" />
     <Folder Include="id\Functions\" />
+    <Folder Include="Data" />
+    <Folder Include="Data\id" />
+    <Folder Include="Data\entity" />
+    <Folder Include="Data\entity\Resellers" />
+    <Folder Include="Data\entity\Companies" />
+    <Folder Include="Data\entity\Guests" />
+    <Folder Include="Data\static" />
+    <Folder Include="Data\entity\Events" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Domains.sql" />
@@ -152,6 +160,18 @@
     <Build Include="entity\Views\TicketAllocations.sql" />
     <Build Include="entity\Views\Domains.sql" />
     <Build Include="id\Functions\GetBaseClaim.sql" />
+    <None Include="Data\id\Roles.sql" />
+    <None Include="Data\id\RoleRelationships.sql" />
+    <None Include="Data\id\RoleRestrictions.sql" />
+    <None Include="Data\id\Sysadmin.sql" />
+    <Build Include="dbo\AddRoleMember.sql" />
+    <Build Include="entity\AddNewMember.sql" />
+    <None Include="Data\entity\Resellers\Acme.sql" />
+    <None Include="Data\entity\Companies\Synergy.sql" />
+    <None Include="Data\entity\Companies\Lfc.sql" />
+    <None Include="Data\entity\Companies\StandardLifeInvestments.sql" />
+    <None Include="Data\static\Token.sql" />
+    <None Include="Data\entity\Events\SixNations_14.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeployment.sql" />
@@ -160,5 +180,14 @@
     <None Include="Sponsorworks.Projects.publish.xml" />
     <None Include="V11SchemaCompare.scmp" />
     <None Include="ProjectsSchemaCompare.scmp" />
+    <None Include="Sponsorworks.MSSQLLocalDB.publish.xml" />
+    <None Include="Data\entity\Resellers\Synergy.sql" />
+    <None Include="Data\entity\Companies\StandardChartered.sql" />
+    <None Include="Data\static\AllocationStatus.sql" />
+    <None Include="Data\entity\Domains.sql" />
+    <None Include="Data\entity\Tickets.sql" />
+    <None Include="Data\entity\Venues.sql" />
+    <None Include="Data\entity\Events\EPL_14-15.sql" />
+    <None Include="Data\entity\Events\HeinekenCup_14.sql" />
   </ItemGroup>
 </Project>

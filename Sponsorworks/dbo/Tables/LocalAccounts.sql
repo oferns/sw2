@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[Accounts] (
-    [EmailAddress]  [dbo].[ShortString] CONSTRAINT [DF__Account__Id__6D0D32F4] DEFAULT (newid()) NOT NULL,
+    [EmailAddress]  [dbo].[ShortString]  NOT NULL,
     [OwnerRoleId]   TINYINT             NOT NULL,
     [OwnerUserId]   UNIQUEIDENTIFIER    NOT NULL,
     [PasswordHash]  NVARCHAR (200)      NOT NULL,
