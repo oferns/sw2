@@ -59,8 +59,13 @@
     <CodeContractsFailBuildOnWarnings>True</CodeContractsFailBuildOnWarnings>
     <CodeContractsBeingOptimisticOnExternal>True</CodeContractsBeingOptimisticOnExternal>
     <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
-    <CodeContractsReferenceAssembly>%28none%29</CodeContractsReferenceAssembly>
+    <CodeContractsReferenceAssembly>Build</CodeContractsReferenceAssembly>
     <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+    <CodeContractsAssertsToContractsCheckBox>True</CodeContractsAssertsToContractsCheckBox>
+    <CodeContractsMissingPublicEnsuresAsWarnings>False</CodeContractsMissingPublicEnsuresAsWarnings>
+    <CodeContractsSuggestAssumptionsForCallees>False</CodeContractsSuggestAssumptionsForCallees>
+    <CodeContractsNecessaryEnsures>True</CodeContractsNecessaryEnsures>
+    <CodeContractsSkipAnalysisIfCannotConnectToCache>False</CodeContractsSkipAnalysisIfCannotConnectToCache>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -72,6 +77,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -80,6 +86,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Auth\Commands\ExternalLoginConfirmation.cs" />
+    <Compile Include="Auth\Commands\ForgotPassword.cs" />
+    <Compile Include="Auth\Commands\Login.cs" />
+    <Compile Include="Auth\Commands\Register.cs" />
+    <Compile Include="Auth\Commands\ResetPassword.cs" />
+    <Compile Include="Auth\Commands\SendCode.cs" />
+    <Compile Include="Auth\Commands\VerifyCode.cs" />
     <Compile Include="Auth\Models\User.cs" />
     <Compile Include="CommandHandlerContract.cs" />
     <Compile Include="ICommandHandler.cs" />
@@ -93,7 +106,6 @@
     <Compile Include="SortedQueryContract.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Auth\Commands\" />
     <Folder Include="Auth\Queries\" />
   </ItemGroup>
   <ItemGroup>

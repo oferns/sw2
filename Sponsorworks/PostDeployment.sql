@@ -65,6 +65,10 @@ PRINT 'Creating AllocationStatus..'
 :r .\Data\static\AllocationStatus.sql
 PRINT 'AllocationStatus created...'
 
+PRINT 'Creating RequestStatus..'
+:r .\Data\static\RequestStatus.sql
+PRINT 'RequestStatus created...'
+
 PRINT 'Creating Tokens..'
 :r .\Data\static\Token.sql
 PRINT 'Tokens created...'

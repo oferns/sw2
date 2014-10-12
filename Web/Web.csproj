@@ -81,17 +81,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Glimpse.AspNet, Version=1.9.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Glimpse.AspNet.1.9.1\lib\net45\Glimpse.AspNet.dll</HintPath>
-    </Reference>
-    <Reference Include="Glimpse.Core, Version=1.8.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Glimpse.1.8.6\lib\net45\Glimpse.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Glimpse.Mvc5">
-      <HintPath>..\packages\Glimpse.Mvc5.1.5.3\lib\net45\Glimpse.Mvc5.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -136,27 +125,27 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.Helpers.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Mvc, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.0\lib\net45\System.Web.Mvc.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.0\lib\net45\System.Web.Razor.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -176,6 +165,7 @@
     <Content Include="Content\css\styles.css" />
     <Content Include="Content\font\fontawesome-webfont.svg" />
     <Content Include="Content\images\1354151932_folder_open.png" />
+    <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\images\background\Barclays Premier League champions_Giggs.jpg" />
     <Content Include="Content\images\background\Chelsea Manchester United Ashley Young.jpg" />
     <Content Include="Content\images\background\Chelsea Manchester United HQWorld %28124%29.jpg" />
@@ -293,6 +283,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Scripts\App.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Companies\_Layout.cshtml" />
@@ -310,8 +301,9 @@
     <Content Include="Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Account\SendCode.cshtml" />
     <Content Include="Account\VerifyCode.cshtml" />
-    <Content Include="Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Account\Web.config" />
+    <Content Include="Account\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Account\_Layout.cshtml" />
     <Content Include="Admin\Home\_Layout.cshtml" />
     <Content Include="Companies\Home\_Layout.cshtml" />
@@ -325,9 +317,10 @@
     <Content Include="Home\_Layout.cshtml" />
     <Content Include="Resellers\Home\_Layout.cshtml" />
     <Content Include="Guests\Home\_Layout.cshtml" />
-    <Content Include="Account\Manage.cshtml" />
+    <Content Include="Account\Index.cshtml" />
     <Content Include="Home\Terms.cshtml" />
     <Content Include="Home\About.cshtml" />
+    <Content Include="Account\LoggedIn.cshtml" />
     <None Include="NWebsecConfig\SessionSecurityConfig.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -335,6 +328,16 @@
       <DependentUpon>bootstrap.min.js</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\history.js\amplify.store.js" />
+    <Content Include="Scripts\history.js\history.adapter.dojo.js" />
+    <Content Include="Scripts\history.js\history.adapter.jquery.js" />
+    <Content Include="Scripts\history.js\history.adapter.mootools.js" />
+    <Content Include="Scripts\history.js\history.adapter.prototype.js" />
+    <Content Include="Scripts\history.js\history.adapter.yui.js" />
+    <Content Include="Scripts\history.js\history.adapter.zepto.js" />
+    <Content Include="Scripts\history.js\history.html4.js" />
+    <Content Include="Scripts\history.js\history.js" />
+    <Content Include="Scripts\history.js\json2.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
@@ -356,6 +359,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <None Include="Scripts\_references.js" />
     <Content Include="Shared\_Layout.cshtml" />
     <Content Include="Home\Index.cshtml" />
     <Content Include="Error\Error.cshtml" />
@@ -380,6 +384,7 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -388,6 +393,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\AjaxConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

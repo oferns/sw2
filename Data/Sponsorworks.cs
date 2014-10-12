@@ -827,6 +827,13 @@ namespace Data
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AddRoleMember")]
+		public ISingleResult<AddRoleMemberResult> AddRoleMember([global::System.Data.Linq.Mapping.ParameterAttribute(Name="UserId", DbType="UniqueIdentifier")] System.Nullable<System.Guid> userId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UserName", DbType="NVarChar(256)")] string userName, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="RoleId", DbType="TinyInt")] System.Nullable<byte> roleId)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), userId, userName, roleId);
+			return ((ISingleResult<AddRoleMemberResult>)(result.ReturnValue));
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="id.GetBaseClaim", IsComposable=true)]
 		[return: global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(768)")]
 		public string Id_GetBaseClaim([global::System.Data.Linq.Mapping.ParameterAttribute(Name="SubDomain", DbType="NVarChar(256)")] string subDomain, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Domain", DbType="NVarChar(256)")] string domain, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="TopLevelDomain", DbType="NVarChar(256)")] string topLevelDomain)
@@ -18916,6 +18923,53 @@ namespace Data
 				if ((this._EventCount != value))
 				{
 					this._EventCount = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class AddRoleMemberResult
+	{
+		
+		private System.Nullable<System.Guid> _UserId;
+		
+		private System.Nullable<byte> _RoleId;
+		
+		public AddRoleMemberResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="UniqueIdentifier")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public System.Nullable<System.Guid> UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					this._UserId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoleId", DbType="TinyInt")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public System.Nullable<byte> RoleId
+		{
+			get
+			{
+				return this._RoleId;
+			}
+			set
+			{
+				if ((this._RoleId != value))
+				{
+					this._RoleId = value;
 				}
 			}
 		}

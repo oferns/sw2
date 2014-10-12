@@ -172,14 +172,13 @@
     <None Include="Data\entity\Companies\StandardLifeInvestments.sql" />
     <None Include="Data\static\Token.sql" />
     <None Include="Data\entity\Events\SixNations_14.sql" />
+    <Build Include="dbo\Tables\RequestStatus.sql" />
+    <None Include="Data\static\RequestStatus.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeployment.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Sponsorworks.Projects.publish.xml" />
-    <None Include="V11SchemaCompare.scmp" />
-    <None Include="ProjectsSchemaCompare.scmp" />
     <None Include="Sponsorworks.MSSQLLocalDB.publish.xml" />
     <None Include="Data\entity\Resellers\Synergy.sql" />
     <None Include="Data\entity\Companies\StandardChartered.sql" />
@@ -189,5 +188,6 @@
     <None Include="Data\entity\Venues.sql" />
     <None Include="Data\entity\Events\EPL_14-15.sql" />
     <None Include="Data\entity\Events\HeinekenCup_14.sql" />
+    <None Include="MSSQLLocalDBSchemaCompare.scmp" />
   </ItemGroup>
 </Project>

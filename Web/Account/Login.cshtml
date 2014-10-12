@@ -1,18 +1,10 @@
 ﻿@model Login
 
-@{
-    Layout = "~/Account/_Layout.cshtml";
-}
-
-@{
-    ViewBag.Title = "Log in";
-}
-
-<h2>@ViewBag.Title.</h2>
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
+<section id="loginForm">
+    <div class="row">
+        <div class="col-md-8">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
                 @Html.AntiForgeryToken()
                 <h4>Use a local account to log in.</h4>
                 <hr />
@@ -44,21 +36,31 @@
                         <input type="submit" value="Log in" class="btn btn-default" />
                     </div>
                 </div>
-                <p>
-                    @Html.ActionLink("Register a new user?", "Register")
-                </p>
-                <p>
-                    @Html.ActionLink("Forget your password?", "ForgotPassword")
-                </p>
             }
-        </section>
+            <p>
+                @Ajax.ActionLink("Register a new user?", "Register", "Account", AjaxConfig.LinkOptions("loginForm") )
+            </p>
+            <p>
+                @Ajax.ActionLink("Forget your password?", "ForgotPassword", "Account", AjaxConfig.LinkOptions("loginForm"))
+            </p>
+        </div>
+        <div class="col-md-4">
+            @using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }))
+            {
+            @Html.AntiForgeryToken()
+            <div id="socialLoginList">
+                <p>
+                    @foreach (AuthenticationDescription p in ViewBag.ExternalProviders)
+                    {
+                        <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
+                    }
+                </p>
+            </div>
+            }
+        </div>
     </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginList { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
-    </div>
-</div>
+</section>
+
 @section JavaScript {
-    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryval", "~/bundles/jqueryajax")
 }

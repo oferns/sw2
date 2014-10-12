@@ -1,0 +1,27 @@
+<Dictionary>
+  <Words>
+    <!--<Unrecognized>
+      <Word></Word>
+    </Unrecognized>-->
+    <Recognized>
+      <Word>Init</Word>
+      <Word>Owin</Word>
+      <Word>Startup</Word>
+      <Word>callback</Word>    
+    </Recognized>
+    <Deprecated>
+      <Term PreferredAlternate=""></Term>
+    </Deprecated>
+    <Compound>
+      <Term CompoundAlternate=""></Term>
+    </Compound>
+    <DiscreteExceptions>
+      <Term>Init</Term>
+    </DiscreteExceptions>
+  </Words>
+  <Acronyms>
+    <CasingExceptions>
+      <Acronym>OWIN</Acronym>
+    </CasingExceptions>
+  </Acronyms>
+</Dictionary>

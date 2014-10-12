@@ -1,27 +1,97 @@
-﻿namespace App
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Global.cs" company="Sponsorworks">
+//   Copyright
+// </copyright>
+// <summary>
+//   Defines the Global type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+namespace App
 {
     using System;
     using System.Diagnostics;
     using System.Diagnostics.Contracts;
     using System.IO;
     using System.Web;
+    using System.Web.Hosting;
     using System.Web.Mvc;
     using System.Web.Routing;
     using System.Web.UI;
     using System.Web.UI.WebControls;
+    using System.Web.WebPages;
 
+    /// <summary>
+    /// The global.
+    /// </summary>
     public class Global : HttpApplication
     {
         /// <summary>
-        /// Amazing to think this is all we need for logging....sigh!
+        /// The log.
         /// </summary>
-        internal static TraceSource Log = new TraceSource("App");
+        private static TraceSource log;
 
         /// <summary>
-        /// Renders a webcontrol as a MvcHtmlString. Used in the Theme helpers
+        /// The base directory.
         /// </summary>
-        /// <param name="control"></param>
-        /// <returns></returns>
+        private static string baseDirectory;
+
+        /// <summary>
+        /// Gets the log.
+        /// </summary>
+        internal static TraceSource Log
+        {
+            get
+            {
+                return log ?? (log = new TraceSource("App"));
+            }
+        }
+
+        /// <summary>
+        /// Gets the base directory.
+        /// </summary>
+        internal static string BaseDirectory
+        {
+            get
+            {
+                return baseDirectory ?? (baseDirectory = HostingEnvironment.MapPath("~/"));
+            }
+        }
+
+        /// <summary>
+        /// The get layout.
+        /// </summary>
+        /// <param name="viewPath">
+        /// The view path.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public static string GetLayout(string viewPath)
+        {
+            string dir = Path.GetDirectoryName(HostingEnvironment.MapPath(viewPath));
+
+            while (dir != null && !BaseDirectory.Contains(dir))
+            {
+                if (File.Exists(dir + @"\_Layout.cshtml"))
+                {
+                    return (dir + @"\_Layout.cshtml").Replace(BaseDirectory, @"~\");
+                }
+
+                dir = Directory.GetParent(dir).FullName;
+            }
+
+            return "~/Shared/_Layout.cshtml";
+        }
+
+        /// <summary>
+        /// The render web control.
+        /// </summary>
+        /// <param name="control">
+        /// The control.
+        /// </param>
+        /// <returns>
+        /// The <see cref="MvcHtmlString"/>.
+        /// </returns>
         internal static MvcHtmlString RenderWebControl(WebControl control)
         {
             var stringWriter = new StringWriter();
@@ -33,6 +103,7 @@
                     control.RenderControl(writer);
                     result = stringWriter.ToString();
                 }
+
                 stringWriter = null;
                 return new MvcHtmlString(result);
             }
@@ -43,6 +114,23 @@
                     stringWriter.Dispose();
                 }
             }
+        }
+
+        /// <summary>
+        /// The redirect to local.
+        /// </summary>
+        /// <param name="request">
+        /// The request.
+        /// </param>
+        /// <param name="returnUrl">
+        /// The return url.
+        /// </param>
+        /// <returns>
+        /// The <see cref="ActionResult"/>.
+        /// </returns>
+        internal static ActionResult RedirectToLocal(HttpRequestBase request, string returnUrl)
+        {
+            return request.IsUrlLocalToHost(returnUrl) ? new RedirectResult(returnUrl) : new RedirectResult("/");
         }
 
         /// <summary>
@@ -62,14 +150,8 @@
             try
             {
                 Log.TraceInformation("Attempting to map the ActionOnly Route");
-                RouteTable.Routes.MapRoute(
-                                           name: "ActionOnly",
-                                           url: "{action}",
-                                           defaults: new { area = string.Empty, controller = "Home", action = "Index" },
-                                           namespaces: new[] { "App" }
-                    );
+                RouteTable.Routes.MapRoute(name: "ActionOnly", url: "{action}", defaults: new { area = string.Empty, controller = "Home", action = "Index" }, namespaces: new[] { "App" });
             }
-                // It's already been mapped...
             catch (ArgumentException)
             {
                 Log.TraceInformation("Default Route mapping skipped. Already mapped by the host application");
@@ -79,14 +161,8 @@
             try
             {
                 Log.TraceInformation("Attempting to map the default Route");
-                RouteTable.Routes.MapRoute(
-                                           name: "Default",
-                                           url: "{controller}/{action}/{id}",
-                                           defaults: new { area = string.Empty, controller = "Home", action = "Index", id = UrlParameter.Optional },
-                                           namespaces: new[] { "App" }
-                    );
+                RouteTable.Routes.MapRoute(name: "Default", url: "{controller}/{action}/{id}", defaults: new { area = string.Empty, controller = "Home", action = "Index", id = UrlParameter.Optional }, namespaces: new[] { "App" });
             }
-                // It's already been mapped...
             catch (ArgumentException)
             {
                 Log.TraceInformation("Default Route mapping skipped. Already mapped by the host application");
@@ -103,9 +179,9 @@
         /// </summary>
         protected void Application_BeginRequest()
         {
-            if (!Request.Path.StartsWith("/__browserLink/"))
+            if (!this.Request.Path.StartsWith("/__browserLink/"))
             {
-                Log.TraceData(TraceEventType.Verbose, 0, string.Format("Begin Request {0} from {1}", Request.RawUrl, Request.UserHostAddress));
+                Log.TraceData(TraceEventType.Verbose, 0, string.Format("Begin Request {0} from {1}", this.Request.RawUrl, this.Request.UserHostAddress));
             }
 
             HttpContext.Current.Items.Add("DomainOwnerId", "F50613A5-F898-4825-96A1-889655F651B8");
@@ -118,32 +194,33 @@
         /// </summary>
         protected void Application_EndRequest()
         {
-            if (!Request.Path.StartsWith("/__browserLink/"))
+            if (!this.Request.Path.StartsWith("/__browserLink/"))
             {
-                Log.TraceData(TraceEventType.Verbose, 0, string.Format("End Request {0} from {1} Result:{2} {3}", Request.RawUrl, Request.UserHostAddress, Response.StatusCode, Response.StatusDescription));
+                Log.TraceData(TraceEventType.Verbose, 0, string.Format("End Request {0} from {1} Result:{2} {3}", this.Request.RawUrl, this.Request.UserHostAddress, this.Response.StatusCode, this.Response.StatusDescription));
             }
         }
 
         /// <summary>
-        /// Handle ASP.NET errors.
-        /// HTTP Errors (think Static file not found) are handled in the web.config. They dont reach our code. (HTTP.SYS & IIS deal with them before they get to us)
-        /// However, we redirect them to the error controller (D'oh!). We should make static html files.
-        /// NB. Ensure there is NO possibility of an exception in the ErrorControllor. Otherwise we are in infinite loop/stack overflow territory.
+        /// The application_ error routine.
         /// </summary>
-        /// <param name="sender">The HttpApplication object (ie this)</param>
-        /// <param name="e">Empty Event Args</param>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
         protected void Application_Error(object sender, EventArgs e)
         {
             // Retrieve the error 
-            Exception exception = Server.GetLastError();
+            Exception exception = this.Server.GetLastError();
 
             // er...Log it! Hopefully someone is listening..
             Log.TraceData(TraceEventType.Error, 0, exception);
 
             // Clear the Error
-            Server.ClearError();
+            this.Server.ClearError();
 
-            //if(exception is )
+            // if(exception is )
 
             // Set the status code. If its an HttpError then use the Error Code else its our code throwing exceptions, so 500.
             int statusCode = exception.GetType() == typeof(HttpException) ? ((HttpException)exception).GetHttpCode() : 500;
@@ -152,7 +229,7 @@
             string action = statusCode == 404 ? "NotFound" : "Error";
 
             // Create a context wrapper for the ErrorController
-            var contextWrapper = new HttpContextWrapper(Context);
+            var contextWrapper = new HttpContextWrapper(this.Context);
 
             // Create route data for the errorcontroller
             var routeData = new RouteData();
@@ -164,9 +241,9 @@
             routeData.Values.Add("isAjaxRequet", contextWrapper.Request.IsAjaxRequest());
 
             // Set the correct status code for the response
-            Response.TrySkipIisCustomErrors = true;
-            Response.StatusCode = statusCode;
-            Response.ContentType = "text/html";
+            this.Response.TrySkipIisCustomErrors = true;
+            this.Response.StatusCode = statusCode;
+            this.Response.ContentType = "text/html";
 
             // We're gonna need an ErrorController
             IController errorController = new ErrorController();
@@ -178,7 +255,7 @@
             errorController.Execute(requestContext);
 
             // End the response
-            Response.End();
+            this.Response.End();
         }
     }
 }

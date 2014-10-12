@@ -1,4 +1,4 @@
-﻿namespace App.Auth.ViewModels
+﻿namespace Contracts.Auth.Commands
 {
     using System.ComponentModel.DataAnnotations;
 

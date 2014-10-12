@@ -2,7 +2,7 @@
   <GlobalSettings>
     <StringProperty Name="Culture">en-GB</StringProperty>
      <CollectionProperty Name="DictionaryFolders">
-      <Value>\</Value>
+      <Value></Value>
     </CollectionProperty>
   </GlobalSettings>
   <Analyzers>

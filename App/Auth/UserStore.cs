@@ -68,7 +68,7 @@
 
         public Task UpdateAsync(Id_User user)
         {
-            Contract.Requires<ArgumentOutOfRangeException>(user.Id != Guid.Empty, "user");
+            Contract.Assume(user.Id != Guid.Empty, "user");
             return Task.Run(() =>
             {
                 User actualUser = db.Users.Single(u => u.Id == user.Id);

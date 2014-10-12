@@ -1,5 +1,6 @@
 ﻿
-create view [entity].[TicketRequests] with schemabinding as 
+
+CREATE view [entity].[TicketRequests] with schemabinding as 
 select 
 tr.Id RequestId
 , t.Name Ticket
@@ -8,6 +9,8 @@ tr.Id RequestId
 , erm.RoleName EventOwnerRole
 , rrm.UserName RequestorUserName
 , rrm.RoleName RequestorRole
+, tr.RequestStatusId
+, rs.Name RequestStatus
 , tr.Amount
 , tr.EventOwnerRoleId
 , tr.EventOwnerUserId
@@ -16,6 +19,8 @@ tr.Id RequestId
 , ISNULL(CAST((CASE WHEN ta.Id IS NULL THEN 1 ELSE 0 END) as bit),0) IsAllocated
 from
 [dbo].[TicketRequests] tr
+INNER JOIN dbo.RequestStatus rs
+ON rs.Id = tr.RequestStatusId
 INNER JOIN 
 id.RoleMembers rrm
 ON rrm.RoleId = tr.RequestorRoleId

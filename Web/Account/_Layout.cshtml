@@ -3,17 +3,20 @@
 }
 
 @section Head{
-    @RenderSection("Head", false)    
+    @RenderSection("Head", false)
 }
 
 @section Header
 {
-    <h2>This is the Account Layout Header</h2>
-    @RenderSection("Header", false)
-
+    <div class="wrapper">
+        <header class="padded-container">
+            <div class="logo"></div>
+            @RenderSection("Header", false)
+        </header>
+    </div>
 }
 
-<h3>This is the Account Layout Title</h3>
+<h3>This is the Account Layout Page</h3>
 
 @RenderBody()
 
