@@ -1,72 +1,60 @@
-﻿//(function(window, undefined) {
-//    // Define variables
-//    var history = window.History;
-//    var state = history.getState();
+﻿
+var History = window.History;
+var State = History.getState();
+var $log = $('#log');
 
-//    // Bind statechange event
-//    history.Adapter.bind(window, 'statechange', function() {
-//        state = history.getState();
-//        if (state.url === '') {
-//            return;
-//        }
-//        $.navigateToURL(state.url);
-//    });
-//})(window);
+History.log('initial:', State.data, State.title, State.url);
 
-(function($) {
-    $.navigateToURL = function(url) {
-        $.ajax({
-            type: "GET",
-            url: url,
-            dataType: "html",
-
-            success: function(data, status, xhr) {
-
-            },
-
-            error: function(xhr, status, error) {
-                alert("Error loading Page.");
-            }
-        });
+History.Adapter.bind(window, 'statechange', function () {
+    State = History.getState();
+    if (State.data.xhr === undefined) {
+        History.log('statechange:', 'back to start', State.title, State.url);
+        return;
     }
+    History.log('statechange:', State.data.xhr.state, State.title, State.url);
+});
 
+$(function () {
+  
+    $.ajaxBegin = function(xhr) {
+        var section = $(this).parent().closest('section');
 
-    // called just before any ajax call
-    $.ajaxBegin = function() {
-            var section = $(this).parent().closest('section');
+        var url = this.href;
+        var title = this.title;
 
-            var url = $(this).data('href');
-            var title = $(this).data('title');
+        var method = $(this).attr("data-ajax-method");
 
-            Modernizr.history.pushState(section, title, url);
+        if (method === 'GET') {
+            History.log('pushing:', section[0].outerHTML, title, url);
+            History.pushState({ section: section, xhr: xhr.state }, title, url);
+        }
 
-            var width = section.width();
-            var height = section.height();
+        var width = section.width();
+        var height = section.height();
 
-            $(section)
-                .prepend('<div />')
-                .first()
-                .addClass('ajax-loader')
-                .css({
-                    height: height,
-                    width: width
-                });
-        },
+        $(section)
+            .prepend('<div />')
+            .first()
+            .addClass('ajax-loader')
+            .css({
+                height: height,
+                width: width
+            });
+    };
 
         // called just after an ajax call, regardless of result
-        $.ajaxComplete = function() {
+    $.ajaxComplete = function() {
 
-        },
+    };
 
         // called just after a successful (200) ajax call
-        $.ajaxSuccess = function() {
+    $.ajaxSuccess = function() {
 
-        },
+    };
 
         // called just after a failed (400-599) ajax call
-        $.ajaxFailure = function() {
+    $.ajaxFailure = function() {
 
-        }
-})(jQuery);
+    };
 
-
+});

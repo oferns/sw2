@@ -1,4 +1,13 @@
-﻿namespace Web.Initialize
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Initializer.cs" company="Sponsorworks">
+//   Copyright
+// </copyright>
+// <summary>
+//   The initializer.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace Web.Initialize
 {
     using System;
     using System.Configuration;
@@ -159,7 +168,12 @@
             BundleTable.Bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include("~/Scripts/bootstrap.js", "~/Scripts/respond.js"));
 
             // Add the history.js bundle to allow back button to work correctly
-            BundleTable.Bundles.Add(new ScriptBundle("~/bundles/history").Include("~/Scripts/history.js/history.js"));
+            BundleTable.Bundles.Add(new ScriptBundle("~/bundles/history").Include(
+                "~/Scripts/history.js/json2.js",
+                "~/Scripts/history.js/amplify.store.js",
+                "~/Scripts/history.js/history.js",
+                "~/Scripts/history.js/history.html4.js",
+                "~/Scripts/history.js/history.adapter.jquery.js"));
 
             BundleTable.Bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/bootstrap.css", "~/Content/site.css"));
 

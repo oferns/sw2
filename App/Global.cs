@@ -149,19 +149,18 @@ namespace App
 
             try
             {
-                Log.TraceInformation("Attempting to map the ActionOnly Route");
-                RouteTable.Routes.MapRoute(name: "ActionOnly", url: "{action}", defaults: new { area = string.Empty, controller = "Home", action = "Index" }, namespaces: new[] { "App" });
+                Log.TraceInformation("Attempting to map the default Route");
+                RouteTable.Routes.MapRoute(name: "Default", url: "{controller}/{action}/{id}", defaults: new { area = string.Empty, action = "Index", id = UrlParameter.Optional }, namespaces: new[] { "App" });
             }
             catch (ArgumentException)
             {
                 Log.TraceInformation("Default Route mapping skipped. Already mapped by the host application");
             }
 
-            // Try and map the default route
             try
             {
-                Log.TraceInformation("Attempting to map the default Route");
-                RouteTable.Routes.MapRoute(name: "Default", url: "{controller}/{action}/{id}", defaults: new { area = string.Empty, controller = "Home", action = "Index", id = UrlParameter.Optional }, namespaces: new[] { "App" });
+                Log.TraceInformation("Attempting to map the ActionOnly Route");
+                RouteTable.Routes.MapRoute(name: "ActionOnly", url: "{action}", defaults: new { area = string.Empty, controller = "Home", action = "Index" }, namespaces: new[] { "App" });
             }
             catch (ArgumentException)
             {

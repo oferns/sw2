@@ -8,23 +8,27 @@
         @RenderSection("Head", required: false)
         <meta name="description" content="@ViewBag.Description" />
     </head>
-<body>
-    <div class="container">
-        @RenderSection("Header", required: false)
-    </div>
-    <div class="container">
-        @RenderBody()
-    </div>
+    <body>
+        <div class="container">
+            @RenderSection("Header", required: false)
+        </div>
+        <div class="container">
+            @RenderBody()
+        </div>
+        <div class="container">
+            <textarea id="log" style="width: 100%; height: 400px"></textarea>
+        </div>
 
-    <div id="loading" style="display:none">
-        <img src="~/Content/images/ajax-loader.gif" alt="Loading..." />
-    </div>
+        <div id="loading" style="display: none">
+            <img src="~/Content/images/ajax-loader.gif" alt="Loading..." />
+        </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/bootstrap")
-    <script src="~/Scripts/App.js"></script>
-    @RenderSection("JavaScript", required: false)
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/history")
+        <script src="~/Scripts/App.js"></script>
+        @RenderSection("JavaScript", required: false)
 
-</body>
+    </body>
 </html>
