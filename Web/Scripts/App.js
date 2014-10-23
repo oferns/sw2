@@ -3,57 +3,77 @@ var History = window.History;
 var State = History.getState();
 var $log = $('#log');
 
-History.log('initial:', State.data, State.title, State.url);
+History.options.debug = true;
 
-History.Adapter.bind(window, 'statechange', function () {
+History.Adapter.bind(window, 'statechange', function(event) {
+    var oldState = State;
     State = History.getState();
-    if (State.data.xhr === undefined) {
-        History.log('statechange:', 'back to start', State.title, State.url);
-        return;
+    var newState = State;
+    if ((newState.data._index + 1) != History.getCurrentIndex()) { // if it wasn't an ajax click
+        if (oldState.data._index > newState.data._index) { // back button
+            $('#' + oldState.data.newsectionId).replaceWith(oldState.data.oldsection);
+        } else { // forward button
+            $('#' + newState.data.oldsectionId).replaceWith(newState.data.newsection);
+        }
     }
-    History.log('statechange:', State.data.xhr.state, State.title, State.url);
 });
 
-$(function () {
-  
+$(function() {
+
     $.ajaxBegin = function(xhr) {
         var section = $(this).parent().closest('section');
 
-        var url = this.href;
-        var title = this.title;
-
-        var method = $(this).attr("data-ajax-method");
-
-        if (method === 'GET') {
-            History.log('pushing:', section[0].outerHTML, title, url);
-            History.pushState({ section: section, xhr: xhr.state }, title, url);
+        if (State.data.oldsection === undefined) {
+            History.replaceState(
+                {
+                    _index: History.getCurrentIndex(),
+                    newsection: section[0].outerHTML,
+                    newsectionId: section.attr("id"),
+                    oldsection: section[0].outerHTML,
+                    oldsectionId: section.attr("id")
+                }, this.title, this.url);
         }
 
-        var width = section.width();
-        var height = section.height();
+        var loader = $('<div />').addClass('ajax-loader').css({
+            height: section.height(),
+            width: section.width()
+        });
 
-        $(section)
-            .prepend('<div />')
-            .first()
-            .addClass('ajax-loader')
-            .css({
-                height: height,
-                width: width
-            });
+        section.prepend(loader);
     };
 
-        // called just after an ajax call, regardless of result
-    $.ajaxComplete = function() {
+    // called just after an ajax call, regardless of result
+    $.ajaxComplete = function(xhr, status) {
 
     };
 
-        // called just after a successful (200) ajax call
-    $.ajaxSuccess = function() {
+    // called just after a successful (200) ajax call
+    $.ajaxSuccess = function(data, status, xhr) {
+        // if this was a GET request then we are interested
+        if ($(this).attr("data-ajax-method") === 'GET') {
 
+            var section = $(this).parent().closest('section');
+            var newsectionId = $('<div />').append(data).find('section:first').attr("id");
+
+            section.find('.ajax-loader:first').remove();
+
+            var url = $(this).attr('href');
+            var title = $(this).attr('title');
+
+            State = History.getState();
+            History.pushState(
+            {
+                _index: History.getCurrentIndex(),
+                oldsection: section[0].outerHTML,
+                oldsectionId : section.attr("id"),
+                newsection: data,
+                newsectionId: newsectionId
+            }, title, url);
+        }
     };
 
-        // called just after a failed (400-599) ajax call
-    $.ajaxFailure = function() {
+    // called just after a failed (400-599) ajax call
+    $.ajaxFailure = function(xhr, status, error) {
 
     };
 

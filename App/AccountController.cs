@@ -157,6 +157,8 @@ namespace App
                 case SignInStatus.Failure:
                 default:
                     this.ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    this.ViewBag.ExternalProviders = this.context.Authentication.GetExternalAuthenticationTypes();
+                    model.Password = string.Empty;
                     return this.View(model);
             }
         }

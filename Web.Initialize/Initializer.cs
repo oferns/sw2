@@ -6,7 +6,6 @@
 //   The initializer.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace Web.Initialize
 {
     using System;
@@ -103,19 +102,15 @@ namespace Web.Initialize
             app.CreatePerOwinContext<RoleManager>((options, context) => new RoleManager(options, context, context.Get<RoleStore>()));
             app.CreatePerOwinContext<SignInManager>((options, context) => new SignInManager(options, context));
 
-            app.UseCookieAuthentication(new CookieAuthenticationOptions { 
-                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie, 
-                LoginPath = new PathString("/Account/Login"), 
-                Provider = new CookieAuthenticationProvider { 
-                        // OnResponseSignIn = context => Log.TraceData(TraceEventType.Verbose, 0, string.Format(CultureInfo.InvariantCulture, "{0} logging in with {1}", context.Identity.Name, context.AuthenticationType)),
-                        // OnApplyRedirect = context => Log.TraceData(TraceEventType.Verbose, 0, string.Format(CultureInfo.InvariantCulture, "{0} redirected to {1}", context.OwinContext.Authentication.User, context.RedirectUri)),
-                        // OnException = context => Log.TraceData(TraceEventType.Error, 0, string.Format(CultureInfo.InvariantCulture, "{0} Cookie Exception: {1}", context.OwinContext.Authentication.User, context.Exception)),
-                        // OnResponseSignedIn = context => Log.TraceData(TraceEventType.Verbose, 0, string.Format(CultureInfo.InvariantCulture, "{0} logged in with {1}", context.Identity.Name, context.AuthenticationType)),
-                        // OnResponseSignOut = context => Log.TraceData(TraceEventType.Verbose, 0, string.Format(CultureInfo.InvariantCulture, "{0} logged out with {1}", context.OwinContext.Authentication.User, context.CookieOptions.Expires)),
-                        OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<UserManager, Id_User, Guid>(TimeSpan.FromMinutes(30), (manager, user) => manager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie), identity => Guid.Parse(identity.GetUserId())), },
-                        CookieHttpOnly = true, CookieSecure = CookieSecureOption.Always, CookieName = "SWORKS", 
-                        // AuthenticationMode = AuthenticationMode.Active
-                        });
+            app.UseCookieAuthentication(new CookieAuthenticationOptions { AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie, LoginPath = new PathString("/Account/Login"), Provider = new CookieAuthenticationProvider { // OnResponseSignIn = context => Log.TraceData(TraceEventType.Verbose, 0, string.Format(CultureInfo.InvariantCulture, "{0} logging in with {1}", context.Identity.Name, context.AuthenticationType)),
+                                                                                                                                                                                                                                           // OnApplyRedirect = context => Log.TraceData(TraceEventType.Verbose, 0, string.Format(CultureInfo.InvariantCulture, "{0} redirected to {1}", context.OwinContext.Authentication.User, context.RedirectUri)),
+                                                                                                                                                                                                                                           // OnException = context => Log.TraceData(TraceEventType.Error, 0, string.Format(CultureInfo.InvariantCulture, "{0} Cookie Exception: {1}", context.OwinContext.Authentication.User, context.Exception)),
+                                                                                                                                                                                                                                           // OnResponseSignedIn = context => Log.TraceData(TraceEventType.Verbose, 0, string.Format(CultureInfo.InvariantCulture, "{0} logged in with {1}", context.Identity.Name, context.AuthenticationType)),
+                                                                                                                                                                                                                                           // OnResponseSignOut = context => Log.TraceData(TraceEventType.Verbose, 0, string.Format(CultureInfo.InvariantCulture, "{0} logged out with {1}", context.OwinContext.Authentication.User, context.CookieOptions.Expires)),
+                                                                                                                                                                                                                                           OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<UserManager, Id_User, Guid>(TimeSpan.FromMinutes(30), (manager, user) => manager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie), identity => Guid.Parse(identity.GetUserId())), }, 
+                                                                          CookieHttpOnly = true, CookieSecure = CookieSecureOption.Always, CookieName = "SWORKS", 
+                                                                          // AuthenticationMode = AuthenticationMode.Active
+                                                                        });
 
             app.UseGoogleAuthentication("554345000289-9b419bpr83t0tkrp6h1hqir30ipc57uv.apps.googleusercontent.com", "AK9FnPGBQXqiixA_8_5RJpgE");
             app.UseFacebookAuthentication("585022628273869", "14a596a1ef3ef3956a88d4e3e6a3e6a5");
@@ -168,12 +163,13 @@ namespace Web.Initialize
             BundleTable.Bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include("~/Scripts/bootstrap.js", "~/Scripts/respond.js"));
 
             // Add the history.js bundle to allow back button to work correctly
-            BundleTable.Bundles.Add(new ScriptBundle("~/bundles/history").Include(
-                "~/Scripts/history.js/json2.js",
-                "~/Scripts/history.js/amplify.store.js",
-                "~/Scripts/history.js/history.js",
-                "~/Scripts/history.js/history.html4.js",
-                "~/Scripts/history.js/history.adapter.jquery.js"));
+            // BundleTable.Bundles.Add(new ScriptBundle("~/bundles/history").Include(
+            // "~/Scripts/history.js/json2.js",
+            // "~/Scripts/history.js/amplify.store.js",
+            // "~/Scripts/history.js/history.js",
+            // "~/Scripts/history.js/history.html4.js",
+            // "~/Scripts/history.js/history.adapter.jquery.js"));
+            BundleTable.Bundles.Add(new ScriptBundle("~/bundles/history").Include("~/Scripts/jquery.history.js"));
 
             BundleTable.Bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/bootstrap.css", "~/Content/site.css"));
 
