@@ -23,7 +23,6 @@ namespace Data
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="Sworks")]
 	public partial class Sponsorworks : System.Data.Linq.DataContext
 	{
 		
@@ -127,6 +126,9 @@ namespace Data
     partial void InsertPaletteType(PaletteType instance);
     partial void UpdatePaletteType(PaletteType instance);
     partial void DeletePaletteType(PaletteType instance);
+    partial void InsertRequestStatus(RequestStatus instance);
+    partial void UpdateRequestStatus(RequestStatus instance);
+    partial void DeleteRequestStatus(RequestStatus instance);
     partial void InsertResourceOwnerRole(ResourceOwnerRole instance);
     partial void UpdateResourceOwnerRole(ResourceOwnerRole instance);
     partial void DeleteResourceOwnerRole(ResourceOwnerRole instance);
@@ -515,6 +517,14 @@ namespace Data
 			}
 		}
 		
+		public System.Data.Linq.Table<RequestStatus> RequestStatus
+		{
+			get
+			{
+				return this.GetTable<RequestStatus>();
+			}
+		}
+		
 		public System.Data.Linq.Table<ResourceOwnerRole> ResourceOwnerRoles
 		{
 			get
@@ -555,19 +565,19 @@ namespace Data
 			}
 		}
 		
-		public System.Data.Linq.Table<Id_RoleRelationship> Id_RoleRelationships
-		{
-			get
-			{
-				return this.GetTable<Id_RoleRelationship>();
-			}
-		}
-		
 		public System.Data.Linq.Table<RoleRelationship> RoleRelationships
 		{
 			get
 			{
 				return this.GetTable<RoleRelationship>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Id_RoleRelationship> Id_RoleRelationships
+		{
+			get
+			{
+				return this.GetTable<Id_RoleRelationship>();
 			}
 		}
 		
@@ -683,19 +693,19 @@ namespace Data
 			}
 		}
 		
-		public System.Data.Linq.Table<Entity_Ticket> Entity_Tickets
-		{
-			get
-			{
-				return this.GetTable<Entity_Ticket>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Ticket> Tickets
 		{
 			get
 			{
 				return this.GetTable<Ticket>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Entity_Ticket> Entity_Tickets
+		{
+			get
+			{
+				return this.GetTable<Entity_Ticket>();
 			}
 		}
 		
@@ -828,10 +838,21 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AddRoleMember")]
-		public ISingleResult<AddRoleMemberResult> AddRoleMember([global::System.Data.Linq.Mapping.ParameterAttribute(Name="UserId", DbType="UniqueIdentifier")] System.Nullable<System.Guid> userId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UserName", DbType="NVarChar(256)")] string userName, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="RoleId", DbType="TinyInt")] System.Nullable<byte> roleId)
+		[return: global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")]
+		public int AddRoleMember([global::System.Data.Linq.Mapping.ParameterAttribute(Name="UserId", DbType="UniqueIdentifier")] System.Nullable<System.Guid> userId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UserName", DbType="NVarChar(256)")] string userName, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="RoleId", DbType="TinyInt")] System.Nullable<byte> roleId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Active", DbType="Bit")] System.Nullable<bool> active, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ReturnUserId", DbType="UniqueIdentifier")] ref System.Nullable<System.Guid> returnUserId)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), userId, userName, roleId);
-			return ((ISingleResult<AddRoleMemberResult>)(result.ReturnValue));
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), userId, userName, roleId, active, returnUserId);
+			returnUserId = ((System.Nullable<System.Guid>)(result.GetParameterValue(4)));
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="entity.AddNewMember")]
+		[return: global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")]
+		public int Entity_AddNewMember([global::System.Data.Linq.Mapping.ParameterAttribute(Name="UserId", DbType="UniqueIdentifier")] System.Nullable<System.Guid> userId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UserName", DbType="NVarChar(256)")] string userName, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="RoleId", DbType="TinyInt")] System.Nullable<byte> roleId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="OwnerUserId", DbType="UniqueIdentifier")] System.Nullable<System.Guid> ownerUserId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="OwnerRoleId", DbType="TinyInt")] System.Nullable<byte> ownerRoleId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Active", DbType="Bit")] System.Nullable<bool> active, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ReturnUserId", DbType="UniqueIdentifier")] ref System.Nullable<System.Guid> returnUserId)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), userId, userName, roleId, ownerUserId, ownerRoleId, active, returnUserId);
+			returnUserId = ((System.Nullable<System.Guid>)(result.GetParameterValue(6)));
+			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="id.GetBaseClaim", IsComposable=true)]
@@ -8788,6 +8809,182 @@ namespace Data
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.RequestStatus")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class RequestStatus : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Name;
+		
+		private string _Description;
+		
+		private EntitySet<TicketRequest> _TicketRequests;
+		
+		private bool serializing;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    #endregion
+		
+		public RequestStatus()
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(4000) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_TicketRequests_RequestStatus", Storage="_TicketRequests", ThisKey="Id", OtherKey="RequestStatusId", DeleteRule="NO ACTION")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4, EmitDefaultValue=false)]
+		public EntitySet<TicketRequest> TicketRequests
+		{
+			get
+			{
+				if ((this.serializing 
+							&& (this._TicketRequests.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
+				return this._TicketRequests;
+			}
+			set
+			{
+				this._TicketRequests.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_TicketRequests(TicketRequest entity)
+		{
+			this.SendPropertyChanging();
+			entity.RequestStatus = this;
+		}
+		
+		private void detach_TicketRequests(TicketRequest entity)
+		{
+			this.SendPropertyChanging();
+			entity.RequestStatus = null;
+		}
+		
+		private void Initialize()
+		{
+			this._TicketRequests = new EntitySet<TicketRequest>(new Action<TicketRequest>(this.attach_TicketRequests), new Action<TicketRequest>(this.detach_TicketRequests));
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ResourceOwnerRoles")]
 	[global::System.Runtime.Serialization.DataContractAttribute()]
 	public partial class ResourceOwnerRole : INotifyPropertyChanging, INotifyPropertyChanged
@@ -10176,168 +10373,6 @@ namespace Data
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="id.RoleRelationships")]
-	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class Id_RoleRelationship
-	{
-		
-		private byte _RoleId;
-		
-		private string _Name;
-		
-		private string _Description;
-		
-		private bool _Active;
-		
-		private byte _PartnerRoleId;
-		
-		private string _PartnerRoleName;
-		
-		private string _PartnerRoleDescription;
-		
-		private bool _PartnerRoleActive;
-		
-		public Id_RoleRelationship()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoleId", DbType="TinyInt NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-		public byte RoleId
-		{
-			get
-			{
-				return this._RoleId;
-			}
-			set
-			{
-				if ((this._RoleId != value))
-				{
-					this._RoleId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this._Name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(4000) NOT NULL", CanBeNull=false)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public string Description
-		{
-			get
-			{
-				return this._Description;
-			}
-			set
-			{
-				if ((this._Description != value))
-				{
-					this._Description = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Active", DbType="Bit NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public bool Active
-		{
-			get
-			{
-				return this._Active;
-			}
-			set
-			{
-				if ((this._Active != value))
-				{
-					this._Active = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PartnerRoleId", DbType="TinyInt NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-		public byte PartnerRoleId
-		{
-			get
-			{
-				return this._PartnerRoleId;
-			}
-			set
-			{
-				if ((this._PartnerRoleId != value))
-				{
-					this._PartnerRoleId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PartnerRoleName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
-		public string PartnerRoleName
-		{
-			get
-			{
-				return this._PartnerRoleName;
-			}
-			set
-			{
-				if ((this._PartnerRoleName != value))
-				{
-					this._PartnerRoleName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PartnerRoleDescription", DbType="NVarChar(4000) NOT NULL", CanBeNull=false)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
-		public string PartnerRoleDescription
-		{
-			get
-			{
-				return this._PartnerRoleDescription;
-			}
-			set
-			{
-				if ((this._PartnerRoleDescription != value))
-				{
-					this._PartnerRoleDescription = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PartnerRoleActive", DbType="Bit NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
-		public bool PartnerRoleActive
-		{
-			get
-			{
-				return this._PartnerRoleActive;
-			}
-			set
-			{
-				if ((this._PartnerRoleActive != value))
-				{
-					this._PartnerRoleActive = value;
-				}
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.RoleRelationships")]
 	[global::System.Runtime.Serialization.DataContractAttribute()]
 	public partial class RoleRelationship : INotifyPropertyChanging, INotifyPropertyChanged
@@ -10568,6 +10603,168 @@ namespace Data
 		public void OnSerialized(StreamingContext context)
 		{
 			this.serializing = false;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="id.RoleRelationships")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class Id_RoleRelationship
+	{
+		
+		private byte _RoleId;
+		
+		private string _Name;
+		
+		private string _Description;
+		
+		private bool _Active;
+		
+		private byte _PartnerRoleId;
+		
+		private string _PartnerRoleName;
+		
+		private string _PartnerRoleDescription;
+		
+		private bool _PartnerRoleActive;
+		
+		public Id_RoleRelationship()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoleId", DbType="TinyInt NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public byte RoleId
+		{
+			get
+			{
+				return this._RoleId;
+			}
+			set
+			{
+				if ((this._RoleId != value))
+				{
+					this._RoleId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(4000) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this._Description = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Active", DbType="Bit NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public bool Active
+		{
+			get
+			{
+				return this._Active;
+			}
+			set
+			{
+				if ((this._Active != value))
+				{
+					this._Active = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PartnerRoleId", DbType="TinyInt NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+		public byte PartnerRoleId
+		{
+			get
+			{
+				return this._PartnerRoleId;
+			}
+			set
+			{
+				if ((this._PartnerRoleId != value))
+				{
+					this._PartnerRoleId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PartnerRoleName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		public string PartnerRoleName
+		{
+			get
+			{
+				return this._PartnerRoleName;
+			}
+			set
+			{
+				if ((this._PartnerRoleName != value))
+				{
+					this._PartnerRoleName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PartnerRoleDescription", DbType="NVarChar(4000) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+		public string PartnerRoleDescription
+		{
+			get
+			{
+				return this._PartnerRoleDescription;
+			}
+			set
+			{
+				if ((this._PartnerRoleDescription != value))
+				{
+					this._PartnerRoleDescription = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PartnerRoleActive", DbType="Bit NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
+		public bool PartnerRoleActive
+		{
+			get
+			{
+				return this._PartnerRoleActive;
+			}
+			set
+			{
+				if ((this._PartnerRoleActive != value))
+				{
+					this._PartnerRoleActive = value;
+				}
+			}
 		}
 	}
 	
@@ -14481,6 +14678,8 @@ namespace Data
 		
 		private int _TicketId;
 		
+		private int _RequestStatusId;
+		
 		private byte _RequestorRoleId;
 		
 		private System.Guid _RequestorUserId;
@@ -14495,6 +14694,8 @@ namespace Data
 		
 		private EntityRef<EventTicket> _EventTicket;
 		
+		private EntityRef<RequestStatus> _RequestStatus;
+		
 		private EntityRef<TicketRequestorRole> _TicketRequestorRole;
 		
 		private EntityRef<UserRelationship> _UserRelationship;
@@ -14507,6 +14708,8 @@ namespace Data
     partial void OnIdChanged();
     partial void OnTicketIdChanging(int value);
     partial void OnTicketIdChanged();
+    partial void OnRequestStatusIdChanging(int value);
+    partial void OnRequestStatusIdChanged();
     partial void OnRequestorRoleIdChanging(byte value);
     partial void OnRequestorRoleIdChanged();
     partial void OnRequestorUserIdChanging(System.Guid value);
@@ -14572,8 +14775,33 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestorRoleId", DbType="TinyInt NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestStatusId", DbType="Int NOT NULL")]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public int RequestStatusId
+		{
+			get
+			{
+				return this._RequestStatusId;
+			}
+			set
+			{
+				if ((this._RequestStatusId != value))
+				{
+					if (this._RequestStatus.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnRequestStatusIdChanging(value);
+					this.SendPropertyChanging();
+					this._RequestStatusId = value;
+					this.SendPropertyChanged("RequestStatusId");
+					this.OnRequestStatusIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestorRoleId", DbType="TinyInt NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public byte RequestorRoleId
 		{
 			get
@@ -14598,7 +14826,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestorUserId", DbType="UniqueIdentifier NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
 		public System.Guid RequestorUserId
 		{
 			get
@@ -14623,7 +14851,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventId", DbType="Int NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
 		public int EventId
 		{
 			get
@@ -14648,7 +14876,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventOwnerRoleId", DbType="TinyInt NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
 		public byte EventOwnerRoleId
 		{
 			get
@@ -14673,7 +14901,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventOwnerUserId", DbType="UniqueIdentifier NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
 		public System.Guid EventOwnerUserId
 		{
 			get
@@ -14698,7 +14926,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Amount", DbType="Int NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9)]
 		public int Amount
 		{
 			get
@@ -14754,6 +14982,40 @@ namespace Data
 						this._TicketId = default(int);
 					}
 					this.SendPropertyChanged("EventTicket");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_TicketRequests_RequestStatus", Storage="_RequestStatus", ThisKey="RequestStatusId", OtherKey="Id", IsForeignKey=true)]
+		public RequestStatus RequestStatus
+		{
+			get
+			{
+				return this._RequestStatus.Entity;
+			}
+			set
+			{
+				RequestStatus previousValue = this._RequestStatus.Entity;
+				if (((previousValue != value) 
+							|| (this._RequestStatus.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._RequestStatus.Entity = null;
+						previousValue.TicketRequests.Remove(this);
+					}
+					this._RequestStatus.Entity = value;
+					if ((value != null))
+					{
+						value.TicketRequests.Add(this);
+						this._RequestStatusId = value.Id;
+					}
+					else
+					{
+						this._RequestStatusId = default(int);
+					}
+					this.SendPropertyChanged("RequestStatus");
 				}
 			}
 		}
@@ -14855,6 +15117,7 @@ namespace Data
 		private void Initialize()
 		{
 			this._EventTicket = default(EntityRef<EventTicket>);
+			this._RequestStatus = default(EntityRef<RequestStatus>);
 			this._TicketRequestorRole = default(EntityRef<TicketRequestorRole>);
 			this._UserRelationship = default(EntityRef<UserRelationship>);
 			OnCreated();
@@ -14886,6 +15149,10 @@ namespace Data
 		private string _RequestorUserName;
 		
 		private string _RequestorRole;
+		
+		private int _RequestStatusId;
+		
+		private string _RequestStatus;
 		
 		private int _Amount;
 		
@@ -15022,8 +15289,42 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Amount", DbType="Int NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestStatusId", DbType="Int NOT NULL")]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
+		public int RequestStatusId
+		{
+			get
+			{
+				return this._RequestStatusId;
+			}
+			set
+			{
+				if ((this._RequestStatusId != value))
+				{
+					this._RequestStatusId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestStatus", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9)]
+		public string RequestStatus
+		{
+			get
+			{
+				return this._RequestStatus;
+			}
+			set
+			{
+				if ((this._RequestStatus != value))
+				{
+					this._RequestStatus = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Amount", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=10)]
 		public int Amount
 		{
 			get
@@ -15040,7 +15341,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventOwnerRoleId", DbType="TinyInt NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=11)]
 		public byte EventOwnerRoleId
 		{
 			get
@@ -15057,7 +15358,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventOwnerUserId", DbType="UniqueIdentifier NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=10)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=12)]
 		public System.Guid EventOwnerUserId
 		{
 			get
@@ -15074,7 +15375,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestorRoleId", DbType="TinyInt NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=11)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=13)]
 		public byte RequestorRoleId
 		{
 			get
@@ -15091,7 +15392,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestorUserId", DbType="UniqueIdentifier NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=12)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=14)]
 		public System.Guid RequestorUserId
 		{
 			get
@@ -15108,7 +15409,7 @@ namespace Data
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsAllocated", DbType="Bit NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=13)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=15)]
 		public bool IsAllocated
 		{
 			get
@@ -15122,6 +15423,107 @@ namespace Data
 					this._IsAllocated = value;
 				}
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tickets")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class Ticket : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Name;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    #endregion
+		
+		public Ticket()
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void Initialize()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
 		}
 	}
 	
@@ -15303,107 +15705,6 @@ namespace Data
 					this._UserName = value;
 				}
 			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tickets")]
-	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class Ticket : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Name;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    #endregion
-		
-		public Ticket()
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void Initialize()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnDeserializing(StreamingContext context)
-		{
-			this.Initialize();
 		}
 	}
 	
@@ -18923,53 +19224,6 @@ namespace Data
 				if ((this._EventCount != value))
 				{
 					this._EventCount = value;
-				}
-			}
-		}
-	}
-	
-	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class AddRoleMemberResult
-	{
-		
-		private System.Nullable<System.Guid> _UserId;
-		
-		private System.Nullable<byte> _RoleId;
-		
-		public AddRoleMemberResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="UniqueIdentifier")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-		public System.Nullable<System.Guid> UserId
-		{
-			get
-			{
-				return this._UserId;
-			}
-			set
-			{
-				if ((this._UserId != value))
-				{
-					this._UserId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoleId", DbType="TinyInt")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public System.Nullable<byte> RoleId
-		{
-			get
-			{
-				return this._RoleId;
-			}
-			set
-			{
-				if ((this._RoleId != value))
-				{
-					this._RoleId = value;
 				}
 			}
 		}

@@ -73,7 +73,7 @@ namespace Web.Initialize
             // Set up the IoC Container
             var container = new Container();
 
-            // ...register the Linq2Sql database 
+            // Register the Linq2Sql database 
             container.Register(() => new Sponsorworks(ConfigurationManager.ConnectionStrings["Sponsorworks"].ConnectionString));
 
             // register the IOwinContext for the Account controller
@@ -102,7 +102,9 @@ namespace Web.Initialize
             app.CreatePerOwinContext<RoleManager>((options, context) => new RoleManager(options, context, context.Get<RoleStore>()));
             app.CreatePerOwinContext<SignInManager>((options, context) => new SignInManager(options, context));
 
-            app.UseCookieAuthentication(new CookieAuthenticationOptions { AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie, LoginPath = new PathString("/Account/Login"), Provider = new CookieAuthenticationProvider { // OnResponseSignIn = context => Log.TraceData(TraceEventType.Verbose, 0, string.Format(CultureInfo.InvariantCulture, "{0} logging in with {1}", context.Identity.Name, context.AuthenticationType)),
+            app.UseCookieAuthentication(new CookieAuthenticationOptions 
+            { 
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie, LoginPath = new PathString("/Account/Login"), Provider = new CookieAuthenticationProvider { // OnResponseSignIn = context => Log.TraceData(TraceEventType.Verbose, 0, string.Format(CultureInfo.InvariantCulture, "{0} logging in with {1}", context.Identity.Name, context.AuthenticationType)),
                                                                                                                                                                                                                                            // OnApplyRedirect = context => Log.TraceData(TraceEventType.Verbose, 0, string.Format(CultureInfo.InvariantCulture, "{0} redirected to {1}", context.OwinContext.Authentication.User, context.RedirectUri)),
                                                                                                                                                                                                                                            // OnException = context => Log.TraceData(TraceEventType.Error, 0, string.Format(CultureInfo.InvariantCulture, "{0} Cookie Exception: {1}", context.OwinContext.Authentication.User, context.Exception)),
                                                                                                                                                                                                                                            // OnResponseSignedIn = context => Log.TraceData(TraceEventType.Verbose, 0, string.Format(CultureInfo.InvariantCulture, "{0} logged in with {1}", context.Identity.Name, context.AuthenticationType)),

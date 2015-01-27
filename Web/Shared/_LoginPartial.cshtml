@@ -1,20 +1,36 @@
-﻿@if (Request.IsAuthenticated)
-{
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+﻿@model Contracts.Auth.Commands.Login
+
+<section id="loginSection">
+    @if (Request.IsAuthenticated)
     {
-        @Html.AntiForgeryToken()
-        <ul class="">
-            <li>
-                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
-            </li>
-            <li><button type="submit">Log off</button></li>
-        </ul>
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                @Ajax.ActionLink("Logged in as: " + User.Identity.GetUserName(), "Index", "Account", null, AjaxConfig.NavOptions(), new { title = "Manage" })
+            </div>
+            <div class="form-group">
+                <button type="submit">Log off</button>
+            </div>
+        }
     }
-}
-else
-{
-    <ul class="">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
-}
+    else
+    {
+        using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Log in" class="btn btn-default" />
+            </div>
+        }
+    }
+</section>

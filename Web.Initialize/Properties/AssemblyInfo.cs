@@ -27,7 +27,7 @@ using Web.Initialize;
 [assembly: Guid("7383a053-a40c-4560-81cf-95d7057c89f3")]
 
 [assembly: PreApplicationStartMethod(typeof(Initializer), "Initialize")]
-[assembly: OwinStartup(typeof(Initializer), "Configuration")]
+    
 
 // Version information for an assembly consists of the following four values:
 //

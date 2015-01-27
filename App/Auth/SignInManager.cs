@@ -63,7 +63,7 @@ namespace App.Auth
         /// </returns>
         public override Task<ClaimsIdentity> CreateUserIdentityAsync(Id_User user)
         {
-            Contract.Assume(base.UserManager != null);
+            Contract.Assume(this.UserManager != null);
             return UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
         }
 
@@ -111,6 +111,34 @@ namespace App.Auth
         public override Task<SignInStatus> PasswordSignInAsync(string userName, string password, bool isPersistent, bool shouldLockout)
         {
             return base.PasswordSignInAsync(userName, password, isPersistent, shouldLockout);
-        }        
+        }
+
+        /// <summary>
+        /// The convert id from string.
+        /// </summary>
+        /// <param name="id">
+        /// The id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Guid"/>.
+        /// </returns>
+        public override Guid ConvertIdFromString(string id)
+        {
+            return base.ConvertIdFromString(id);
+        }
+
+        /// <summary>
+        /// The convert id to string.
+        /// </summary>
+        /// <param name="id">
+        /// The id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public override string ConvertIdToString(Guid id)
+        {
+            return base.ConvertIdToString(id);
+        }
     }
 }

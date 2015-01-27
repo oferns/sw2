@@ -271,7 +271,9 @@
     <Content Include="Admin\Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Companies\Web.config" />
+    <Content Include="Companies\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Guests\Web.config" />
     <Content Include="Companies\Home\Web.config" />
     <Content Include="Admin\Home\Web.config" />

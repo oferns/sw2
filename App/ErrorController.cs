@@ -1,18 +1,40 @@
-﻿namespace App
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ErrorController.cs" company="Sponsorworks">
+//   Copyright
+// </copyright>
+// <summary>
+//   Defines the ErrorController type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace App
 {
     using System;
     using System.Web.Mvc;
 
-    // Allow anyone to see the error page
+    /// <summary>
+    /// The error controller.
+    /// </summary>
     [AllowAnonymous]
     public sealed class ErrorController : BaseController
     {
-        // Allow both allowed messages for errors on GET and POST
+        /// <summary>
+        /// The error.
+        /// </summary>
+        /// <param name="exception">
+        /// The exception.
+        /// </param>
+        /// <param name="isAjaxRequest">
+        /// The is ajax requet.
+        /// </param>
+        /// <returns>
+        /// The <see cref="ActionResult"/>.
+        /// </returns>
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
-        public ActionResult Error(Exception exception, bool isAjaxRequet)
+        public ActionResult Error(Exception exception, bool isAjaxRequest)
         {
             // If it's not an AJAX request that triggered this action then just retun the view
-            if (!isAjaxRequet)
+            if (!isAjaxRequest)
             {
                 return View(exception);
             }

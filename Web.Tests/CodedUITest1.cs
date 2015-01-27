@@ -13,12 +13,12 @@ using Keyboard = Microsoft.VisualStudio.TestTools.UITesting.Keyboard;
 namespace Web.Tests
 {
     /// <summary>
-    /// Summary description for Account_Register
+    /// Summary description for CodedUITest1
     /// </summary>
     [CodedUITest]
-    public class RegisterTests
+    public class CodedUITest1
     {
-        public RegisterTests()
+        public CodedUITest1()
         {
         }
 
@@ -26,7 +26,6 @@ namespace Web.Tests
         public void CodedUITestMethod1()
         {
             // To generate code for this test, select "Generate Code for Coded UI Test" from the shortcut menu and select one of the menu items.
-            this.UIMap.Account_Register();
         }
 
         #region Additional test attributes
@@ -65,20 +64,5 @@ namespace Web.Tests
             }
         }
         private TestContext testContextInstance;
-
-        public UIMap UIMap
-        {
-            get
-            {
-                if ((this.map == null))
-                {
-                    this.map = new UIMap();
-                }
-
-                return this.map;
-            }
-        }
-
-        private UIMap map;
     }
 }

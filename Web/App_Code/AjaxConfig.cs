@@ -28,17 +28,15 @@ namespace Web
         public static AjaxOptions FormOptions(string elementId)
         {
             return new AjaxOptions
-                       {
-                           HttpMethod = "POST",
-                           InsertionMode = InsertionMode.ReplaceWith,
-                           UpdateTargetId = elementId,
-                           //LoadingElementId = "loading",
-                           //LoadingElementDuration = 300,
-                           OnBegin = "$.ajaxBegin",
-                           OnComplete = "$.ajaxComplete",
-                           OnSuccess = "$.ajaxSuccess",
-                           OnFailure = "$.ajaxFailure"
-                       };
+                    {
+                        HttpMethod = "POST",
+                        InsertionMode = InsertionMode.ReplaceWith,
+                        UpdateTargetId = elementId,
+                        OnBegin = "$.ajaxBegin",
+                        OnComplete = "$.ajaxComplete",
+                        OnSuccess = "$.ajaxSuccess",
+                        OnFailure = "$.ajaxFailure"
+                    };
         }
 
         /// <summary>
@@ -57,8 +55,26 @@ namespace Web
                 HttpMethod = "GET",
                 InsertionMode = InsertionMode.ReplaceWith,
                 UpdateTargetId = elementId,
-                //LoadingElementId = "loading",
-                //LoadingElementDuration = 300,
+                OnBegin = "$.ajaxBegin",
+                OnComplete = "$.ajaxComplete",
+                OnSuccess = "$.ajaxSuccess",
+                OnFailure = "$.ajaxFailure"
+            };
+        }
+
+        /// <summary>
+        /// The navigation options.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="AjaxOptions"/>.
+        /// </returns>
+        public static AjaxOptions NavOptions()
+        {
+            return new AjaxOptions
+            {
+                HttpMethod = "GET",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "pageContainer",
                 OnBegin = "$.ajaxBegin",
                 OnComplete = "$.ajaxComplete",
                 OnSuccess = "$.ajaxSuccess",

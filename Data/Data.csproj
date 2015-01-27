@@ -111,7 +111,7 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>$(SolutionDir)tools\sqlmetal.exe /server:(localdb)\Projects /Database:Sworks /code:$(ProjectDir)Sponsorworks.cs /language:csharp /context:Sponsorworks /namespace:Data /serialization:Unidirectional /pluralize /functions /sprocs /views</PreBuildEvent>
+    <PreBuildEvent>$(SolutionDir)tools\sqlmetal.exe /server:(localdb)\MSSQLLocalDB /Database:Sponsorworks /code:$(ProjectDir)Sponsorworks.cs /language:csharp /context:Sponsorworks /namespace:Data /serialization:Unidirectional /pluralize /functions /sprocs /views</PreBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -1,4 +1,13 @@
-﻿namespace Common.Tracing
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ActionTextWriter.cs" company="Sponsorworks">
+//   Copyright
+// </copyright>
+// <summary>
+//   This class is used for logging Linq SQL queries to the Trace output
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace Common.Tracing
 {
     using System;
     using System.Diagnostics.Contracts;
@@ -16,9 +25,11 @@
         private readonly Action<string> action;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ActionTextWriter"/> class.
+        /// Initialises a new instance of the <see cref="ActionTextWriter"/> class. 
         /// </summary>
-        /// <param name="action">The action.</param>
+        /// <param name="action">
+        /// The action.
+        /// </param>
         public ActionTextWriter(Action<string> action)
         {
             Contract.Requires<ArgumentNullException>(action != null, "action");
@@ -36,16 +47,37 @@
             }
         }
 
+        /// <summary>
+        /// The write.
+        /// </summary>
+        /// <param name="buffer">
+        /// The buffer.
+        /// </param>
+        /// <param name="index">
+        /// The index.
+        /// </param>
+        /// <param name="count">
+        /// The count.
+        /// </param>
         public override void Write(char[] buffer, int index, int count)
         {
             this.Write(new string(buffer, index, count));
         }
 
+        /// <summary>
+        /// The write.
+        /// </summary>
+        /// <param name="value">
+        /// The value.
+        /// </param>
         public override void Write(string value)
         {
             this.action.Invoke(value);
         }
 
+        /// <summary>
+        /// The object invariant.
+        /// </summary>
         [ContractInvariantMethod]
         private void ObjectInvariant()
         {

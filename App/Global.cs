@@ -63,7 +63,7 @@ namespace App
         /// <param name="viewPath">
         /// The view path.
         /// </param>
-        /// <returns>
+//        /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
         public static string GetLayout(string viewPath)
@@ -218,8 +218,6 @@ namespace App
 
             // Clear the Error
             this.Server.ClearError();
-
-            // if(exception is )
 
             // Set the status code. If its an HttpError then use the Error Code else its our code throwing exceptions, so 500.
             int statusCode = exception.GetType() == typeof(HttpException) ? ((HttpException)exception).GetHttpCode() : 500;

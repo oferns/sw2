@@ -3,30 +3,54 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>@ViewBag.Title - Sponsorworks</title>
+        <title>Sponsorworks</title>
         @Styles.Render("~/Content/css")
         @RenderSection("Head", required: false)
         <meta name="description" content="@ViewBag.Description" />
     </head>
     <body>
-        <div class="container">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Ajax.ActionLink("Sponsorworks", "Index", "Home", null, AjaxConfig.NavOptions(), new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Ajax.ActionLink("Home", "Index", "Home", AjaxConfig.NavOptions())</li>
+                        <li>@Ajax.ActionLink("About", "About", "Home", AjaxConfig.NavOptions())</li>
+                        <li>@Ajax.ActionLink("T&Cs", "Terms", "Home", AjaxConfig.NavOptions())</li>
+                    </ul>
+                    <div class="navbar-form navbar-right">
+                        @Html.Partial("_LoginPartial")
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
             @RenderSection("Header", required: false)
         </div>
+    
         <div class="container">
-            @RenderBody()
-        </div>
-        <div class="container">
-            <textarea id="log" style="width: 100%; height: 400px"></textarea>
+            <section id="pageContainer">
+                @RenderBody()
+            </section>
         </div>
 
-        <div id="loading" style="display: none">
-            <img src="~/Content/images/ajax-loader.gif" alt="Loading..." />
+
+        <div class="footer">
+            <textarea id="log" style="width: 100%; height: 400px"></textarea>
         </div>
 
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/modernizr")
         @Scripts.Render("~/bundles/bootstrap")
         @Scripts.Render("~/bundles/history")
+        @Scripts.Render("~/bundles/jqueryval", "~/bundles/jqueryajax")
         <script src="~/Scripts/App.js"></script>
         @RenderSection("JavaScript", required: false)
 
